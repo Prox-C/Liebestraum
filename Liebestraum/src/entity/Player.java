@@ -17,8 +17,8 @@ public class Player extends Entity	{
 	
 	public final int screenX;
 	public final int screenY;
-	int silver_keys = 0;
-	boolean hasPickaxe = false;
+	public int silver_keys = 0;
+	public int pickaxeDurability = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -117,21 +117,29 @@ public class Player extends Entity	{
 			switch(objName) {
 			case "Silver Key":
 				silver_keys++;
+				gp.ui.displayMessage("Silver key obtained");
 				gp.playSE(2);
 				gp.obj[i] = null;
 				break;
 			case "Pickaxe":
-				hasPickaxe = true;
+				pickaxeDurability += 100;
+				gp.ui.displayMessage("Stone Pickaxe obtained");
 				gp.playSE(1);
 				gp.obj[i] = null;
 				break;
 			case "Boulder":
-				if(hasPickaxe != false) {
+				if(pickaxeDurability != 0) {
+					pickaxeDurability -= 20;
+					gp.ui.displayMessage("Obstacle Cleared");
 					gp.playSE(3);
 					gp.obj[i] = null;
 				}
+				else {
+					gp.ui.displayMessage("You need a Pickaxe!");
+				}
 				break;
 			case "Speed Potion":
+				gp.ui.displayMessage("+2 Movement Speed");
 				speed += 2;
 				gp.playSE(1);
 				gp.obj[i] = null;
