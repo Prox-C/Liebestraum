@@ -118,13 +118,13 @@ public class Player extends Entity	{
 			case "Silver Key":
 				silver_keys++;
 				gp.ui.displayMessage("Silver key obtained");
-				gp.playSE(2);
+				gp.playSE(4);
 				gp.obj[i] = null;
 				break;
 			case "Pickaxe":
 				pickaxeDurability += 100;
 				gp.ui.displayMessage("Stone Pickaxe obtained");
-				gp.playSE(1);
+				gp.playSE(4);
 				gp.obj[i] = null;
 				break;
 			case "Boulder":
@@ -142,6 +142,14 @@ public class Player extends Entity	{
 				gp.ui.displayMessage("+2 Movement Speed");
 				speed += 2;
 				gp.playSE(1);
+				gp.obj[i] = null;
+				break;
+			case "Gold Key":
+				gp.ui.displayMessage("Gold Key Acquired");
+				gp.playSE(4);
+				gp.ui.gameFinished = true;
+				gp.stopMusic(0);
+				gp.playSE(5);
 				gp.obj[i] = null;
 				break;
 			}

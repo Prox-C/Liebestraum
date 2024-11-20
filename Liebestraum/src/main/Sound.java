@@ -15,6 +15,8 @@ public class Sound {
 		soundURL[1] = getClass().getResource("/sfx/buff.wav");
 		soundURL[2] = getClass().getResource("/sfx/key.wav");
 		soundURL[3] = getClass().getResource("/sfx/obstacle-2.wav");
+		soundURL[4] = getClass().getResource("/sfx/equipment.wav");
+		soundURL[5] = getClass().getResource("/sfx/mission_accomplished.wav");
 	}
 	
 	public void setFile(int i) {
@@ -37,7 +39,7 @@ public class Sound {
 	}
 	
 	public void stop() {
-		clip.start();
+		clip.stop();
 	}
 }
 
