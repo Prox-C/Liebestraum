@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 public class Player extends Entity	{
 	
@@ -17,6 +18,7 @@ public class Player extends Entity	{
 	
 	public final int screenX;
 	public final int screenY;
+	int standCounter = 0;
 	public int silver_keys = 0;
 	public int pickaxeDurability = 0;
 	
@@ -50,18 +52,29 @@ public class Player extends Entity	{
 	}
 	
 	public void getPlayerImage() {
+		up1 = setup("up-1");
+		up2 = setup("up-2");
+
+		down1 = setup("down-1");
+		down2 = setup("down-2");
+
+		right1 = setup("right-1");
+		right2 = setup("right-2");
+
+		left1 = setup("left-1");
+		left2 = setup("left-2");
+	}
+	
+	public BufferedImage setup(String imageName) {
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image = null;
 		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/up-1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/up-2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/down-1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/down-2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/right-1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/right-2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/left-1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/left-2.png"));			
-		}catch(IOException e){
+			image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		return image;
 	}
 	
 	public void update() {
@@ -98,7 +111,7 @@ public class Player extends Entity	{
 			}
 			
 			spriteCounter++;
-			if(spriteCounter > 10) {
+			if(spriteCounter > 12) {
 				if(spriteNum == 1) {
 					spriteNum = 2;
 				}
@@ -106,6 +119,13 @@ public class Player extends Entity	{
 					spriteNum = 1;
 				}
 				spriteCounter = 0;
+			}
+		}
+		else {
+			standCounter++;
+			if(standCounter == 20) {
+				spriteNum = 1;
+				standCounter = 0;
 			}
 		}
 	}
@@ -196,7 +216,7 @@ public class Player extends Entity	{
 			}
 			break;
 		}
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, screenX, screenY, null);
 		
 		
 	}

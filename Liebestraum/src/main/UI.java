@@ -25,10 +25,10 @@ public class UI {
 		stat_font = new Font("Source Pro", Font.PLAIN, 18);
 		source_80B = new Font("Source Pro", Font.BOLD, 40);
 		
-		OBJ_Pickaxe pickaxe = new OBJ_Pickaxe();
+		OBJ_Pickaxe pickaxe = new OBJ_Pickaxe(gp);
 		pickaxeIcon = pickaxe.image;
 		
-		OBJ_Key key = new OBJ_Key();
+		OBJ_Key key = new OBJ_Key(gp);
 		silverkeyIcon = key.image;
 		
 	}
