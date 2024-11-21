@@ -141,12 +141,27 @@ public class Player extends Entity	{
 				gp.playSE(4);
 				gp.obj[i] = null;
 				break;
+				
 			case "Pickaxe":
-				pickaxeDurability += 100;
-				gp.ui.displayMessage("Stone Pickaxe obtained");
-				gp.playSE(4);
-				gp.obj[i] = null;
+				if(silver_keys > 0) {
+					silver_keys--;
+					if(gp.obj[i].touchedBefore == false) {
+						pickaxeDurability = 100;
+						gp.ui.displayMessage("Stone Pickaxe obtained");
+						gp.playSE(4);
+						try {
+							gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
+						}catch(IOException e) {
+							e.printStackTrace();
+						}
+						gp.obj[i].touchedBefore = true;
+					}
+				}
+				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
+					gp.ui.displayMessage("You need a silver key to open this chest.");
+				}
 				break;
+				
 			case "Boulder":
 				if(pickaxeDurability != 0) {
 					pickaxeDurability -= 20;
@@ -158,12 +173,27 @@ public class Player extends Entity	{
 					gp.ui.displayMessage("You need a Pickaxe!");
 				}
 				break;
+				
 			case "Speed Potion":
-				gp.ui.displayMessage("+2 Movement Speed");
-				speed += 2;
-				gp.playSE(1);
-				gp.obj[i] = null;
+				if(silver_keys > 0) {
+					silver_keys--;
+					if(gp.obj[i].touchedBefore == false) {
+						gp.ui.displayMessage("+2 Movement Speed");
+						speed += 2;
+						gp.playSE(1);
+						try {
+							gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
+						}catch(IOException e) {
+							e.printStackTrace();
+						}
+						gp.obj[i].touchedBefore = true;
+					}
+				}
+				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
+					gp.ui.displayMessage("You need a silver key to open this chest.");
+				}
 				break;
+				
 			case "Gold Key":
 				gp.ui.displayMessage("Gold Key Acquired");
 				gp.playSE(4);

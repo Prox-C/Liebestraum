@@ -26,7 +26,7 @@ public class AssetSetter {
 		
 		gp.obj[2] = new OBJ_Pickaxe(gp);
 		gp.obj[2].worldX = 20 * gp.tileSize;
-		gp.obj[2].worldY = 25 * gp.tileSize;
+		gp.obj[2].worldY = 24 * gp.tileSize;
 		
 		gp.obj[3] = new OBJ_SpeedPotion(gp);
 		gp.obj[3].worldX = 30 * gp.tileSize;

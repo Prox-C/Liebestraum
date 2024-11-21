@@ -1,5 +1,6 @@
 package object;
 
+//import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -11,6 +12,7 @@ public class SuperObject {
 	public BufferedImage image;
 	public String name;
 	public boolean collision = false;
+	public boolean touchedBefore = false;
 	public int worldX, worldY;
 	public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 	public int solidAreaDefaultX = 0;
@@ -27,6 +29,10 @@ public class SuperObject {
 		   worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && 
 		   worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+			
+//			FOR OBJECT COLLISION AREA DEBUGGING
+//			g2.setColor(Color.blue);
+//	        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 		}
 
 	}
