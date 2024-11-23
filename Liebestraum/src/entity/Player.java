@@ -44,8 +44,8 @@ public class Player extends Entity	{
 	}
 	
 	public void setDefaultValues() {
-		worldX = gp.tileSize * 23;
-		worldY = gp.tileSize * 21;
+		worldX = gp.tileSize * 10;
+		worldY = gp.tileSize * 11;
 		speed = 3;
 		
 		direction = "down";
@@ -170,7 +170,7 @@ public class Player extends Entity	{
 					gp.obj[i] = null;
 				}
 				else {
-					gp.ui.displayMessage("You need a Pickaxe!");
+					gp.ui.displayMessage("You need a Pickaxe to remove this boulder.");
 				}
 				break;
 				

@@ -26,8 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
 	// Thus, in terms of pixels, The resolution is 768(48x16) by 576(48x12)
 	
 	//WORLD SETTINGS
-	public final int maxWorldCol = 50;
-	public final int maxWorldRow = 50;
+	public int maxWorldCol;
+	public int maxWorldRow;
 	
 	//FPS
 	int FPS = 60;
