@@ -1,5 +1,6 @@
 package main;
 
+import entity.NPC_Kulot;
 import object.OBJ_Boulder;
 import object.OBJ_GoldKey;
 //import object.OBJ_Chest;
@@ -35,6 +36,12 @@ public class AssetSetter {
 		gp.obj[4] = new OBJ_Key(gp);
 		gp.obj[4].worldX = 9 * gp.tileSize;
 		gp.obj[4].worldY = 9 * gp.tileSize;
+	}
+	
+	public void setNPC() {
+		gp.npc[0] = new NPC_Kulot(gp);
+		gp.npc[0].worldX = gp.tileSize * 8;
+		gp.npc[0].worldY = gp.tileSize * 11;
 	}
 }
 
