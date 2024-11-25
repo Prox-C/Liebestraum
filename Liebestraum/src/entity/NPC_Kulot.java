@@ -17,6 +17,7 @@ public class NPC_Kulot extends Entity {
 		speed = 1;
 		
 		getImage();
+		setDialog();
 	}
 	
 	public void getImage() {
@@ -55,6 +56,17 @@ public class NPC_Kulot extends Entity {
 			
 		}
 		
+	}
+	
+	public void setDialog() {
+		dialog[0] = "You are not of this world are you?\nI have never seen you before.";
+		dialog[1] = "So you're one of the seekers that came outside of Neverland!";
+		dialog[2] = "Now tell me, seeker . . .";
+		dialog[3] = "What is it that you seek?";
+		
+	}
+	public void speak() {
+		super.speak();
 	}
 	
 }
