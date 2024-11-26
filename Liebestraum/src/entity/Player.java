@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -129,7 +130,7 @@ public class Player extends Entity	{
 			switch(objName) {
 			case "Silver Key":
 				silver_keys++;
-				gp.ui.displayMessage("Silver key obtained");
+				gp.ui.displayMessage("Silver key obtained", Color.GREEN);
 				gp.playSE(4);
 				gp.obj[i] = null;
 				break;
@@ -139,7 +140,7 @@ public class Player extends Entity	{
 					silver_keys--;
 					if(gp.obj[i].touchedBefore == false) {
 						pickaxeDurability = 100;
-						gp.ui.displayMessage("Stone Pickaxe obtained");
+						gp.ui.displayMessage("Stone Pickaxe obtained", Color.GREEN);
 						gp.playSE(4);
 						try {
 							gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
@@ -150,19 +151,19 @@ public class Player extends Entity	{
 					}
 				}
 				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
-					gp.ui.displayMessage("You need a silver key to open this chest.");
+					gp.ui.displayMessage("You need a silver key to open this chest.", Color.RED);
 				}
 				break;
 				
 			case "Boulder":
 				if(pickaxeDurability != 0) {
 					pickaxeDurability -= 20;
-					gp.ui.displayMessage("Obstacle Cleared");
+					gp.ui.displayMessage("Obstacle Cleared", Color.GREEN);
 					gp.playSE(3);
 					gp.obj[i] = null;
 				}
 				else {
-					gp.ui.displayMessage("You need a Pickaxe to remove this boulder.");
+					gp.ui.displayMessage("You need a Pickaxe to remove this boulder.", Color.RED);
 				}
 				break;
 				
@@ -170,7 +171,7 @@ public class Player extends Entity	{
 				if(silver_keys > 0) {
 					silver_keys--;
 					if(gp.obj[i].touchedBefore == false) {
-						gp.ui.displayMessage("+2 Movement Speed");
+						gp.ui.displayMessage("+2 Movement Speed", Color.GREEN);
 						speed += 2;
 						gp.playSE(1);
 						try {
@@ -182,18 +183,18 @@ public class Player extends Entity	{
 					}
 				}
 				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
-					gp.ui.displayMessage("You need a silver key to open this chest.");
+					gp.ui.displayMessage("You need a silver key to open this chest.", Color.RED);
 				}
 				break;
 				
-			case "Gold Key":
-				gp.ui.displayMessage("Gold Key Acquired");
-				gp.playSE(4);
-				gp.ui.gameFinished = true;
-				gp.stopMusic(0);
-				gp.playSE(5);
-				gp.obj[i] = null;
-				break;
+//			case "Gold Key":
+//				gp.ui.displayMessage("Gold Key Acquired");
+//				gp.playSE(4);
+//				gp.ui.gameFinished = true;
+//				gp.stopMusic(0);
+//				gp.playSE(5);
+//				gp.obj[i] = null;
+//				break;
 			}
 		}
 	}

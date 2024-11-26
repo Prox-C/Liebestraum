@@ -4,9 +4,13 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.swing.ImageIcon;
+
 //import java.awt.image.BufferedImage;
 //
 //import object.OBJ_Key;
@@ -16,16 +20,18 @@ public class UI {
 
 	GamePanel gp;
 	Graphics2D g2;
-	Font stat_font, source_80B, dialog_14;
+	Font stat_font, source_80B, dialog_14, title_font, option_font;
 //	BufferedImage pickaxeIcon;
 //	BufferedImage silverkeyIcon;
 	
 	public boolean messageOn = false;
+	private Color messageColor = Color.white; // Default color
 	public String message = "";
 	int messageCounter = 0;
 	public boolean gameFinished = false;
 	
 	public String currentDialog = "";
+	public int commandNum = 0;
 
 	public UI(GamePanel gp) {
 		this.gp = gp;
@@ -37,6 +43,10 @@ public class UI {
 			stat_font = Font.createFont(Font.TRUETYPE_FONT, is);
 			is = getClass().getResourceAsStream("/fonts/UnifontExMono.ttf");
 			dialog_14 = Font.createFont(Font.TRUETYPE_FONT, is);
+			is = getClass().getResourceAsStream("/fonts/Crang.ttf");
+			title_font = Font.createFont(Font.TRUETYPE_FONT, is);
+			is = getClass().getResourceAsStream("/fonts/Retro Gaming.ttf");
+			option_font = Font.createFont(Font.TRUETYPE_FONT, is);
 		}catch(FontFormatException e){
 			e.printStackTrace();
 		}catch(IOException e) {
@@ -51,8 +61,10 @@ public class UI {
 //		silverkeyIcon = key.image;
 	}
 	
-	public void displayMessage(String text) {
+	public void displayMessage(String text, Color color) {
+		
 		message = text;
+		messageColor = color;
 		messageOn = true;
 	}
 	
@@ -81,28 +93,144 @@ public class UI {
 			messageOn = false;
 		}
 		
-		if(messageOn == true) {
-			g2.setFont(dialog_14);
-			g2.setFont(g2.getFont().deriveFont(Font.BOLD, 14f));
-			g2.drawString(message, 50, gp.tileSize*11);
+//		if(messageOn == true) {
+//			g2.setFont(stat_font);
+//			g2.setColor(messageColor);
+//			g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16f));
+//			g2.drawString(message, 50, gp.tileSize*11);
+//		}
+		
+		 if (messageOn == true) {
+		        g2.setFont(dialog_14);
+		        g2.setColor(new Color(0, 0, 0, 192)); // Black with 75% opacity
+		        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16f));
+		     
+
+		        // Draw the background rectangle
+		        int rectX = 40;
+		        int rectY = gp.tileSize * 11 - 20; // Position slightly above the text baseline
+		        int rectWidth = g2.getFontMetrics().stringWidth(message) + 20; // Add padding
+		        int rectHeight = 30; // Fixed height for the rectangle
+
+		        g2.fillRoundRect(rectX, rectY, rectWidth, rectHeight, 15, 15); // Rounded corners
+
+		        // Draw the message text
+		        g2.setColor(messageColor); // Set text color
+		        g2.drawString(message, rectX + 10, gp.tileSize * 11);
 		}
 		
 	}
 	public void drawTitleScreen() {
-		//TITLE
-		String title = "Liebestraum";
-		int x = getXForText(title);
-		int y = gp.screenHeight/3;
-		
-		g2.setFont(source_80B);
-	
-		//SHADOW
-		g2.setColor(Color.red);
-		g2.drawString(title, x+3, y+3);
-		//MAIN TEXT
-		g2.setColor(Color.white);
-		g2.drawString(title, x, y);
+	    // TITLE
+	    String title = "Liebestraum";
+	    int x = 230;
+	    int y = gp.screenHeight / 6;
+
+	    // Load and display animated GIF
+	    ImageIcon gifIcon = new ImageIcon(getClass().getResource("/gifs/cover.gif"));
+	    Image gifImage = gifIcon.getImage();
+
+	    // Draw the background GIF (stretch it to fit screen size)
+	    g2.drawImage(gifImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+
+	    // Set the font size and style
+	    g2.setFont(title_font);
+	    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40f));
+
+	    // STROKE SETTINGS (outline)
+	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
+	    g2.setStroke(new BasicStroke(6));  // Set stroke width
+
+	    // Draw the stroke by slightly offsetting the position
+	    g2.drawString(title, x - 2, y - 2);  // Top-left stroke
+	    g2.drawString(title, x + 2, y - 2);  // Top-right stroke
+	    g2.drawString(title, x - 2, y + 2);  // Bottom-left stroke
+	    g2.drawString(title, x + 2, y + 2);  // Bottom-right stroke
+
+	    // Create the gradient (from left to right)
+	    GradientPaint gradient = new GradientPaint(
+	            x, y, new Color(155, 193, 255), // Start point (gold)
+	            x + 150, y, new Color(203, 157, 240) // End point (orange)
+	    );
+
+	    // Apply the gradient to the text
+	    g2.setPaint(gradient);
+
+	    // MAIN TEXT (gradient color)
+	    g2.drawString(title, x, y);
+	    
+	    // ------------------------------------------- MENU ------------------------------------
+	    // NEW GAME
+	    
+	    String text = "New Game";
+	    x = 50;
+	    y = gp.screenHeight/2-50;
+	    
+	    g2.setFont(option_font);
+	    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 22f));
+	    
+	    g2.setColor(new Color(67, 56, 120));  
+	    g2.setStroke(new BasicStroke(4)); 
+
+	    g2.drawString(text, x - 2, y - 2); 
+	    g2.drawString(text, x + 2, y - 2);  
+	    g2.drawString(text, x - 2, y + 2);  
+	    g2.drawString(text, x + 2, y + 2); 
+	    
+	    g2.setColor(Color.white);
+	    g2.drawString(text, x, y);
+	    if(commandNum == 0) {
+	    	  g2.setColor(new Color(67, 56, 120));
+	    	g2.drawString("<", 195, y);
+	    }
+	    
+	    // LOAD GAME
+	    
+	    text = "Load Game";
+	    x = 50;
+	    y = gp.screenHeight/2;
+	    
+	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
+	    g2.setStroke(new BasicStroke(4));  // Set stroke width
+
+	    g2.drawString(text, x - 2, y - 2);  
+	    g2.drawString(text, x + 2, y - 2);  
+	    g2.drawString(text, x - 2, y + 2);  
+	    g2.drawString(text, x + 2, y + 2); 
+	    
+	    g2.setColor(Color.white);
+	    g2.drawString(text, x, y);
+	    if(commandNum == 1) {
+	    	  g2.setColor(new Color(67, 56, 120));
+	    	g2.drawString("<", 210, y);
+	    }
+	    
+	    text = "Exit";
+	    x = 50;
+	    y = gp.screenHeight/2 + 50;
+	    
+	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
+	    g2.setStroke(new BasicStroke(4));  // Set stroke width
+
+	    g2.drawString(text, x - 2, y - 2);  
+	    g2.drawString(text, x + 2, y - 2);  
+	    g2.drawString(text, x - 2, y + 2);  
+	    g2.drawString(text, x + 2, y + 2); 
+	    
+	    g2.setColor(Color.white);
+	    g2.drawString(text, x, y);
+	    if(commandNum == 2) {
+	    	  g2.setColor(new Color(67, 56, 120));
+	    	g2.drawString("<", 118, y);
+	    }
+	   
+	    
+	  
+	   
+	    
 	}
+
+
 	
 	public void drawDialog() {
 		int x = gp.tileSize*2;

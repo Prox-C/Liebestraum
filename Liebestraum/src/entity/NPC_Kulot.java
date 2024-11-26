@@ -21,17 +21,17 @@ public class NPC_Kulot extends Entity {
 	}
 	
 	public void getImage() {
-		up1 = setup("/player/up-1");
-		up2 = setup("/player/up-2");
+		up1 = setup("/npc/walk-1");
+		up2 = setup("/npc/walk-2");
 
-		down1 = setup("/player/down-1");
-		down2 = setup("/player/down-2");
+		down1 = setup("/npc/walk-3");
+		down2 = setup("/npc/walk-4");
 
-		right1 = setup("/player/right-1");
-		right2 = setup("/player/right-2");
+		right1 = setup("/npc/walk-1");
+		right2 = setup("/npc/walk-2");
 
-		left1 = setup("/player/left-1");
-		left2 = setup("/player/left-2");
+		left1 = setup("/npc/walk-3");
+		left2 = setup("/npc/walk-4");
 	}
 	public void setAction() {
 		actionLockCounter++;
