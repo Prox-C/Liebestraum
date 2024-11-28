@@ -59,7 +59,7 @@ public class NPC_Kulot extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0] = "You are not of this world are you?\nI have never seen you before.";
+		dialog[0] = "Tara, potik	";
 		dialog[1] = "So you're one of the seekers that came outside of Neverland!";
 		dialog[2] = "Now tell me, seeker . . .";
 		dialog[3] = "What is it that you seek?";

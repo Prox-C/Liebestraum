@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.ImageIcon;
 
-//import java.awt.image.BufferedImage;
+import object.OBJ_Heart;
+import object.SuperObject;
+
+import java.awt.image.BufferedImage;
 //
 //import object.OBJ_Key;
 //import object.OBJ_Pickaxe;
@@ -21,9 +24,8 @@ public class UI {
 	GamePanel gp;
 	Graphics2D g2;
 	Font stat_font, source_80B, dialog_14, title_font, option_font;
-//	BufferedImage pickaxeIcon;
-//	BufferedImage silverkeyIcon;
-	
+
+	BufferedImage heart_full, heart_half, heart_empty;
 	public boolean messageOn = false;
 	private Color messageColor = Color.white; // Default color
 	public String message = "";
@@ -35,8 +37,6 @@ public class UI {
 
 	public UI(GamePanel gp) {
 		this.gp = gp;
-//		stat_font = new Font("Source Pro", Font.PLAIN, 18);
-//		dialog_14 = new Font("Jetbrains Mono", Font.PLAIN, 14);
 		
 		try {
 			InputStream is = getClass().getResourceAsStream("/fonts/Minecraft.ttf");
@@ -54,11 +54,14 @@ public class UI {
 		}
 		source_80B = new Font("Source Pro", Font.BOLD, 40);
 		
-//		OBJ_Pickaxe pickaxe = new OBJ_Pickaxe(gp);
-//		pickaxeIcon = pickaxe.image;
-//		
-//		OBJ_Key key = new OBJ_Key(gp);
-//		silverkeyIcon = key.image;
+		//CREATE HUD OBJECT
+		
+		SuperObject heart = new OBJ_Heart(gp);
+		heart_full = heart.image;
+		heart_half = heart.image2;
+		heart_empty = heart.image3;
+		
+		
 	}
 	
 	public void displayMessage(String text, Color color) {
@@ -78,13 +81,15 @@ public class UI {
 		}
 		
 		if(gp.gameState == gp.playState) {
-			//play stuff
+			drawPlayerLife();
 		}
 		if(gp.gameState == gp.pauseState) {
 			drawPauseScreen();
+			drawPlayerLife();
 		}
 		if(gp.gameState == gp.dialogState) {
 			drawDialog();
+			drawPlayerLife();
 		}
 		
 		messageCounter++;
@@ -93,15 +98,8 @@ public class UI {
 			messageOn = false;
 		}
 		
-//		if(messageOn == true) {
-//			g2.setFont(stat_font);
-//			g2.setColor(messageColor);
-//			g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16f));
-//			g2.drawString(message, 50, gp.tileSize*11);
-//		}
-		
 		 if (messageOn == true) {
-		        g2.setFont(dialog_14);
+		        g2.setFont(stat_font);
 		        g2.setColor(new Color(0, 0, 0, 192)); // Black with 75% opacity
 		        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16f));
 		     
@@ -118,6 +116,35 @@ public class UI {
 		        g2.setColor(messageColor); // Set text color
 		        g2.drawString(message, rectX + 10, gp.tileSize * 11);
 		}
+		
+	}
+	
+	public void drawPlayerLife() {
+		int x = gp.tileSize / 2;
+		int y = gp.tileSize / 2;
+		int i = 0;
+		
+		while(i < gp.player.maxHealth/2) {
+			g2.drawImage(heart_empty, x, y, null);
+			i++;
+			x += 40;
+		}
+		
+		x = gp.tileSize / 2;
+		y = gp.tileSize / 2;
+		i = 0;
+		
+		while(i < gp.player.life) {
+			g2.drawImage(heart_half, x, y, null);
+			i++;
+			
+			if(i < gp.player.life) {
+				g2.drawImage(heart_full, x, y, null);
+			}
+			i++;
+			x += 40;
+		}
+		
 		
 	}
 	public void drawTitleScreen() {
@@ -141,7 +168,7 @@ public class UI {
 	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
 	    g2.setStroke(new BasicStroke(6));  // Set stroke width
 
-	    // Draw the stroke by slightly offsetting the position
+	    // Draw the stroke by slightly off setting the position
 	    g2.drawString(title, x - 2, y - 2);  // Top-left stroke
 	    g2.drawString(title, x + 2, y - 2);  // Top-right stroke
 	    g2.drawString(title, x - 2, y + 2);  // Bottom-left stroke
