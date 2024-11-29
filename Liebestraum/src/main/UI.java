@@ -11,8 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.ImageIcon;
 
+
 import object.OBJ_Heart;
-import object.SuperObject;
+import entity.Entity;
 
 import java.awt.image.BufferedImage;
 //
@@ -56,7 +57,7 @@ public class UI {
 		
 		//CREATE HUD OBJECT
 		
-		SuperObject heart = new OBJ_Heart(gp);
+		Entity heart = new OBJ_Heart(gp);
 		heart_full = heart.image;
 		heart_half = heart.image2;
 		heart_empty = heart.image3;
@@ -295,6 +296,8 @@ public class UI {
 		int x = getXForText(text);
 		int y = gp.screenHeight/2;
 		
+		g2.setFont(option_font);
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 44));
 		g2.drawString(text, x, y);
 	}
 	

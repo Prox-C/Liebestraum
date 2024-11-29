@@ -1,25 +1,16 @@
 package object;
 
-import java.awt.Rectangle;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_SpeedPotion extends SuperObject{
+public class OBJ_SpeedPotion extends Entity{
 	GamePanel gp;
 	public OBJ_SpeedPotion(GamePanel gp) {
-		this.gp = gp;
+		super(gp);
 		name = "Speed Potion";
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/object/chest.png"));
-			uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		this.solidArea = new Rectangle(gp.tileSize / 2 - 16, gp.tileSize / 2 - 16, 32, 32);
-	    this.solidAreaDefaultX = gp.tileSize / 2 - 16; // Set default X position for collision area
-	    this.solidAreaDefaultY = gp.tileSize / 2 - 16; // Set default Y position for collision area
+		down1 = setup("/object/chest");	
+		boolean touchedBefore = false;
+		collision = true;
+		
 	}
 }

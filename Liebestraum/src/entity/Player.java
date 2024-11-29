@@ -35,8 +35,8 @@ public class Player extends Entity	{
 		solidArea.y = 16;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
-		solidArea.width = 32;
-		solidArea.height = 32;
+		solidArea.width = 30;
+		solidArea.height = 30;
 		
 		
 		setDefaultValues();
@@ -152,7 +152,7 @@ public class Player extends Entity	{
 						gp.ui.displayMessage("Stone Pickaxe obtained", Color.GREEN);
 						gp.playSE(4);
 						try {
-							gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
+							gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
 						}catch(IOException e) {
 							e.printStackTrace();
 						}
@@ -184,7 +184,7 @@ public class Player extends Entity	{
 						speed += 2;
 						gp.playSE(1);
 						try {
-							gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
+							gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
 						}catch(IOException e) {
 							e.printStackTrace();
 						}
@@ -258,6 +258,8 @@ public class Player extends Entity	{
 			break;
 		}
 		g2.drawImage(image, screenX, screenY, null);
+//		g2.setColor(Color.blue);
+//        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 		
 		
 	}

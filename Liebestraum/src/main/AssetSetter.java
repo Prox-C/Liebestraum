@@ -2,7 +2,6 @@ package main;
 
 import entity.NPC_Kulot;
 import object.OBJ_Boulder;
-import object.OBJ_GoldKey;
 //import object.OBJ_Chest;
 //import object.OBJ_Door;
 import object.OBJ_Key;

@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -17,12 +18,12 @@ public class Entity {
 	public int speed;
 	
 	public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
-	public String direction;
+	public String direction = "down";
 	
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	
-	public Rectangle solidArea = new Rectangle(0, 0, 48, 48); 
+	public Rectangle solidArea = new Rectangle(0, 0, 30, 30); 
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	
 	public boolean collisionOn = false; 
@@ -30,6 +31,11 @@ public class Entity {
 	
 	String dialog[] = new String[20]; 
 	int dialogIndex = 0;public int life;
+	
+	public BufferedImage image, image2, image3;
+	public String name;
+	public boolean collision = false;
+	public boolean touchedBefore = false;
 	
 	//CHARACHTER STATUS
 	public int maxHealth;
@@ -89,9 +95,9 @@ public class Entity {
 		}
 			
 //			FOR OBJECT COLLISION AREA DEBUGGING
-//			g2.setColor(Color.blue);
-//	        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-			
+	 	 	
+//			g2.setColor(Color.red);
+//			g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 			
 	}
 	public BufferedImage setup(String imagePath) {

@@ -16,6 +16,13 @@ public class NPC_Kulot extends Entity {
 		direction = "down";
 		speed = 1;
 		
+		solidArea.x = 8;
+		solidArea.y = 16;
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
+		solidArea.width = 30;
+		solidArea.height = 30;
+		
 		getImage();
 		setDialog();
 	}

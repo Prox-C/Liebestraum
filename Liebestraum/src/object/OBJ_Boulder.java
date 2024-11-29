@@ -1,21 +1,23 @@
 package object;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Boulder extends SuperObject{
+public class OBJ_Boulder extends Entity{
 	GamePanel gp;
+	
 	public OBJ_Boulder(GamePanel gp) {
-		this.gp = gp;
+		super(gp);
 		name = "Boulder";
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/object/boulder.png"));
-			uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		down1 = setup("/object/boulder");	
+		boolean touchedBefore = false;
+		collision = true;
+		
+		solidArea.x = 0;
+		solidArea.y = 0;
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
+		solidArea.width = gp.tileSize;
+		solidArea.height = gp.tileSize;
 	}
 }
