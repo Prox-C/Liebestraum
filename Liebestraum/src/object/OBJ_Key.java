@@ -9,7 +9,7 @@ public class OBJ_Key extends Entity{
 	public OBJ_Key(GamePanel gp) {
 		super(gp);
 		name = "Silver Key";
-		down1 = setup("/object/silver_key");
+		down1 = setup("/object/silver_key", gp.tileSize, gp.tileSize);
 		
 		solidArea.x = 10;
 		solidArea.y = 14;

@@ -1,6 +1,7 @@
 package main;
 
 import entity.NPC_Kulot;
+import mob.MOB_GreenSlime;
 import object.OBJ_Boulder;
 //import object.OBJ_Chest;
 //import object.OBJ_Door;
@@ -39,8 +40,18 @@ public class AssetSetter {
 	
 	public void setNPC() {
 		gp.npc[0] = new NPC_Kulot(gp);
-		gp.npc[0].worldX = gp.tileSize * 8;
-		gp.npc[0].worldY = gp.tileSize * 11;
+		gp.npc[0].worldX = gp.tileSize * 16;
+		gp.npc[0].worldY = gp.tileSize * 17;
+	}
+	
+	public void setMob() {
+		gp.mob[0] = new MOB_GreenSlime(gp);
+		gp.mob[0].worldX = gp.tileSize * 8;
+		gp.mob[0].worldY = gp.tileSize * 11;
+		
+		gp.mob[1] = new MOB_GreenSlime(gp);
+		gp.mob[1].worldX = gp.tileSize * 18;
+		gp.mob[1].worldY = gp.tileSize * 24;
 	}
 }
 

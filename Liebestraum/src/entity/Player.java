@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -41,6 +42,7 @@ public class Player extends Entity	{
 		
 		setDefaultValues();
 		getPlayerImage();
+		getPlayerAttackImage();
 	}
 	
 	public void setDefaultValues() {
@@ -56,23 +58,41 @@ public class Player extends Entity	{
 	}
 	
 	public void getPlayerImage() {
-		up1 = setup("/player/up-1");
-		up2 = setup("/player/up-2");
+		up1 = setup("/player/up-1", gp.tileSize, gp.tileSize);
+		up2 = setup("/player/up-2", gp.tileSize, gp.tileSize);
 
-		down1 = setup("/player/down-1");
-		down2 = setup("/player/down-2");
+		down1 = setup("/player/down-1", gp.tileSize, gp.tileSize);
+		down2 = setup("/player/down-2", gp.tileSize, gp.tileSize);
 
-		right1 = setup("/player/right-1");
-		right2 = setup("/player/right-2");
+		right1 = setup("/player/right-1", gp.tileSize, gp.tileSize);
+		right2 = setup("/player/right-2", gp.tileSize, gp.tileSize);
 
-		left1 = setup("/player/left-1");
-		left2 = setup("/player/left-2");
+		left1 = setup("/player/left-1", gp.tileSize, gp.tileSize);
+		left2 = setup("/player/left-2", gp.tileSize, gp.tileSize);
+	}
+	
+	public void getPlayerAttackImage() {
+		atk_up1 = setup("/player/attack-up-1", gp.tileSize, gp.tileSize*2);
+		atk_up2 = setup("/player/attack-up-2", gp.tileSize, gp.tileSize*2);
+
+		atk_down1 = setup("/player/attack-down-1", gp.tileSize, gp.tileSize*2);
+		atk_down2 = setup("/player/attack-down-2", gp.tileSize, gp.tileSize*2);
+
+		atk_right1 = setup("/player/attack-right-1", gp.tileSize*2, gp.tileSize);
+		atk_right2 = setup("/player/attack-right-2", gp.tileSize*2, gp.tileSize);
+
+		atk_left1 = setup("/player/attack-left-1", gp.tileSize*2, gp.tileSize);
+		atk_left2 = setup("/player/attack-left-2", gp.tileSize*2, gp.tileSize);
 	}
 	
 	public void update() {
 		
-		if(keyH.upPressed == true || keyH.downPressed == true ||
-				keyH.rightPressed == true || keyH.leftPressed == true) {
+		if(attacking == true) {
+			 attack();
+		}
+		
+		else if(keyH.upPressed == true || keyH.downPressed == true ||
+				keyH.rightPressed == true || keyH.leftPressed == true || keyH.enterPressed == true) {
 			if (keyH.upPressed == true) {
 				direction = "up";
 			}
@@ -97,13 +117,17 @@ public class Player extends Entity	{
 			int npcIndex = gp.collChecker.checkEntity(this, gp.npc);
 			interactNPC(npcIndex);
 			
+			//CHECK MOB COLLISION
+			int mobIndex = gp.collChecker.checkEntity(this, gp.mob);
+			mobContact(mobIndex);
+			
 			//CHECK EVENTS
 			gp.eHandler.checkEvent();
-			gp.keyH.enterPressed = false;
+			
 
 			
 			//IF COLLISION IS FALSE, PLAYER CAN MOVE
-			if(collisionOn == false) {
+			if(collisionOn == false && keyH.enterPressed == false) {
 				switch(direction){
 					case "up": worldY -= speed; break;
 					case "down": worldY += speed; break;
@@ -111,6 +135,8 @@ public class Player extends Entity	{
 					case "left": worldX -= speed; break;
 				}
 			}
+			
+			gp.keyH.enterPressed = false;
 			
 			spriteCounter++;
 			if(spriteCounter > 12) {
@@ -130,7 +156,31 @@ public class Player extends Entity	{
 				standCounter = 0;
 			}
 		}
+		if(immune == true) {
+			immunityCounter++;
+			if(immunityCounter > 60) {
+				immune = false;
+				immunityCounter = 0;
+			}
+		}
 	}
+	
+	public void attack() {
+		spriteCounter++;
+		if(spriteCounter <= 5) {
+			spriteNum = 1;
+		}
+		if(spriteCounter > 5 && spriteCounter<= 25) {
+			spriteNum = 2;
+		}
+		if(spriteCounter > 25) {
+			spriteNum = 1;
+			spriteCounter = 0;
+			attacking = false;
+		}
+		
+	}
+	
 	
 	public void pickUpObject(int i) {
 		if(i != 999) {
@@ -139,17 +189,23 @@ public class Player extends Entity	{
 			switch(objName) {
 			case "Silver Key":
 				silver_keys++;
-				gp.ui.displayMessage("Silver key obtained", Color.GREEN);
+				
+				gp.ui.displayMessage("Key acquired", Color.GREEN);
 				gp.playSE(4);
+				try {
+					gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
 				gp.obj[i] = null;
 				break;
 				
 			case "Pickaxe":
 				if(silver_keys > 0) {
-					silver_keys--;
 					if(gp.obj[i].touchedBefore == false) {
+						silver_keys--;
 						pickaxeDurability = 100;
-						gp.ui.displayMessage("Stone Pickaxe obtained", Color.GREEN);
+						gp.ui.displayMessage("Pickaxe obtained", Color.GREEN);
 						gp.playSE(4);
 						try {
 							gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
@@ -160,15 +216,20 @@ public class Player extends Entity	{
 					}
 				}
 				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
-					gp.ui.displayMessage("You need a silver key to open this chest.", Color.RED);
+					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
 				}
 				break;
 				
 			case "Boulder":
 				if(pickaxeDurability != 0) {
 					pickaxeDurability -= 20;
-					gp.ui.displayMessage("Obstacle Cleared", Color.GREEN);
+					gp.ui.displayMessage("Obstacle cleared", Color.GREEN);
 					gp.playSE(3);
+					try {
+						gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
 					gp.obj[i] = null;
 				}
 				else {
@@ -178,9 +239,9 @@ public class Player extends Entity	{
 				
 			case "Speed Potion":
 				if(silver_keys > 0) {
-					silver_keys--;
 					if(gp.obj[i].touchedBefore == false) {
 						gp.ui.displayMessage("+2 Movement Speed", Color.GREEN);
+						silver_keys--;
 						speed += 2;
 						gp.playSE(1);
 						try {
@@ -192,7 +253,7 @@ public class Player extends Entity	{
 					}
 				}
 				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
-					gp.ui.displayMessage("You need a silver key to open this chest.", Color.RED);
+					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
 				}
 				break;
 				
@@ -209,11 +270,23 @@ public class Player extends Entity	{
 	}
 	
 	public void interactNPC(int i) {
-		if(i != 999) {
-			if(gp.keyH.enterPressed == true) {
+		if(gp.keyH.enterPressed == true) {
+			if(i != 999) {
 				gp.gameState = gp.dialogState;
 				gp.npc[i].speak();
-			}			
+			}
+			else {
+				attacking = true;
+			}
+		}
+	}
+	
+	public void mobContact(int i) {
+		if(i != 999) {
+			if(immune == false) {
+				life -= 1;
+				immune = true;
+			}
 		}
 	}
 	
@@ -222,42 +295,61 @@ public class Player extends Entity	{
 //		g2.fillRect(x, y, gp.tileSize, gp.tileSize); 
 		
 		BufferedImage image = null;
+		int tempScreenX = screenX;
+		int tempScreenY = screenY;
+		
+		
 		
 		switch(direction) {
 		case "up":
-			if(spriteNum == 1) {
-				image = up1;
+			if(attacking == false) {
+				if(spriteNum == 1) {image = up1;}
+				if(spriteNum == 2) {image = up2;}
 			}
-			if(spriteNum == 2) {
-				image = up2;
+			if(attacking == true) {
+				tempScreenY= screenY - gp.tileSize;
+				if(spriteNum == 1) {image = atk_up1;}
+				if(spriteNum == 2) {image = atk_up2;}
 			}
 			break;
 		case "down":
-			if(spriteNum == 1) {
-				image = down1;
+			if(attacking == false) {
+				if(spriteNum == 1) {image = down1;}
+				if(spriteNum == 2) {image = down2;}
 			}
-			if(spriteNum == 2) {
-				image = down2;
+			if(attacking == true) {
+				if(spriteNum == 1) {image = atk_down1;}
+				if(spriteNum == 2) {image = atk_down2;}
 			}
 			break;
 		case "right":
-			if(spriteNum == 1) {
-				image = right1;
+			if(attacking == false) {
+				if(spriteNum == 1) {image = right1;}
+				if(spriteNum == 2) {image = right2;}
 			}
-			if(spriteNum == 2) {
-				image = right2;
+			if(attacking == true) {
+				if(spriteNum == 1) {image = atk_right1;}
+				if(spriteNum == 2) {image = atk_right2;}
 			}
 			break;
 		case "left":
-			if(spriteNum == 1) {
-				image = left1;
+			if(attacking == false) {
+				if(spriteNum == 1) {image = left1;}
+				if(spriteNum == 2) {image = left2;}
 			}
-			if(spriteNum == 2) {
-				image = left2;
+			if(attacking == true) {
+				tempScreenX = screenX - gp.tileSize;
+				if(spriteNum == 1) {image = atk_left1;}
+				if(spriteNum == 2) {image = atk_left2;}
 			}
 			break;
 		}
-		g2.drawImage(image, screenX, screenY, null);
+		
+		if(immune == true) {
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		}
+		g2.drawImage(image, tempScreenX, tempScreenY, null);
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 //		g2.setColor(Color.blue);
 //        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 		

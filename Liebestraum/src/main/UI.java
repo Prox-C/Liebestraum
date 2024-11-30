@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -149,108 +150,129 @@ public class UI {
 		
 	}
 	public void drawTitleScreen() {
-	    // TITLE
-	    String title = "Liebestraum";
-	    int x = 230;
-	    int y = gp.screenHeight / 6;
+	    // TITLE 
+	    int x = gp.screenWidth/2;
+	    int y = gp.screenHeight / 10;
 
 	    // Load and display animated GIF
-	    ImageIcon gifIcon = new ImageIcon(getClass().getResource("/gifs/cover.gif"));
+	    ImageIcon gifIcon = new ImageIcon(getClass().getResource("/ui/cover3.gif"));
 	    Image gifImage = gifIcon.getImage();
 
 	    // Draw the background GIF (stretch it to fit screen size)
 	    g2.drawImage(gifImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
 
-	    // Set the font size and style
-	    g2.setFont(title_font);
-	    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40f));
-
-	    // STROKE SETTINGS (outline)
-	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
-	    g2.setStroke(new BasicStroke(6));  // Set stroke width
-
-	    // Draw the stroke by slightly off setting the position
-	    g2.drawString(title, x - 2, y - 2);  // Top-left stroke
-	    g2.drawString(title, x + 2, y - 2);  // Top-right stroke
-	    g2.drawString(title, x - 2, y + 2);  // Bottom-left stroke
-	    g2.drawString(title, x + 2, y + 2);  // Bottom-right stroke
-
-	    // Create the gradient (from left to right)
-	    GradientPaint gradient = new GradientPaint(
-	            x, y, new Color(155, 193, 255), // Start point (gold)
-	            x + 150, y, new Color(203, 157, 240) // End point (orange)
-	    );
-
-	    // Apply the gradient to the text
-	    g2.setPaint(gradient);
-
-	    // MAIN TEXT (gradient color)
-	    g2.drawString(title, x, y);
+//	    // Set the font size and style
+//	    g2.setFont(title_font);
+//	    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40f));
+//
+//	    // STROKE SETTINGS (outline)
+//	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
+//	    g2.setStroke(new BasicStroke(6));  // Set stroke width
+//
+//	    // Draw the stroke by slightly off setting the position
+//	    g2.drawString(title, x - 2, y - 2);  // Top-left stroke
+//	    g2.drawString(title, x + 2, y - 2);  // Top-right stroke
+//	    g2.drawString(title, x - 2, y + 2);  // Bottom-left stroke
+//	    g2.drawString(title, x + 2, y + 2);  // Bottom-right stroke
+//
+//	    // Create the gradient (from left to right)
+//	    GradientPaint gradient = new GradientPaint(
+//	            x, y, new Color(155, 193, 255), // Start point (gold)
+//	            x + 150, y, new Color(203, 157, 240) // End point (orange)
+//	    );
+//
+//	    // Apply the gradient to the text
+//	    g2.setPaint(gradient);
+//
+//	    // MAIN TEXT (gradient color)
+//	    g2.drawString(title, x, y);
+	    x = 512-gp.screenWidth/2;
+	    Image logoImage = new ImageIcon(getClass().getResource("/ui/logo3.png")).getImage();
+	    g2.drawImage(logoImage, x, y, 512, 72,null);
 	    
 	    // ------------------------------------------- MENU ------------------------------------
 	    // NEW GAME
-	    
+	 // Centered text drawing method
 	    String text = "New Game";
-	    x = 50;
-	    y = gp.screenHeight/2-50;
-	    
+	    y = gp.screenHeight / 2 - 50; // Y-coordinate stays the same
+
 	    g2.setFont(option_font);
 	    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 22f));
-	    
-	    g2.setColor(new Color(67, 56, 120));  
-	    g2.setStroke(new BasicStroke(4)); 
 
-	    g2.drawString(text, x - 2, y - 2); 
-	    g2.drawString(text, x + 2, y - 2);  
-	    g2.drawString(text, x - 2, y + 2);  
-	    g2.drawString(text, x + 2, y + 2); 
-	    
+	    // Measure the width of the text
+	    FontMetrics metrics = g2.getFontMetrics(g2.getFont());
+	    int textWidth = metrics.stringWidth(text);
+
+	    // Calculate x to center-align the text
+	    x = (gp.screenWidth - textWidth) / 2; // Center alignment formula
+
+	    // Draw the outline (stroke) for the text
+	    g2.setColor(new Color(67, 56, 120));
+	    g2.setStroke(new BasicStroke(4));
+	    g2.drawString(text, x - 2, y - 2);
+	    g2.drawString(text, x + 2, y - 2);
+	    g2.drawString(text, x - 2, y + 2);
+	    g2.drawString(text, x + 2, y + 2);
+
+	    // Draw the main text
 	    g2.setColor(Color.white);
 	    g2.drawString(text, x, y);
-	    if(commandNum == 0) {
-	    	  g2.setColor(new Color(67, 56, 120));
-	    	g2.drawString("<", 195, y);
+
+	    // Optional: Add selector arrow if needed
+	    if (commandNum == 0) {
+	    	 g2.setColor(Color.white);
+	        g2.drawString(">", x - 30, y); // Adjust the arrow position relative to text
 	    }
-	    
-	    // LOAD GAME
-	    
+
+	    // Repeat for "Load Game" and "Exit"
 	    text = "Load Game";
-	    x = 50;
-	    y = gp.screenHeight/2;
-	    
-	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
-	    g2.setStroke(new BasicStroke(4));  // Set stroke width
+	    y = gp.screenHeight / 2;
+	    // Measure text width and recalculate x
+	    textWidth = metrics.stringWidth(text);
+	    x = (gp.screenWidth - textWidth) / 2;
 
-	    g2.drawString(text, x - 2, y - 2);  
-	    g2.drawString(text, x + 2, y - 2);  
-	    g2.drawString(text, x - 2, y + 2);  
-	    g2.drawString(text, x + 2, y + 2); 
-	    
+	    // Outline
+	    g2.setColor(new Color(67, 56, 120));
+	    g2.setStroke(new BasicStroke(4));
+	    g2.drawString(text, x - 2, y - 2);
+	    g2.drawString(text, x + 2, y - 2);
+	    g2.drawString(text, x - 2, y + 2);
+	    g2.drawString(text, x + 2, y + 2);
+
+	    // Main text
 	    g2.setColor(Color.white);
 	    g2.drawString(text, x, y);
-	    if(commandNum == 1) {
-	    	  g2.setColor(new Color(67, 56, 120));
-	    	g2.drawString("<", 210, y);
+
+	    // Selector arrow for Load Game
+	    if (commandNum == 1) {
+	        g2.setColor(Color.white);
+	        g2.drawString(">", x - 30, y);
 	    }
-	    
+
 	    text = "Exit";
-	    x = 50;
-	    y = gp.screenHeight/2 + 50;
-	    
-	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
-	    g2.setStroke(new BasicStroke(4));  // Set stroke width
+	    y = gp.screenHeight / 2 + 50;
+	    // Measure text width and recalculate x
+	    textWidth = metrics.stringWidth(text);
+	    x = (gp.screenWidth - textWidth) / 2;
 
-	    g2.drawString(text, x - 2, y - 2);  
-	    g2.drawString(text, x + 2, y - 2);  
-	    g2.drawString(text, x - 2, y + 2);  
-	    g2.drawString(text, x + 2, y + 2); 
-	    
+	    // Outline
+	    g2.setColor(new Color(67, 56, 120));
+	    g2.setStroke(new BasicStroke(4));
+	    g2.drawString(text, x - 2, y - 2);
+	    g2.drawString(text, x + 2, y - 2);
+	    g2.drawString(text, x - 2, y + 2);
+	    g2.drawString(text, x + 2, y + 2);
+
+	    // Main text
 	    g2.setColor(Color.white);
 	    g2.drawString(text, x, y);
-	    if(commandNum == 2) {
-	    	  g2.setColor(new Color(67, 56, 120));
-	    	g2.drawString("<", 118, y);
+
+	    // Selector arrow for Exit
+	    if (commandNum == 2) {
+	    	 g2.setColor(Color.white);
+	        g2.drawString(">", x - 30, y);
 	    }
+
 	   
 	    
 	  
@@ -275,6 +297,7 @@ public class UI {
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16));
 		
 		for(String line : currentDialog.split("\n")) {
+			
 			g2.drawString(line, x, y);
 			y += 20;
 		}

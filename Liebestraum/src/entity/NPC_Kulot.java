@@ -13,8 +13,9 @@ public class NPC_Kulot extends Entity {
 	public NPC_Kulot(GamePanel gp) {
 		super(gp);
 		
+		type = 1;
 		direction = "down";
-		speed = 1;
+		speed = 0;
 		
 		solidArea.x = 8;
 		solidArea.y = 16;
@@ -28,17 +29,17 @@ public class NPC_Kulot extends Entity {
 	}
 	
 	public void getImage() {
-		up1 = setup("/npc/walk-1");
-		up2 = setup("/npc/walk-2");
+		up1 = setup("/npc/walk-1", gp.tileSize, gp.tileSize);
+		up2 = setup("/npc/walk-2", gp.tileSize, gp.tileSize);
 
-		down1 = setup("/npc/walk-3");
-		down2 = setup("/npc/walk-4");
+		down1 = setup("/npc/walk-3", gp.tileSize, gp.tileSize);
+		down2 = setup("/npc/walk-4", gp.tileSize, gp.tileSize);
 
-		right1 = setup("/npc/walk-1");
-		right2 = setup("/npc/walk-2");
+		right1 = setup("/npc/walk-1", gp.tileSize, gp.tileSize);
+		right2 = setup("/npc/walk-2", gp.tileSize, gp.tileSize);
 
-		left1 = setup("/npc/walk-3");
-		left2 = setup("/npc/walk-4");
+		left1 = setup("/npc/walk-3", gp.tileSize, gp.tileSize);
+		left2 = setup("/npc/walk-4", gp.tileSize, gp.tileSize);
 	}
 	public void setAction() {
 		actionLockCounter++;

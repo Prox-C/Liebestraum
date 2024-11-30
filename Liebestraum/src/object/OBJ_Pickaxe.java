@@ -9,7 +9,7 @@ public class OBJ_Pickaxe extends Entity{
 		super(gp);
 		name = "Pickaxe";
 		boolean touchedBefore = false;
-		down1 = setup("/object/chest");	
+		down1 = setup("/object/chest", gp.tileSize, gp.tileSize);	
 		collision = true;
 		
 		solidArea.x = 8;

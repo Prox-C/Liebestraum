@@ -18,6 +18,8 @@ public class Entity {
 	public int speed;
 	
 	public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
+	public BufferedImage atk_up1, atk_up2, atk_down1, atk_down2, atk_right1, atk_right2, atk_left1, atk_left2;
+	
 	public String direction = "down";
 	
 	public int spriteCounter = 0;
@@ -36,6 +38,10 @@ public class Entity {
 	public String name;
 	public boolean collision = false;
 	public boolean touchedBefore = false;
+	public boolean immune = false;
+	public int immunityCounter = 0;
+	public int type; // 1 = NPC, 2 = MOB
+	public boolean attacking = false;
 	
 	//CHARACHTER STATUS
 	public int maxHealth;
@@ -100,12 +106,12 @@ public class Entity {
 //			g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 			
 	}
-	public BufferedImage setup(String imagePath) {
+	public BufferedImage setup(String imagePath, int width, int height) {
 		UtilityTool uTool = new UtilityTool();
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream(imagePath+ ".png"));
-			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+			image = uTool.scaleImage(image, width, height);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -141,7 +147,16 @@ public class Entity {
 		collisionOn = false;
 		gp.collChecker.checkTile(this);
 		gp.collChecker.checkObject(this, false);
-		gp.collChecker.checkPlayer(this);
+		gp.collChecker.checkEntity(this, gp.mob); 
+		gp.collChecker.checkEntity(this, gp.npc); 
+		boolean playerContact = gp.collChecker.checkPlayer(this);
+		
+		if(this.type == 2 && playerContact == true) {
+			if(gp.player.immune == false) {
+				gp.player.life -= 1;
+				gp.player.immune = true;
+			}
+		}
 		
 		if(collisionOn == false) {
 			switch(direction){

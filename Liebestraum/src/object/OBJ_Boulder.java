@@ -9,7 +9,7 @@ public class OBJ_Boulder extends Entity{
 	public OBJ_Boulder(GamePanel gp) {
 		super(gp);
 		name = "Boulder";
-		down1 = setup("/object/boulder");	
+		down1 = setup("/object/boulder", gp.tileSize, gp.tileSize);	
 		boolean touchedBefore = false;
 		collision = true;
 		
