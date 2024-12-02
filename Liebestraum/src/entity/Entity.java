@@ -17,8 +17,8 @@ public class Entity {
 	public int worldX, worldY;
 	public int speed;
 	
-	public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
-	public BufferedImage atk_up1, atk_up2, atk_down1, atk_down2, atk_right1, atk_right2, atk_left1, atk_left2;
+	public BufferedImage up1, up2, up3, down1, down2, down3, right1, right2, right3, left1, left2, left3;
+	public BufferedImage atk_up1, atk_up2, atk_up3, atk_down1, atk_down2, atk_down3, atk_right1, atk_right2, atk_right3, atk_left1, atk_left2, atk_left3;
 	
 	public String direction = "down";
 	
@@ -26,6 +26,8 @@ public class Entity {
 	public int spriteNum = 1;
 	
 	public Rectangle solidArea = new Rectangle(0, 0, 30, 30); 
+	public Rectangle attackArea = new Rectangle(0, 0, 0 ,0);
+	
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	
 	public boolean collisionOn = false; 

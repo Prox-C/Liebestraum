@@ -39,6 +39,9 @@ public class Player extends Entity	{
 		solidArea.width = 30;
 		solidArea.height = 30;
 		
+		attackArea.width = 36;
+		attackArea.height = 36;
+		
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -60,15 +63,19 @@ public class Player extends Entity	{
 	public void getPlayerImage() {
 		up1 = setup("/player/up-1", gp.tileSize, gp.tileSize);
 		up2 = setup("/player/up-2", gp.tileSize, gp.tileSize);
+		up3 = setup("/player/up-3", gp.tileSize, gp.tileSize);
 
 		down1 = setup("/player/down-1", gp.tileSize, gp.tileSize);
 		down2 = setup("/player/down-2", gp.tileSize, gp.tileSize);
+		down3 = setup("/player/down-3", gp.tileSize, gp.tileSize);
 
 		right1 = setup("/player/right-1", gp.tileSize, gp.tileSize);
 		right2 = setup("/player/right-2", gp.tileSize, gp.tileSize);
+		right3 = setup("/player/right-3", gp.tileSize, gp.tileSize);
 
 		left1 = setup("/player/left-1", gp.tileSize, gp.tileSize);
 		left2 = setup("/player/left-2", gp.tileSize, gp.tileSize);
+		left3 = setup("/player/left-3", gp.tileSize, gp.tileSize);
 	}
 	
 	public void getPlayerAttackImage() {
@@ -144,7 +151,10 @@ public class Player extends Entity	{
 					spriteNum = 2;
 				}
 				else if(spriteNum == 2) {
-					spriteNum = 1;
+					spriteNum = 3;
+				}
+				else if(spriteNum == 3) {
+					spriteNum = 2;
 				}
 				spriteCounter = 0;
 			}
@@ -167,14 +177,41 @@ public class Player extends Entity	{
 	
 	public void attack() {
 		spriteCounter++;
-		if(spriteCounter <= 5) {
+		if(spriteCounter <= 10) {
 			spriteNum = 1;
 		}
-		if(spriteCounter > 5 && spriteCounter<= 25) {
+		if(spriteCounter > 10 && spriteCounter<= 15) {
 			spriteNum = 2;
+			//SAVE CURRENT POSITION
+			int currentWorldX = worldX;
+			int currentWorldY = worldY;
+			int solidAreaWidth = solidArea.width;
+			int solidAreaHeight = solidArea.height;
+			
+			//ATTACK AREA
+			switch(direction){
+				case "up":worldY -= attackArea.height; break;
+				case "down":worldY += attackArea.height; break;
+				case "right":worldY += attackArea.width; break;
+				case "left":worldY -= attackArea.width; break;
+			}
+			//MODIFIED SOLID AREA
+			solidArea.width = attackArea.width;
+			solidArea.height = attackArea.height;
+			
+			//CHECK MOB COLLISION
+			int mobIndex = gp.collChecker.checkEntity(this, gp.mob);
+			attackMob(mobIndex);
+			
+			
+			worldX = currentWorldX;
+			worldY = currentWorldY;
+			solidArea.width = solidAreaWidth;
+			solidArea.height = solidAreaHeight; 
+			
 		}
-		if(spriteCounter > 25) {
-			spriteNum = 1;
+		if(spriteCounter > 15) {
+			spriteNum = 3;
 			spriteCounter = 0;
 			attacking = false;
 		}
@@ -290,6 +327,15 @@ public class Player extends Entity	{
 		}
 	}
 	
+	public void attackMob(int i) {
+		if(i != 999) {
+			System.out.println("ATK");
+		}
+		else {
+			System.out.println("MISS");
+		}
+	}
+	
 	public void draw(Graphics2D g2) {
 //		g2.setColor(Color.red);
 //		g2.fillRect(x, y, gp.tileSize, gp.tileSize); 
@@ -305,42 +351,52 @@ public class Player extends Entity	{
 			if(attacking == false) {
 				if(spriteNum == 1) {image = up1;}
 				if(spriteNum == 2) {image = up2;}
+				if(spriteNum == 3) {image = up3;}
 			}
 			if(attacking == true) {
 				tempScreenY= screenY - gp.tileSize;
 				if(spriteNum == 1) {image = atk_up1;}
 				if(spriteNum == 2) {image = atk_up2;}
+				if(spriteNum == 3) {image = atk_up3;}
+
 			}
 			break;
 		case "down":
 			if(attacking == false) {
 				if(spriteNum == 1) {image = down1;}
 				if(spriteNum == 2) {image = down2;}
+				if(spriteNum == 3) {image = down3;}
 			}
 			if(attacking == true) {
 				if(spriteNum == 1) {image = atk_down1;}
 				if(spriteNum == 2) {image = atk_down2;}
+				if(spriteNum == 3) {image = atk_down3;}
+
 			}
 			break;
 		case "right":
 			if(attacking == false) {
 				if(spriteNum == 1) {image = right1;}
 				if(spriteNum == 2) {image = right2;}
+				if(spriteNum == 3) {image = right3;}
 			}
 			if(attacking == true) {
 				if(spriteNum == 1) {image = atk_right1;}
 				if(spriteNum == 2) {image = atk_right2;}
+				if(spriteNum == 3) {image = atk_right3;}
 			}
 			break;
 		case "left":
 			if(attacking == false) {
 				if(spriteNum == 1) {image = left1;}
 				if(spriteNum == 2) {image = left2;}
+				if(spriteNum == 3) {image = left3;}
 			}
 			if(attacking == true) {
 				tempScreenX = screenX - gp.tileSize;
 				if(spriteNum == 1) {image = atk_left1;}
 				if(spriteNum == 2) {image = atk_left2;}
+				if(spriteNum == 3) {image = atk_left3;}
 			}
 			break;
 		}
