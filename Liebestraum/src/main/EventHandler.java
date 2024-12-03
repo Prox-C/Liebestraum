@@ -88,9 +88,11 @@ public class EventHandler {
 	}
 	public void healingWell(int col, int row, int gameState) {
 		if(gp.keyH.enterPressed == true) {
+			gp.playSE(10);
 			gp.gameState = gp.dialogState;
 			gp.ui.currentDialog = "Recovering HP . . .";
 			gp.player.life = gp.player.maxHealth;
+			gp.player.attackCancelled = true;
 			canTouchEvent = false;
 		}
 	}

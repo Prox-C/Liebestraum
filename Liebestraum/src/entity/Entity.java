@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -25,7 +26,7 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	
-	public Rectangle solidArea = new Rectangle(0, 0, 30, 30); 
+	public Rectangle solidArea = new Rectangle(0, 0, 48, 48); 
 	public Rectangle attackArea = new Rectangle(0, 0, 0 ,0);
 	
 	public int solidAreaDefaultX, solidAreaDefaultY;
@@ -37,17 +38,24 @@ public class Entity {
 	int dialogIndex = 0;public int life;
 	
 	public BufferedImage image, image2, image3;
-	public String name;
 	public boolean collision = false;
 	public boolean touchedBefore = false;
 	public boolean immune = false;
 	public int immunityCounter = 0;
-	public int type; // 1 = NPC, 2 = MOB
+	public int dyingCounter = 0;
+
 	public boolean attacking = false;
+	public boolean alive = true;
+	public boolean dying = false;
+	boolean showHpBar = false;
+	int hpBarCounter = 0;
 	
 	//CHARACHTER STATUS
+	public String name;
 	public int maxHealth;
 	public int health;
+	public int type; // 0 = PLAYER, 1 = NPC, 2 = MOB
+	
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -66,39 +74,49 @@ public class Entity {
 			
 			switch(direction) {
 			case "up":
-				if(spriteNum == 1) {
-					image = up1;
-				}
-				if(spriteNum == 2) {
-					image = up2;
-				}
+				if(spriteNum == 1) {image = up1;}
+				if(spriteNum == 2) {image = up2;}
 				break;
 			case "down":
-				if(spriteNum == 1) {
-					image = down1;
-				}
-				if(spriteNum == 2) {
-					image = down2;
-				}
+				if(spriteNum == 1) {image = down1;}
+				if(spriteNum == 2) {image = down2;}
 				break;
 			case "right":
-				if(spriteNum == 1) {
-					image = right1;
-				}
-				if(spriteNum == 2) {
-					image = right2;
-				}
+				if(spriteNum == 1) {image = right1;}
+				if(spriteNum == 2) {image = right2;}
 				break;
 			case "left":
-				if(spriteNum == 1) {
-					image = left1;
-				}
-				if(spriteNum == 2) {
-					image = left2;
-				}
+				if(spriteNum == 1) {image = left1;}
+				if(spriteNum == 2) {image = left2;}
 				break;
 			}
+			//MOB HP BAR
+			if(type == 2 && showHpBar == true) {
+				double oneScale = (double)gp.tileSize/maxHealth;
+				double hpBarValue = oneScale*life;
+				 
+				g2.setColor(new Color(35, 35, 35));
+				g2.fillRect(screenX-1, screenY - 11, gp.tileSize+2, 8);
+				g2.setColor(new Color(255, 0, 30));
+				g2.fillRect(screenX, screenY - 10, (int)hpBarValue, 6);
+				
+				hpBarCounter++;
+				if(hpBarCounter > 400) {
+					hpBarCounter = 0;
+					showHpBar = false;
+				}
+			}
+			
+			if(immune == true) {
+				showHpBar = true;
+				hpBarCounter = 0;
+				changeAlpha(g2, 0.5f);
+			}
+			if(dying == true) {
+				dyingAnimation(g2);
+			}
 			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+			changeAlpha(g2, 1f);
 			
 		}
 			
@@ -107,6 +125,34 @@ public class Entity {
 //			g2.setColor(Color.red);
 //			g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 			
+	}
+	
+	
+	
+	public void dyingAnimation(Graphics2D g2) {
+		
+		int i = 5; //interval
+		
+		dyingCounter++;
+		if(dyingCounter <= i) {changeAlpha(g2, 0f);}
+		if(dyingCounter >  i && dyingCounter <= i*2) {changeAlpha(g2, 1f);}
+		if(dyingCounter > i*2 && dyingCounter <= i*3) {changeAlpha(g2, 0f);}
+		if(dyingCounter > i*3 && dyingCounter <= i*4) {changeAlpha(g2, 1f);}
+		if(dyingCounter > i*4 && dyingCounter <= i*5) {changeAlpha(g2, 0f);}
+		if(dyingCounter > i*5 && dyingCounter <= i*6) {changeAlpha(g2, 1f);}
+		if(dyingCounter > i*6 && dyingCounter <= i*7) {changeAlpha(g2, 0f);}
+		if(dyingCounter > i*7 && dyingCounter <= i*8) {changeAlpha(g2, 1f);}
+		
+		if(dyingCounter > i*8 ) {
+			dying = false;
+			alive = false;
+		}
+	
+		
+	}
+	
+	public void changeAlpha(Graphics2D g2, float alpha) {
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 	}
 	public BufferedImage setup(String imagePath, int width, int height) {
 		UtilityTool uTool = new UtilityTool();
@@ -121,6 +167,7 @@ public class Entity {
 	}
 	
 	public void setAction() {}
+	public void flea() {}
 	public void speak() {
 		if(dialog[dialogIndex] == null) {
 			dialogIndex = 0;
@@ -129,18 +176,10 @@ public class Entity {
 		dialogIndex++;
 		
 		switch(gp.player.direction) {
-		case "up":
-			direction = "down";
-			break;
-		case "down":
-			direction = "up";
-			break;
-		case "left":
-			direction = "right";
-			break;
-		case "right":
-			direction = "left";
-			break;
+		case "up": direction = "down"; break;
+		case "down": direction = "up"; break;
+		case "left": direction = "right"; break;
+		case "right": direction = "left"; break;
 		}
 	}
 	public void update() {
@@ -157,6 +196,7 @@ public class Entity {
 			if(gp.player.immune == false) {
 				gp.player.life -= 1;
 				gp.player.immune = true;
+				gp.playSE(9);
 			}
 		}
 		
@@ -178,6 +218,13 @@ public class Entity {
 				spriteNum = 1;
 			}
 			spriteCounter = 0;
+		}
+		if(immune == true) {
+			immunityCounter++;
+			if(immunityCounter > 30) {
+				immune = false;
+				immunityCounter = 0;
+			}
 		}
 	}
 

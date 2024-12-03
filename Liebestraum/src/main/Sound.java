@@ -18,6 +18,11 @@ public class Sound {
 		soundURL[4] = getClass().getResource("/sfx/equipment.wav");
 		soundURL[5] = getClass().getResource("/sfx/mission_accomplished.wav");
 		soundURL[6] = getClass().getResource("/sfx/waterfall.wav");
+		soundURL[7] = getClass().getResource("/sfx/attack.wav");
+		soundURL[8] = getClass().getResource("/sfx/mob_hit.wav");
+		soundURL[9] = getClass().getResource("/sfx/player_hurt.wav");
+		soundURL[10] = getClass().getResource("/sfx/heal.wav");
+
 	}
 	
 	public void setFile(int i) {

@@ -12,5 +12,12 @@ public class OBJ_SpeedPotion extends Entity{
 		boolean touchedBefore = false;
 		collision = true;
 		
+		solidArea.x = 8;
+		solidArea.y = 8;
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
+		solidArea.width = 30;
+		solidArea.height = 30;
+		
 	}
 }

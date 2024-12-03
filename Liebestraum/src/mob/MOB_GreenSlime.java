@@ -13,12 +13,13 @@ public class MOB_GreenSlime extends Entity{
 		this.gp = gp;
 		name = "Green Slime";
 		speed = 1;
-		maxHealth = 4;
+		type = 2;
+		maxHealth = 5;
 		life = maxHealth;
-		solidArea.x = 3;
-		solidArea.y = 18;
-		solidArea.width = 42;
-		solidArea.height = 30;
+		solidArea.x = 9;
+		solidArea.y = 8;
+		solidArea.width = 28;
+		solidArea.height = 24;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 		
@@ -58,5 +59,10 @@ public class MOB_GreenSlime extends Entity{
 			actionLockCounter = 0;
 			
 		}
+	}
+	
+	public void flea() {
+		actionLockCounter = 0;
+		direction = gp.player.direction;
 	}
 }

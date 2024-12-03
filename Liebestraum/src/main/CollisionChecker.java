@@ -170,7 +170,6 @@ public class CollisionChecker {
             case "left": entity.solidArea.x -= entity.speed; break;      
         }
         if (entity.solidArea.intersects(gp.player.solidArea)) {
-            System.out.println("Direction: left");
             entity.collisionOn = true;
             playerContact = true;
         }

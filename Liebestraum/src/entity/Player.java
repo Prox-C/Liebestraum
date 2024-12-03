@@ -20,6 +20,7 @@ public class Player extends Entity	{
 	public final int screenX;
 	public final int screenY;
 	int standCounter = 0;
+	public boolean attackCancelled = false;
 	public int silver_keys = 0;
 	public int pickaxeDurability = 0;
 	
@@ -143,6 +144,12 @@ public class Player extends Entity	{
 				}
 			}
 			
+			if(keyH.enterPressed == true && attackCancelled == false) {
+				gp.playSE(7);
+				attacking = true;
+				spriteCounter = 0;
+			}
+			attackCancelled = false;
 			gp.keyH.enterPressed = false;
 			
 			spriteCounter++;
@@ -192,8 +199,8 @@ public class Player extends Entity	{
 			switch(direction){
 				case "up":worldY -= attackArea.height; break;
 				case "down":worldY += attackArea.height; break;
-				case "right":worldY += attackArea.width; break;
-				case "left":worldY -= attackArea.width; break;
+				case "right":worldX += attackArea.width; break;
+				case "left":worldX -= attackArea.width; break;
 			}
 			//MODIFIED SOLID AREA
 			solidArea.width = attackArea.width;
@@ -309,11 +316,9 @@ public class Player extends Entity	{
 	public void interactNPC(int i) {
 		if(gp.keyH.enterPressed == true) {
 			if(i != 999) {
+				attackCancelled = true;
 				gp.gameState = gp.dialogState;
 				gp.npc[i].speak();
-			}
-			else {
-				attacking = true;
 			}
 		}
 	}
@@ -321,6 +326,7 @@ public class Player extends Entity	{
 	public void mobContact(int i) {
 		if(i != 999) {
 			if(immune == false) {
+				gp.playSE(9);
 				life -= 1;
 				immune = true;
 			}
@@ -329,11 +335,19 @@ public class Player extends Entity	{
 	
 	public void attackMob(int i) {
 		if(i != 999) {
-			System.out.println("ATK");
+			if(gp.mob[i].immune == false) {
+				gp.playSE(8);
+				gp.mob[i].life -= 1;
+				gp.mob[i].immune = true;
+				gp.mob[i].flea();
+				
+				if(gp.mob[i].life < 0) {
+					gp.mob[i].speed = 0;
+					gp.mob[i].dying = true;
+				}
+			}
 		}
-		else {
-			System.out.println("MISS");
-		}
+		
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -406,6 +420,8 @@ public class Player extends Entity	{
 		}
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		
+		//FOR DEBUG
 //		g2.setColor(Color.blue);
 //        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 		
