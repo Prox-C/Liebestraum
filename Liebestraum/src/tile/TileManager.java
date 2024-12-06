@@ -24,7 +24,7 @@ public class TileManager {
 		this.gp = gp;
 		
 		//READ TILE DATA
-		InputStream is = getClass().getResourceAsStream("/maps/camp_zero_data.txt");
+		InputStream is = getClass().getResourceAsStream("/maps/memorylane_data.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		String line;
 		
@@ -42,7 +42,7 @@ public class TileManager {
 		getTileImage();
 
 		
-		is = getClass().getResourceAsStream("/maps/camp_zero.txt");
+		is = getClass().getResourceAsStream("/maps/memorylane.txt");
 		br = new BufferedReader(new InputStreamReader(is));
 		
 		try {
@@ -59,7 +59,7 @@ public class TileManager {
 			System.out.println("Exception");
 		}
 		
-		loadMap("/maps/camp_zero.txt");
+		loadMap("/maps/memorylane.txt");
 	}
 	
 	public void loadMap(String filePath) {

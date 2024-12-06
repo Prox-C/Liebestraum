@@ -14,7 +14,7 @@ public class NPC_Kulot extends Entity {
 		super(gp);
 		
 		type = 1;
-		direction = "down";
+		direction = "left";
 		speed = 0;
 		
 		solidArea.x = 8;
@@ -49,13 +49,13 @@ public class NPC_Kulot extends Entity {
 			int i = random.nextInt(100)+1;
 			
 			if(i <= 25) {
-				direction = "up";
+				direction = "left";
 			}
 			if(i > 25 && i <= 50) {
-				direction = "down";
+				direction = "left";
 			}
 			if(i > 50 && i <= 75) {
-				direction = "right";
+				direction = "left";
 			}
 			if(i > 75) {
 				direction = "left";
@@ -67,10 +67,13 @@ public class NPC_Kulot extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0] = "Erm, what the sigma?";
-		dialog[1] = "So you're one of the seekers that came outside of Neverland!";
-		dialog[2] = "Now tell me, seeker . . .";
-		dialog[3] = "What is it that you seek?";
+		dialog[0] = "Greetings, traveler!";
+		dialog[1] = "So you don't recall anything huh?";
+		dialog[2] = "You must be one of those that came  from outside of\nHeartland!";
+		dialog[3] = "There's a road down these woods called 'Memory Lane'";
+		dialog[4] = "I'm sure you'll find something there that will help you with your\njourney.";
+		dialog[5] = "Good luck!";
+
 		
 	}
 	public void speak() {

@@ -50,8 +50,9 @@ public class Player extends Entity	{
 	}
 	
 	public void setDefaultValues() {
-		worldX = gp.tileSize * 10;
-		worldY = gp.tileSize * 11;
+		//SPAWN POINT
+		worldX = gp.tileSize * 19;
+		worldY = gp.tileSize * 14;
 		speed = 3;
 		
 		direction = "down";
@@ -299,6 +300,9 @@ public class Player extends Entity	{
 				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
 					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
 				}
+				break;
+			case "Sign":
+				gp.ui.displayMessage("Memory Lane", Color.WHITE);
 				break;
 				
 //			case "Gold Key":
