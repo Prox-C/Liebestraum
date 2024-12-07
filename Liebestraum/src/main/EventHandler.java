@@ -48,7 +48,7 @@ public class EventHandler {
 			eventRect[map][col][row].y = row*gp.tileSize + eventRect[map][col][row].y;
 			
 			if(gp.player.solidArea.intersects(eventRect[map][col][row]) && eventRect[map][col][row].eventDone == false) {
-				if(gp.player.direction.contentEquals(reqDirection)) {
+				if("any".equals(reqDirection) || gp.player.direction.contentEquals(reqDirection)) {
 					hit = true;
 					
 					previousEventX = gp.player.worldX;
@@ -75,7 +75,7 @@ public class EventHandler {
 	}
 	public void spawned(int map, int col, int row, int gameState) {
 		gp.gameState = gameState;
-		gp.ui.currentDialog = "Bogart: Where am I? I don't remember a thing!";
+		gp.ui.currentDialog = "*You woke up in an unfamiliar place and you don't remember\nanything.*";
 		eventRect[map][col][row].eventDone = true;
 		canTouchEvent = false;
 	}
@@ -113,7 +113,7 @@ public class EventHandler {
 				changeMap(0, 31, 10);
 				gp.ui.displayMessage("Memory Lane", Color.WHITE);
 				}
-			else if(hit(0, 19, 14, "down") == true) {spawned(0, 19, 14, gp.dialogState);}
+			else if(hit(0, 19, 14, "any") == true) {spawned(0, 19, 14, gp.dialogState);}
 		}
 	}
 	
