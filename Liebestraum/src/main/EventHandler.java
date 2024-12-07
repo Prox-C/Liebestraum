@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 public class EventHandler {
@@ -104,8 +105,14 @@ public class EventHandler {
 		if(canTouchEvent == true) {
 			if(hit(0, 14, 19, "down") == true) {damageTile(gp.dialogState);}
 			else if(hit(0, 18, 27, "down") == true) {healingWell(gp.dialogState);}
-			else if(hit(0, 31, 9, "up") == true) {changeMap(1, 31, 8);}
-			else if(hit(1, 31, 9, "down") == true) {changeMap(0, 31, 10);}
+			else if(hit(0, 31, 9, "up") == true) {
+				changeMap(1, 31, 8);
+				gp.ui.displayMessage("Leo's Lodge", Color.WHITE);
+				}
+			else if(hit(1, 31, 9, "down") == true) {
+				changeMap(0, 31, 10);
+				gp.ui.displayMessage("Memory Lane", Color.WHITE);
+				}
 			else if(hit(0, 19, 14, "down") == true) {spawned(0, 19, 14, gp.dialogState);}
 		}
 	}

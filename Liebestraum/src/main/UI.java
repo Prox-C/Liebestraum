@@ -98,7 +98,7 @@ public class UI {
 		}
 		
 		messageCounter++;
-		if(messageCounter > 120) {
+		if(messageCounter > 140) {
 			messageCounter = 0;
 			messageOn = false;
 		}
