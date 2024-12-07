@@ -21,6 +21,7 @@ public class Player extends Entity	{
 	public final int screenY;
 	int standCounter = 0;
 	public boolean attackCancelled = false;
+	public boolean armed = true;
 	public int silver_keys = 0;
 	public int pickaxeDurability = 0;
 	
@@ -52,14 +53,27 @@ public class Player extends Entity	{
 	public void setDefaultValues() {
 		//SPAWN POINT
 		worldX = gp.tileSize * 19;
-		worldY = gp.tileSize * 14;
+		worldY = gp.tileSize * 14; 
 		speed = 3;
 		
 		direction = "down";
 		
 		//PLAYER STATUS
-		maxHealth = 10;
+		maxHealth = 6;
 		life = maxHealth;
+		
+	}
+	
+	public void setDefaultPositions() {
+		worldX = gp.tileSize * 19;
+		worldY = gp.tileSize * 14; 
+		
+		direction = "down";
+	}
+	
+	public void restoreHealth() {
+		life = maxHealth;
+		immune = false;
 	}
 	
 	public void getPlayerImage() {
@@ -145,7 +159,7 @@ public class Player extends Entity	{
 				}
 			}
 			
-			if(keyH.enterPressed == true && attackCancelled == false) {
+			if(keyH.enterPressed == true && attackCancelled == false && armed) {
 				gp.playSE(7);
 				attacking = true;
 				spriteCounter = 0;
@@ -180,6 +194,13 @@ public class Player extends Entity	{
 				immune = false;
 				immunityCounter = 0;
 			}
+		}
+		
+		if(life <= 0) {
+			gp.gameState = gp.gameOverState;
+			gp.ui.commandNum = -1;
+			gp.stopMusic(0);
+			gp.playSE(11);
 		}
 	}
 	
@@ -229,7 +250,7 @@ public class Player extends Entity	{
 	
 	public void pickUpObject(int i) {
 		if(i != 999) {
-			String objName = gp.obj[i].name;
+			String objName = gp.obj[gp.currentMap][i].name;
 			
 			switch(objName) {
 			case "Silver Key":
@@ -238,29 +259,29 @@ public class Player extends Entity	{
 				gp.ui.displayMessage("Key acquired", Color.GREEN);
 				gp.playSE(4);
 				try {
-					gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
+					gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
-				gp.obj[i] = null;
+				gp.obj[gp.currentMap][i] = null;
 				break;
 				
 			case "Pickaxe":
 				if(silver_keys > 0) {
-					if(gp.obj[i].touchedBefore == false) {
+					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
 						silver_keys--;
 						pickaxeDurability = 100;
 						gp.ui.displayMessage("Pickaxe obtained", Color.GREEN);
 						gp.playSE(4);
 						try {
-							gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
+							gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
 						}catch(IOException e) {
 							e.printStackTrace();
 						}
-						gp.obj[i].touchedBefore = true;
+						gp.obj[gp.currentMap][i].touchedBefore = true;
 					}
 				}
-				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
+				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
 					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
 				}
 				break;
@@ -271,11 +292,11 @@ public class Player extends Entity	{
 					gp.ui.displayMessage("Obstacle cleared", Color.GREEN);
 					gp.playSE(3);
 					try {
-						gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
+						gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
 					}catch(IOException e) {
 						e.printStackTrace();
 					}
-					gp.obj[i] = null;
+					gp.obj[gp.currentMap][i] = null;
 				}
 				else {
 					gp.ui.displayMessage("You need a Pickaxe to remove this boulder.", Color.RED);
@@ -284,20 +305,20 @@ public class Player extends Entity	{
 				
 			case "Speed Potion":
 				if(silver_keys > 0) {
-					if(gp.obj[i].touchedBefore == false) {
+					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
 						gp.ui.displayMessage("+2 Movement Speed", Color.GREEN);
 						silver_keys--;
 						speed += 2;
 						gp.playSE(1);
 						try {
-							gp.obj[i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
+							gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
 						}catch(IOException e) {
 							e.printStackTrace();
 						}
-						gp.obj[i].touchedBefore = true;
+						gp.obj[gp.currentMap][i].touchedBefore = true;
 					}
 				}
-				if(silver_keys <= 0 && gp.obj[i].touchedBefore == false) {
+				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
 					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
 				}
 				break;
@@ -322,14 +343,14 @@ public class Player extends Entity	{
 			if(i != 999) {
 				attackCancelled = true;
 				gp.gameState = gp.dialogState;
-				gp.npc[i].speak();
+				gp.npc[gp.currentMap][i].speak();
 			}
 		}
 	}
 	
 	public void mobContact(int i) {
 		if(i != 999) {
-			if(immune == false) {
+			if(immune == false && gp.mob[gp.currentMap][i].dying == false) {
 				gp.playSE(9);
 				life -= 1;
 				immune = true;
@@ -339,15 +360,15 @@ public class Player extends Entity	{
 	
 	public void attackMob(int i) {
 		if(i != 999) {
-			if(gp.mob[i].immune == false) {
+			if(gp.mob[gp.currentMap][i].immune == false) {
 				gp.playSE(8);
-				gp.mob[i].life -= 1;
-				gp.mob[i].immune = true;
-				gp.mob[i].flea();
+				gp.mob[gp.currentMap][i].life -= 1;
+				gp.mob[gp.currentMap][i].immune = true;
+				gp.mob[gp.currentMap][i].flea();
 				
-				if(gp.mob[i].life < 0) {
-					gp.mob[i].speed = 0;
-					gp.mob[i].dying = true;
+				if(gp.mob[gp.currentMap][i].life < 0) {
+					gp.mob[gp.currentMap][i].speed = 0;
+					gp.mob[gp.currentMap][i].dying = true;
 				}
 			}
 		}

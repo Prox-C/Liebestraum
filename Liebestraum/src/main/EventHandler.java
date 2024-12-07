@@ -4,32 +4,89 @@ import java.awt.Rectangle;
 
 public class EventHandler {
 	GamePanel gp;
-	EventRect eventRect[][];
+	EventRect eventRect[][][];
 	int previousEventX, previousEventY;
 	boolean canTouchEvent = true;
 	
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
-		eventRect = new EventRect[gp.maxWorldCol][gp.maxWorldRow];
+		eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 		
+		int map = 0;
 		int col = 0; 
 		int row = 0;
-		while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
-			eventRect[col][row] = new EventRect();
-			eventRect[col][row].x = 23;
-			eventRect[col][row].y = 23;
-			eventRect[col][row].height = 2;
-			eventRect[col][row].width = 2;
-			eventRect[col][row].eventRectDefaultX = eventRect[col][row].x;
-			eventRect[col][row].eventRectDefaultY = eventRect[col][row].y;
+		while(map < gp.maxMap &&  col < gp.maxWorldCol && row < gp.maxWorldRow) {
+			eventRect[map][col][row] = new EventRect();
+			eventRect[map][col][row].x = 23;
+			eventRect[map][col][row].y = 23;
+			eventRect[map][col][row].height = 2;
+			eventRect[map][col][row].width = 2;
+			eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
+			eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
 			col++;
 			if(col == gp.maxWorldCol) {
 				col = 0;
 				row++;
+				if(row == gp.maxWorldRow) {
+					row = 0;
+					map++;
+				}
 			}
 		}	 
 		
 			
+	}
+
+	public boolean hit(int map, int col, int row, String reqDirection) {
+		boolean hit = false;
+		
+		if(map == gp.currentMap) {
+			gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+			gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+			eventRect[map][col][row].x = col*gp.tileSize + eventRect[map][col][row].x;
+			eventRect[map][col][row].y = row*gp.tileSize + eventRect[map][col][row].y;
+			
+			if(gp.player.solidArea.intersects(eventRect[map][col][row]) && eventRect[map][col][row].eventDone == false) {
+				if(gp.player.direction.contentEquals(reqDirection)) {
+					hit = true;
+					
+					previousEventX = gp.player.worldX;
+					previousEventY = gp.player.worldY;
+					
+					
+					
+				}
+			}
+			gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+			gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+			eventRect[map][col][row].x = eventRect[map][col][row].eventRectDefaultX;
+			eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
+			}
+		return hit;
+	}
+	
+	public void damageTile(int gameState) {
+		gp.gameState = gameState;
+		gp.ui.currentDialog = "Roses remind me of you, Ligaya. ";
+		gp.player.life -= 1;
+//		eventRect[col][row].eventDone = true;
+		canTouchEvent = false;
+	}
+	public void spawned(int map, int col, int row, int gameState) {
+		gp.gameState = gameState;
+		gp.ui.currentDialog = "Bogart: Where am I? I don't remember a thing!";
+		eventRect[map][col][row].eventDone = true;
+		canTouchEvent = false;
+	}
+	public void healingWell(int gameState) {
+		if(gp.keyH.enterPressed == true) {
+			gp.playSE(10);
+			gp.gameState = gp.dialogState;
+			gp.ui.currentDialog = "Recovering HP . . .";
+			gp.player.life = gp.player.maxHealth;
+			gp.player.attackCancelled = true;
+			canTouchEvent = false;
+		}
 	}
 	
 	public void checkEvent() {
@@ -45,55 +102,23 @@ public class EventHandler {
 		}
 		
 		if(canTouchEvent == true) {
-			if(hit(14, 19, "down") == true) {damageTile(14, 19, gp.dialogState);}
-			if(hit(18, 27, "down") == true) {healingWell(18, 27, gp.dialogState);}
-
+			if(hit(0, 14, 19, "down") == true) {damageTile(gp.dialogState);}
+			else if(hit(0, 18, 27, "down") == true) {healingWell(gp.dialogState);}
+			else if(hit(0, 31, 9, "up") == true) {changeMap(1, 31, 8);}
+			else if(hit(1, 31, 9, "down") == true) {changeMap(0, 31, 10);}
+			else if(hit(0, 19, 14, "down") == true) {spawned(0, 19, 14, gp.dialogState);}
 		}
 	}
 	
-
-	public boolean hit(int col, int row, String reqDirection) {
-		boolean hit = false;
-		
-		gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-		gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-		eventRect[col][row].x = col*gp.tileSize + eventRect[col][row].x;
-		eventRect[col][row].y = row*gp.tileSize + eventRect[col][row].y;
-		
-		if(gp.player.solidArea.intersects(eventRect[col][row]) && eventRect[col][row].eventDone == false) {
-			if(gp.player.direction.contentEquals(reqDirection)) {
-				hit = true;
-				
-				previousEventX = gp.player.worldX;
-				previousEventY = gp.player.worldY;
-				
-				
-				
-			}
-		}
-		gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-		gp.player.solidArea.y = gp.player.solidAreaDefaultY;
-		eventRect[col][row].x = eventRect[col][row].eventRectDefaultX;
-		eventRect[col][row].y = eventRect[col][row].eventRectDefaultY;
-		
-		return hit;
-	}
 	
-	public void damageTile(int col, int row, int gameState) {
-		gp.gameState = gameState;
-		gp.ui.currentDialog = "Roses remind me of you, Ligaya. ";
-		gp.player.life -= 1;
-//		FOR 1-time EVENTS: eventRect[col][row].eventDone = true;
+	public void changeMap(int map, int col, int row) {
+		gp.currentMap = map;
+		gp.player.worldX = gp.tileSize * col;
+		gp.player.worldY = gp.tileSize * row;
+		previousEventX = gp.player.worldX;
+		previousEventY = gp.player.worldY;
 		canTouchEvent = false;
 	}
-	public void healingWell(int col, int row, int gameState) {
-		if(gp.keyH.enterPressed == true) {
-			gp.playSE(10);
-			gp.gameState = gp.dialogState;
-			gp.ui.currentDialog = "Recovering HP . . .";
-			gp.player.life = gp.player.maxHealth;
-			gp.player.attackCancelled = true;
-			canTouchEvent = false;
-		}
-	}
+	
+	
 }

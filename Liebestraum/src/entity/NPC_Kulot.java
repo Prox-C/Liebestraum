@@ -67,12 +67,12 @@ public class NPC_Kulot extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0] = "Greetings, traveler!";
-		dialog[1] = "So you don't recall anything huh?";
-		dialog[2] = "You must be one of those that came  from outside of\nHeartland!";
-		dialog[3] = "There's a road down these woods called 'Memory Lane'";
-		dialog[4] = "I'm sure you'll find something there that will help you with your\njourney.";
-		dialog[5] = "Good luck!";
+		dialog[0] = "Kulot: Greetings, traveler!";
+		dialog[1] = "Kulot: So you don't recall anything huh?";
+		dialog[2] = "Kulot: You must be one of those that came  from outside of\nHeartland!";
+		dialog[3] = "Kulot: There's a road down these woods called 'Memory Lane'";
+		dialog[4] = "Kulot: I'm sure you'll find something there that will help you with\nyour journey.";
+		dialog[5] = "Kulot: Good luck!";
 
 		
 	}

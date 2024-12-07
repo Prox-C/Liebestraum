@@ -22,6 +22,7 @@ public class Sound {
 		soundURL[8] = getClass().getResource("/sfx/mob_hit.wav");
 		soundURL[9] = getClass().getResource("/sfx/player_hurt.wav");
 		soundURL[10] = getClass().getResource("/sfx/heal.wav");
+		soundURL[11] = getClass().getResource("/sfx/game_over.wav");
 
 	}
 	

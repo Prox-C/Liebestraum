@@ -15,7 +15,7 @@ import main.UtilityTool;
 public class TileManager {
 	GamePanel gp;
 	public Tile[] tile;
-	public int mapTileNum[][];
+	public int mapTileNum[][][];
 	
 	ArrayList<String> fileNames= new ArrayList<>();
 	ArrayList<String> collisionStatus = new ArrayList<>();
@@ -51,7 +51,7 @@ public class TileManager {
 			
 			gp.maxWorldCol = maxTile.length;
 			gp.maxWorldRow = maxTile.length;
-			mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+			mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 			
 			br.close();
 
@@ -59,10 +59,11 @@ public class TileManager {
 			System.out.println("Exception");
 		}
 		
-		loadMap("/maps/memorylane.txt");
+		loadMap("/maps/memorylane.txt", 0);
+		loadMap("/maps/cleric_house.txt", 1);
 	}
 	
-	public void loadMap(String filePath) {
+	public void loadMap(String filePath, int map) {
 		try {
 			InputStream is = getClass().getResourceAsStream(filePath);
 			BufferedReader br =  new BufferedReader(new InputStreamReader(is));
@@ -79,7 +80,7 @@ public class TileManager {
 					
 					int num = Integer.parseInt(numbers[col]);
 					
-					mapTileNum[col][row] = num;
+					mapTileNum[map][col][row] = num;
 					col++;
 				}
 				if(col == gp.maxWorldCol) {
@@ -132,7 +133,7 @@ public class TileManager {
 		
 		while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 			
-			int tileNum  = mapTileNum[worldCol][worldRow];
+			int tileNum  = mapTileNum[gp.currentMap][worldCol][worldRow];
 			int worldX = worldCol * gp.tileSize;
 			int worldY = worldRow * gp.tileSize;
 			int screenX = worldX - gp.player.worldX + gp.player.screenX;

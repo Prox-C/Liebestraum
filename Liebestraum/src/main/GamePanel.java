@@ -31,7 +31,9 @@ public class GamePanel extends JPanel implements Runnable {
 	//WORLD SETTINGS
 	public int maxWorldCol;
 	public int maxWorldRow;
-	
+	public final int maxMap = 10;
+	public int currentMap = 0;
+
 	//FPS
 	int FPS = 60;
 	
@@ -48,9 +50,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 	//ENTITY
 	public Player player = new Player(this, keyH);
-	public Entity obj[] = new Entity[10];
-	public Entity npc[] = new Entity[10];
-	public Entity mob[] = new Entity[20];
+	public Entity obj[][] = new Entity[maxMap][10];
+	public Entity npc[][] = new Entity[maxMap][10];
+	public Entity mob[][]= new Entity[maxMap][20];
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	
 	
@@ -60,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int playState = 1;
 	public final int pauseState = 2;
 	public final int dialogState = 3;
+	public final int gameOverState = 4;
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -120,19 +123,19 @@ public class GamePanel extends JPanel implements Runnable {
 			player.update();
 			
 			//NPC
-			for(int i = 0; i < npc.length; i++) {
-				if(npc[i] != null) {
-					npc[i].update();
+			for(int i = 0; i < npc[1].length; i++) {
+				if(npc[currentMap][i] != null) {
+					npc[currentMap][i].update();
 				}
 			}
 			//MOB
-			for(int i = 0; i < mob.length; i++) {
-				if(mob[i] != null) {
-					if(mob[i].alive == true && mob[i].dying == false) {
-						mob[i].update();
+			for(int i = 0; i < mob[1].length; i++) {
+				if(mob[currentMap][i] != null) {
+					if(mob[currentMap][i].alive == true && mob[currentMap][i].dying == false) {
+						mob[currentMap][i].update();
 					}
-					if(mob[i].alive == false) {
-						mob[i] = null;
+					if(mob[currentMap][i].alive == false) {
+						mob[currentMap][i] = null;
 					}
 				}
 			}
@@ -140,6 +143,22 @@ public class GamePanel extends JPanel implements Runnable {
 		if(gameState == pauseState) {
 			
 		}
+	}
+	
+	public void retry() {
+		player.setDefaultPositions();
+		player.restoreHealth();
+		aSetter.setNPC();
+		aSetter.setMob();
+//		playMusic(6);
+	}
+	
+	public void restart() {
+		player.setDefaultValues();
+		aSetter.setObject();
+		aSetter.setNPC();
+		aSetter.setMob();
+//		playMusic(6);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -160,19 +179,19 @@ public class GamePanel extends JPanel implements Runnable {
 					
 					//ADDS ENTITIES TO LIST
 					entityList.add(player);
-					for(int i = 0; i < npc.length; i++) {
-						if(npc[i] != null) {
-							entityList.add(npc[i]);
+					for(int i = 0; i < npc[1].length; i++) {
+						if(npc[currentMap][i] != null) {
+							entityList.add(npc[currentMap][i]);
 						}
 					}
-					for(int i = 0; i < obj.length; i++) {
-						if(obj[i] != null) {
-							entityList.add(obj[i]);
+					for(int i = 0; i < obj[1].length; i++) {
+						if(obj[currentMap][i] != null) {
+							entityList.add(obj[currentMap][i]);
 						}
 					}
-					for(int i = 0; i < mob.length; i++) {
-						if(mob[i] != null) {
-							entityList.add(mob[i]);
+					for(int i = 0; i < mob[1].length; i++) {
+						if(mob[currentMap][i] != null) {
+							entityList.add(mob[currentMap][i]);
 						}
 					}
 					

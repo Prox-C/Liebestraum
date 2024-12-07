@@ -93,6 +93,9 @@ public class UI {
 			drawDialog();
 			drawPlayerLife();
 		}
+		if(gp.gameState == gp.gameOverState) {
+			drawGameOverScreen();
+		}
 		
 		messageCounter++;
 		if(messageCounter > 120) {
@@ -120,6 +123,53 @@ public class UI {
 		}
 		
 	}
+	public void drawGameOverScreen() {
+	    // Background overlay
+	    g2.setColor(new Color(0, 0, 0, 150));
+	    g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+	    String text = "G A M E  O V E R  :(";
+	    int x, y;
+
+	    g2.setFont(option_font);
+	    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 44));
+
+	    // Shadow
+	    g2.setColor(Color.BLACK);
+	    x = getXForText(text);
+	    y = gp.tileSize * 4;
+	    g2.drawString(text, x, y);
+
+	    // Main text
+	    g2.setColor(Color.white);
+	    g2.drawString(text, x - 4, y - 4);
+
+	    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 26));
+
+	    // Retry
+	    text = "RETRY";
+	    x = getXForText(text);
+	    y += gp.tileSize * 4; // Offset below the "GAME OVER" text
+	    g2.drawString(text, x, y);
+	    if (commandNum == 0) {
+	        g2.setColor(Color.white);
+	        g2.drawString("[", x - g2.getFontMetrics().stringWidth(">") - 10, y);
+	        g2.drawString("]", x + g2.getFontMetrics().stringWidth(text) + 10, y);
+	    }
+
+	    // Back to Main Menu
+	    text = "MAIN MENU";
+	    x = getXForText(text);
+	    y += gp.tileSize; // Offset below the "RETRY" text
+	    g2.drawString(text, x, y);
+	    if (commandNum == 1) {
+	        g2.setColor(Color.white);
+	        g2.drawString("[", x - g2.getFontMetrics().stringWidth(">") - 10, y);
+	        g2.drawString("]", x + g2.getFontMetrics().stringWidth(text) + 10, y);
+	    }
+	}
+
+
 	
 	public void drawPlayerLife() {
 		int x = gp.tileSize / 2;
@@ -151,7 +201,7 @@ public class UI {
 	}
 	public void drawTitleScreen() {
 	    // TITLE 
-	    int x = gp.screenWidth/2;
+	    int x = gp.screenWidth / 2;
 	    int y = gp.screenHeight / 10;
 
 	    // Load and display animated GIF
@@ -161,38 +211,12 @@ public class UI {
 	    // Draw the background GIF (stretch it to fit screen size)
 	    g2.drawImage(gifImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
 
-//	    // Set the font size and style
-//	    g2.setFont(title_font);
-//	    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40f));
-//
-//	    // STROKE SETTINGS (outline)
-//	    g2.setColor(new Color(67, 56, 120));  // Color of the stroke
-//	    g2.setStroke(new BasicStroke(6));  // Set stroke width
-//
-//	    // Draw the stroke by slightly off setting the position
-//	    g2.drawString(title, x - 2, y - 2);  // Top-left stroke
-//	    g2.drawString(title, x + 2, y - 2);  // Top-right stroke
-//	    g2.drawString(title, x - 2, y + 2);  // Bottom-left stroke
-//	    g2.drawString(title, x + 2, y + 2);  // Bottom-right stroke
-//
-//	    // Create the gradient (from left to right)
-//	    GradientPaint gradient = new GradientPaint(
-//	            x, y, new Color(155, 193, 255), // Start point (gold)
-//	            x + 150, y, new Color(203, 157, 240) // End point (orange)
-//	    );
-//
-//	    // Apply the gradient to the text
-//	    g2.setPaint(gradient);
-//
-//	    // MAIN TEXT (gradient color)
-//	    g2.drawString(title, x, y);
-	    x = 512-gp.screenWidth/2;
+	    x = 512 - gp.screenWidth / 2;
 	    Image logoImage = new ImageIcon(getClass().getResource("/ui/logo3.png")).getImage();
-	    g2.drawImage(logoImage, x, y, 512, 72,null);
+	    g2.drawImage(logoImage, x, y, 512, 72, null);
 	    
 	    // ------------------------------------------- MENU ------------------------------------
 	    // NEW GAME
-	 // Centered text drawing method
 	    String text = "New Game";
 	    y = gp.screenHeight / 2 - 50; // Y-coordinate stays the same
 
@@ -204,7 +228,7 @@ public class UI {
 	    int textWidth = metrics.stringWidth(text);
 
 	    // Calculate x to center-align the text
-	    x = (gp.screenWidth - textWidth) / 2; // Center alignment formula
+	    x = (gp.screenWidth - textWidth) / 2;
 
 	    // Draw the outline (stroke) for the text
 	    g2.setColor(new Color(67, 56, 120));
@@ -218,16 +242,16 @@ public class UI {
 	    g2.setColor(Color.white);
 	    g2.drawString(text, x, y);
 
-	    // Optional: Add selector arrow if needed
+	    // Selector arrows for New Game
 	    if (commandNum == 0) {
-	    	 g2.setColor(Color.white);
-	        g2.drawString(">", x - 30, y); // Adjust the arrow position relative to text
+	        g2.setColor(Color.white);
+	        g2.drawString("[", x - metrics.stringWidth("[") - 10, y);
+	        g2.drawString("]", x + textWidth + 10, y);
 	    }
 
-	    // Repeat for "Load Game" and "Exit"
+	    // Load Game
 	    text = "Load Game";
 	    y = gp.screenHeight / 2;
-	    // Measure text width and recalculate x
 	    textWidth = metrics.stringWidth(text);
 	    x = (gp.screenWidth - textWidth) / 2;
 
@@ -243,15 +267,16 @@ public class UI {
 	    g2.setColor(Color.white);
 	    g2.drawString(text, x, y);
 
-	    // Selector arrow for Load Game
+	    // Selector arrows for Load Game
 	    if (commandNum == 1) {
 	        g2.setColor(Color.white);
-	        g2.drawString(">", x - 30, y);
+	        g2.drawString("[", x - metrics.stringWidth("[") - 10, y);
+	        g2.drawString("]", x + textWidth + 10, y);
 	    }
 
+	    // Exit
 	    text = "Exit";
 	    y = gp.screenHeight / 2 + 50;
-	    // Measure text width and recalculate x
 	    textWidth = metrics.stringWidth(text);
 	    x = (gp.screenWidth - textWidth) / 2;
 
@@ -267,18 +292,15 @@ public class UI {
 	    g2.setColor(Color.white);
 	    g2.drawString(text, x, y);
 
-	    // Selector arrow for Exit
+	    // Selector arrows for Exit
 	    if (commandNum == 2) {
-	    	 g2.setColor(Color.white);
-	        g2.drawString(">", x - 30, y);
+	        g2.setColor(Color.white);
+	        g2.drawString("[", x - metrics.stringWidth("[") - 10, y);
+	        g2.drawString("]", x + textWidth + 10, y);
 	    }
-
-	   
-	    
-	  
-	   
-	    
 	}
+
+
 
 
 	
