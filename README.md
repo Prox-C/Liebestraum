@@ -18,5 +18,5 @@ A final requirement to an event-driven programming course, Liebestraum is a 2D a
 ### Credits 
 This is made possible thanks to <a href="https://youtube.com/@ryisnow?si=DcUHGmL28lRLZfkf">RyiSnow's</a> amazing Java game development tutorial series on YouTube.
 
-Also to <a href="https://game-endeavor.itch.io/mystic-woods">Game Endeavor</a>, <a href="https://kenmi-art.itch.io/cute-fantasy-rpg">Kenmi Art</a>, <a href="https://danieldiggle.itch.io/sunnyside">DanielDiggle</a> and <a href="https://gamedevshlok.itch.io/heartpack">Gamedevshlok</a>for the tilesets.
+Also to <a href="https://game-endeavor.itch.io/mystic-woods">Game Endeavor</a>, <a href="https://kenmi-art.itch.io/cute-fantasy-rpg">Kenmi Art</a>, <a href="https://danieldiggle.itch.io/sunnyside">DanielDiggle</a> and <a href="https://gamedevshlok.itch.io/heartpack">Gamedevshlok</a> for the tilesets.
 
