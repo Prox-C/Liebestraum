@@ -5,7 +5,7 @@ A final requirement to an event-driven programming course, Liebestraum is a 2D a
 
 <details>
 <summary>More</summary>
-  As someone with zero experience let alone interest in game development, this project was a personal challenge. Luckily I found this awesome tutorial by Ryi Snow which this project is based on.
+  As someone with zero experience let alone interest in game development, this project was a personal challenge. Luckily, I found this awesome tutorial by RyiSnow which this project is based on.
 </details>
 
 ## Core Technologies
@@ -16,6 +16,6 @@ A final requirement to an event-driven programming course, Liebestraum is a 2D a
   </p>
 
 ## Credits 
-This is made possible thanks to Ryi Snow for his amazing Java game development tutorial series on YouTube 
+This is made possible thanks to <a href="https://youtube.com/@ryisnow?si=DcUHGmL28lRLZfkf">RyiSnow's</a> amazing Java game development tutorial series on YouTube.
 
-Also to kuan kuan
+Also to kuan kuan and kuan for the tilesets.
