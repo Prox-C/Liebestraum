@@ -9,5 +9,13 @@ A final requirement to an event-driven programming course, Liebestraum is a 2D a
 </details>
 
 ## Core Technologies
-<img align="center" src="https://skillicons.dev/icons?i=java,eclipse"/>
+  <p>
+    <a href="https://skillicons.dev">
+      <img src="https://skillicons.dev/icons?i=java,eclipse"/>
+    </a>
+  </p>
 
+## Credits 
+This is made possible thanks to Ryi Snow for his amazing Java game development tutorial series on YouTube 
+
+Also to kuan kuan
