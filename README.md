@@ -8,8 +8,8 @@ A final requirement to an event-driven programming course, Liebestraum is a 2D a
   As someone with zero experience let alone interest in game development, this project was a personal challenge. Luckily I found this awesome tutorial by Ryi Snow which this project is based on.
 </details>
 
-##Core Technologies
-<p text-align: center>
-  JAVA, ECLIPSE
+## Core Technologies
+<p align-text: center>
+  <img src="https://skillicons.dev/icons?i=java,eclipse"/>
 </p>
 
