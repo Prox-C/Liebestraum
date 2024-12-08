@@ -9,7 +9,5 @@ A final requirement to an event-driven programming course, Liebestraum is a 2D a
 </details>
 
 ## Core Technologies
-<p align-text: center>
-  <img src="https://skillicons.dev/icons?i=java,eclipse"/>
-</p>
+<img align="center" src="https://skillicons.dev/icons?i=java,eclipse"/>
 
