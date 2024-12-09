@@ -72,8 +72,11 @@ public class KeyHandler implements KeyListener {
 			}
 			if (code == KeyEvent.VK_ENTER) {
 				enterPressed = true;
-				
 			}
+			if (code == KeyEvent.VK_ESCAPE) {
+				gp.gameState = gp.optionState;
+			}
+			
 		} 
 		
 		// PAUSE STATE
@@ -82,20 +85,72 @@ public class KeyHandler implements KeyListener {
 				gp.gameState = gp.playState;
 			}
 
+			
 		}
-	
 		//DIALOG STATE
 		else if(gp.gameState == gp.dialogState) {
 			if(code == KeyEvent.VK_ENTER) {
 				gp.gameState = gp.playState;
 			}
 		}
-		
+		//GAME OVER STATE
 		else if(gp.gameState == gp.gameOverState) {
 			gameOverState(code);
 		}
 		
+		//OPTION STATE
+		else if(gp.gameState == gp.optionState) {
+			optionState(code);
+		}
 		
+	}
+	
+	public void optionState(int code) {
+		if(code == KeyEvent.VK_ESCAPE) {
+			gp.gameState = gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER) {
+			enterPressed = true;
+		}
+		
+		int maxCommandNum = 0;
+		switch(gp.ui.subState) {
+		case 0: maxCommandNum = 4;
+		}
+		if(code == KeyEvent.VK_W) {
+			gp.ui.commandNum--;
+			if(gp.ui.commandNum < 0) {
+				gp.ui.commandNum = maxCommandNum;
+			}
+		}
+		if(code == KeyEvent.VK_S) {
+			gp.ui.commandNum++;
+			if(gp.ui.commandNum > maxCommandNum) {
+				gp.ui.commandNum = 0;
+			}
+		}
+		if(code == KeyEvent.VK_A) {
+			if(gp.ui.subState == 0) {
+				if(gp.ui.commandNum == 0 && gp.music.volumeScale > 0) {
+					gp.music.volumeScale--;
+					gp.music.checkVolume();
+				}
+				if(gp.ui.commandNum == 1 && gp.sfx.volumeScale > 0) {
+					gp.sfx.volumeScale--;
+				}
+			}
+		}
+		if(code == KeyEvent.VK_D) {
+			if(gp.ui.subState == 0) {
+				if(gp.ui.commandNum == 0 && gp.music.volumeScale < 5) {
+					gp.music.volumeScale++;
+					gp.music.checkVolume();
+				}
+				if(gp.ui.commandNum == 1 && gp.sfx.volumeScale < 5) {
+					gp.sfx.volumeScale++;
+				}
+			}
+		}
 	}
 	
 	public void gameOverState(int code) {

@@ -66,16 +66,16 @@ public class EventHandler {
 		return hit;
 	}
 	
-	public void damageTile(int gameState) {
+	public void relapse(int gameState) {
 		gp.gameState = gameState;
-		gp.ui.currentDialog = "Roses remind me of you, Ligaya. ";
+		gp.ui.currentDialog = "( The sight of this rose bud reminds you of something\nyou once held dear. )";
 		gp.player.life -= 1;
 //		eventRect[col][row].eventDone = true;
 		canTouchEvent = false;
 	}
 	public void spawned(int map, int col, int row, int gameState) {
 		gp.gameState = gameState;
-		gp.ui.currentDialog = "*You woke up in an unfamiliar place and you don't remember\nanything.*";
+		gp.ui.currentDialog = "( You've awoken in an unfamiliar place and you don't seem\nto remember anything. )";
 		eventRect[map][col][row].eventDone = true;
 		canTouchEvent = false;
 	}
@@ -103,7 +103,7 @@ public class EventHandler {
 		}
 		
 		if(canTouchEvent == true) {
-			if(hit(0, 14, 19, "down") == true) {damageTile(gp.dialogState);}
+			if(hit(0,22, 24, "any") == true) {relapse(gp.dialogState);}
 			else if(hit(0, 18, 27, "down") == true) {healingWell(gp.dialogState);}
 			else if(hit(0, 31, 9, "up") == true) {
 				changeMap(1, 31, 8);
