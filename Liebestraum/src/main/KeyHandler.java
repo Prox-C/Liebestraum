@@ -32,7 +32,7 @@ public class KeyHandler implements KeyListener {
 			}
 			if (code == KeyEvent.VK_S) {
 				gp.ui.commandNum++;
-				if(gp.ui.commandNum > 2) {
+				if(gp.ui.commandNum > 1) {
 					gp.ui.commandNum = 0;
 				}
 			}
@@ -42,10 +42,7 @@ public class KeyHandler implements KeyListener {
 					gp.stopMusic(6);
 					gp.playMusic(0);
 				}
-				if(gp.ui.commandNum == 1) { // LOAD GAME
-					
-				}
-				if(gp.ui.commandNum == 2) { // QUIT
+				if(gp.ui.commandNum == 1) { // QUIT
 					System.exit(0);
 				}
 				

@@ -256,8 +256,33 @@ public class UI {
 	        g2.drawString("]", x + textWidth + 10, y);
 	    }
 
-	    // Load Game
-	    text = "Load Game";
+//	    // Load Game
+//	    text = "Load Game";
+//	    y = gp.screenHeight / 2;
+//	    textWidth = metrics.stringWidth(text);
+//	    x = (gp.screenWidth - textWidth) / 2;
+
+//	    // Outline
+//	    g2.setColor(new Color(67, 56, 120));
+//	    g2.setStroke(new BasicStroke(4));
+//	    g2.drawString(text, x - 2, y - 2);
+//	    g2.drawString(text, x + 2, y - 2);
+//	    g2.drawString(text, x - 2, y + 2);
+//	    g2.drawString(text, x + 2, y + 2);
+//
+//	    // Main text
+//	    g2.setColor(Color.white);
+//	    g2.drawString(text, x, y);
+
+//	    // Selector arrows for Load Game
+//	    if (commandNum == 1) {
+//	        g2.setColor(Color.white);
+//	        g2.drawString("[", x - metrics.stringWidth("[") - 10, y);
+//	        g2.drawString("]", x + textWidth + 10, y);
+//	    }
+
+	    // Exit
+	    text = "Exit";
 	    y = gp.screenHeight / 2;
 	    textWidth = metrics.stringWidth(text);
 	    x = (gp.screenWidth - textWidth) / 2;
@@ -274,33 +299,8 @@ public class UI {
 	    g2.setColor(Color.white);
 	    g2.drawString(text, x, y);
 
-	    // Selector arrows for Load Game
-	    if (commandNum == 1) {
-	        g2.setColor(Color.white);
-	        g2.drawString("[", x - metrics.stringWidth("[") - 10, y);
-	        g2.drawString("]", x + textWidth + 10, y);
-	    }
-
-	    // Exit
-	    text = "Exit";
-	    y = gp.screenHeight / 2 + 50;
-	    textWidth = metrics.stringWidth(text);
-	    x = (gp.screenWidth - textWidth) / 2;
-
-	    // Outline
-	    g2.setColor(new Color(67, 56, 120));
-	    g2.setStroke(new BasicStroke(4));
-	    g2.drawString(text, x - 2, y - 2);
-	    g2.drawString(text, x + 2, y - 2);
-	    g2.drawString(text, x - 2, y + 2);
-	    g2.drawString(text, x + 2, y + 2);
-
-	    // Main text
-	    g2.setColor(Color.white);
-	    g2.drawString(text, x, y);
-
 	    // Selector arrows for Exit
-	    if (commandNum == 2) {
+	    if (commandNum == 1) {
 	        g2.setColor(Color.white);
 	        g2.drawString("[", x - metrics.stringWidth("[") - 10, y);
 	        g2.drawString("]", x + textWidth + 10, y);
