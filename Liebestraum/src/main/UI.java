@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
-import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
@@ -40,6 +39,8 @@ public class UI {
 	public int commandNum = 0;
 	
 	int subState = 0;
+	
+	public Entity npc;
 
 	public UI(GamePanel gp) {
 		this.gp = gp;
@@ -483,6 +484,24 @@ public class UI {
 		
 		g2.setFont(stat_font);
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16));
+		
+		if(npc.dialog[npc.dialogSet][npc.dialogIndex] != null) {
+			currentDialog = npc.dialog[npc.dialogSet][npc.dialogIndex];
+			if(gp.keyH.enterPressed) {
+				if(gp.gameState == gp.dialogState) {
+					npc.dialogIndex++;
+					gp.keyH.enterPressed = false;
+				}
+			}
+			
+		}
+		else {
+			npc.dialogIndex = 0;
+			
+			if(gp.gameState == gp.dialogState) {
+				gp.gameState = gp.playState;
+			}
+		}
 		
 		for(String line : currentDialog.split("\n")) {
 			

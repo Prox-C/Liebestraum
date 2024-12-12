@@ -24,6 +24,8 @@ public class NPC_Kulot extends Entity {
 		solidArea.width = 30;
 		solidArea.height = 30;
 		
+		dialogSet = -1;
+		
 		getImage();
 		setDialog();
 	}
@@ -67,17 +69,25 @@ public class NPC_Kulot extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0] = "Kulot: Greetings, traveler!";
-		dialog[1] = "Kulot: So you don't recall anything huh?";
-		dialog[2] = "Kulot: You must be one of those that came  from outside of\nHeartland!";
-		dialog[3] = "Kulot: There's a road down these woods called 'Memory Lane'";
-		dialog[4] = "Kulot: I'm sure you'll find something there that will help you with\nyour journey.";
-		dialog[5] = "Kulot: Good luck!";
+		dialog[0][0] = "Kulot: Greetings, traveler!";
+		dialog[0][1] = "Kulot: So you don't recall anything huh?";
+		dialog[0][2] = "Kulot: You must be one of those that came  from outside of\nHeartland!";
+		
+		dialog[1][0] = "Kulot: There's a road down these woods called 'Memory Lane'";
+		dialog[1][1] = "Kulot: I'm sure you'll find something there that will help you with\nyour journey.";
+		dialog[1][2] = "Kulot: Good luck!";
 
 		
 	}
 	public void speak() {
-		super.speak();
+		facePlayer();
+		startDialog(this, dialogSet);
+		
+		dialogSet++;
+		
+		if(dialog[dialogSet][0] == null) {
+			dialogSet = 0;
+		}
 	}
 	
 }

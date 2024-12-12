@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
 public class Player extends Entity	{
 	
@@ -342,7 +341,6 @@ public class Player extends Entity	{
 		if(gp.keyH.enterPressed == true) {
 			if(i != 999) {
 				attackCancelled = true;
-				gp.gameState = gp.dialogState;
 				gp.npc[gp.currentMap][i].speak();
 			}
 		}

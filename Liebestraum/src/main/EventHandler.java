@@ -1,16 +1,22 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Rectangle;
+
+import entity.Entity;
 
 public class EventHandler {
 	GamePanel gp;
 	EventRect eventRect[][][];
+	Entity eventMaster; 
+	
 	int previousEventX, previousEventY;
 	boolean canTouchEvent = true;
 	
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
+		
+		eventMaster = new Entity(gp);
+		
 		eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 		
 		int map = 0;
@@ -35,7 +41,7 @@ public class EventHandler {
 			}
 		}	 
 		
-			
+		setDialog();	
 	}
 
 	public boolean hit(int map, int col, int row, String reqDirection) {
@@ -68,24 +74,24 @@ public class EventHandler {
 	
 	public void relapse(int gameState) {
 		gp.gameState = gameState;
-		gp.ui.currentDialog = "( The sight of this rose bud reminds you of something\nyou once held dear. )";
+		eventMaster.startDialog(eventMaster, 1);
 		gp.player.life -= 1;
 //		eventRect[col][row].eventDone = true;
 		canTouchEvent = false;
 	}
 	public void spawned(int map, int col, int row, int gameState) {
 		gp.gameState = gameState;
-		gp.ui.currentDialog = "( You've awoken in an unfamiliar place and you don't seem\nto remember anything. )";
+		eventMaster.startDialog(eventMaster, 0);
 		eventRect[map][col][row].eventDone = true;
 		canTouchEvent = false;
 	}
 	public void healingWell(int gameState) {
 		if(gp.keyH.enterPressed == true) {
 			gp.playSE(10);
-			gp.gameState = gp.dialogState;
-			gp.ui.currentDialog = "Recovering HP . . .";
-			gp.player.life = gp.player.maxHealth;
+			gp.gameState = gameState;
 			gp.player.attackCancelled = true;
+			eventMaster.startDialog(eventMaster, 2);
+			gp.player.life = gp.player.maxHealth;
 			canTouchEvent = false;
 		}
 	}
@@ -125,6 +131,15 @@ public class EventHandler {
 		previousEventX = gp.player.worldX;
 		previousEventY = gp.player.worldY;
 		canTouchEvent = false;
+	}
+	
+	public void setDialog() {
+		eventMaster.dialog[0][0] = "( You've awoken in an unfamiliar place.)";
+		eventMaster.dialog[0][1] = "( Confused, you pressed onwards in search of answers.)";
+
+		eventMaster.dialog[1][0] = "( The sight of this rose bud reminds you of something\nyou once held dear. )";
+		eventMaster.dialog[2][0] = "Recovering HP . . .";
+
 	}
 	
 	

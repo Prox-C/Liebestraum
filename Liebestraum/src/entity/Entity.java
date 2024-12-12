@@ -34,8 +34,10 @@ public class Entity {
 	public boolean collisionOn = false; 
 	public int actionLockCounter = 0;
 	
-	String dialog[] = new String[20]; 
-	int dialogIndex = 0;public int life;
+	public String dialog[][] = new String[20][20]; 
+	public int dialogSet = 0;
+	public int dialogIndex = 0;
+	public int life;
 	
 	public BufferedImage image, image2, image3;
 	public boolean collision = false;
@@ -169,12 +171,16 @@ public class Entity {
 	public void setAction() {}
 	public void flea() {}
 	public void speak() {
-		if(dialog[dialogIndex] == null) {
-			dialogIndex = 0;
-		}
-		gp.ui.currentDialog = dialog[dialogIndex];
-		dialogIndex++;
 		
+	}
+
+	public void startDialog(Entity entity, int setNum) {
+		gp.gameState = gp.dialogState;
+		gp.ui.npc = entity;
+		dialogSet = setNum;
+	}
+	
+	public void facePlayer() {
 		switch(gp.player.direction) {
 		case "up": direction = "down"; break;
 		case "down": direction = "up"; break;
