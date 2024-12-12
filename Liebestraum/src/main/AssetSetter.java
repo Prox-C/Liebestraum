@@ -2,15 +2,15 @@ package main;
 
 import entity.NML_Duck;
 import entity.NPC_Kulot;
+import entity.NPC_Leo;
 import mob.MOB_GreenSlime;
 import object.OBJ_Boulder;
 //import object.OBJ_Chest;
 //import object.OBJ_Door;
 import object.OBJ_Key;
-import object.OBJ_Leo;
 import object.OBJ_Pickaxe;
 import object.OBJ_Sign;
-import object.OBJ_SpeedPotion;
+//import object.OBJ_SpeedPotion;
 
 public class AssetSetter {
 	GamePanel gp;
@@ -43,17 +43,13 @@ public class AssetSetter {
 		gp.obj[mapNum][3].worldY = 18 * gp.tileSize;
 		
 		mapNum++;
-		
-		gp.obj[mapNum][0] = new OBJ_Leo(gp);
-		gp.obj[mapNum][0].worldX = 35 * gp.tileSize;
-		gp.obj[mapNum][0].worldY = 5 * gp.tileSize;	
 	}
 	
 	public void setNPC() {
 		int mapNum = 0;
 
 		gp.npc[mapNum][0] = new NPC_Kulot(gp);
-		gp.npc[mapNum][0].worldX = gp.tileSize * 12;
+		gp.npc[mapNum][0].worldX = gp.tileSize * 14;
 		gp.npc[mapNum][0].worldY = gp.tileSize * 13;
 		
 		gp.npc[mapNum][1] = new NML_Duck(gp);
@@ -66,9 +62,9 @@ public class AssetSetter {
 		
 		mapNum++;
 		
-//		gp.npc[mapNum][0] = new NPC_Kulot(gp);
-//		gp.npc[mapNum][0].worldX = gp.tileSize * 35;
-//		gp.npc[mapNum][0].worldY = gp.tileSize * 5;
+		gp.npc[mapNum][0] = new NPC_Leo(gp);
+		gp.npc[mapNum][0].worldX = gp.tileSize * 35;
+		gp.npc[mapNum][0].worldY = gp.tileSize * 5;
 	}
 	
 	public void setMob() {

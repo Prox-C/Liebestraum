@@ -1,13 +1,7 @@
 package entity;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
-
 import main.GamePanel;
-import main.UtilityTool;
 
 public class NPC_Kulot extends Entity {
 	public NPC_Kulot(GamePanel gp) {
@@ -15,7 +9,7 @@ public class NPC_Kulot extends Entity {
 		
 		type = 1;
 		direction = "left";
-		speed = 0;
+		speed = 1;
 		
 		solidArea.x = 8;
 		solidArea.y = 16;
@@ -51,16 +45,16 @@ public class NPC_Kulot extends Entity {
 			int i = random.nextInt(100)+1;
 			
 			if(i <= 25) {
-				direction = "left";
+				direction = "up";
 			}
 			if(i > 25 && i <= 50) {
-				direction = "left";
+				direction = "down";
 			}
 			if(i > 50 && i <= 75) {
 				direction = "left";
 			}
 			if(i > 75) {
-				direction = "left";
+				direction = "right";
 			}
 			actionLockCounter = 0;
 			
@@ -69,15 +63,15 @@ public class NPC_Kulot extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0][0] = "Kulot: Greetings, traveler!";
-		dialog[0][1] = "Kulot: So you don't recall anything huh?";
-		dialog[0][2] = "Kulot: You must be one of those that came  from outside of\nHeartland!";
-		
-		dialog[1][0] = "Kulot: There's a road down these woods called 'Memory Lane'";
-		dialog[1][1] = "Kulot: I'm sure you'll find something there that will help you with\nyour journey.";
-		dialog[1][2] = "Kulot: Good luck!";
+		dialog[0][0] = "Kulot: You seem lost, boy.";
+		dialog[0][1] = "Kulot: Strange. You don't remember a thing huh?";
+		dialog[0][2] = "Kulot: Theres a road down these woods called 'Memory Lane'";
+		dialog[0][3] = "Kulot: Take it as it will lead you to an Inn Keeper named Leo.";
+		dialog[0][4] = "Kulot: He knows a lot about 'this' place. I'm sure he can help you.";
 
-		
+		dialog[1][0] = "Kulot: Sometimes, we don't know what we have till it's gone.";
+		dialog[2][0] = "Kulot: Cherish every moment.";
+		dialog[3][0] = "Kulot: Live life to the fullest!";
 	}
 	public void speak() {
 		facePlayer();
@@ -86,7 +80,7 @@ public class NPC_Kulot extends Entity {
 		dialogSet++;
 		
 		if(dialog[dialogSet][0] == null) {
-			dialogSet = 0;
+			dialogSet = 1;
 		}
 	}
 	

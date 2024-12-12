@@ -134,11 +134,16 @@ public class EventHandler {
 	}
 	
 	public void setDialog() {
-		eventMaster.dialog[0][0] = "( You've awoken in an unfamiliar place.)";
-		eventMaster.dialog[0][1] = "( Confused, you pressed onwards in search of answers.)";
+		//SPAWNED
+		eventMaster.dialog[0][0] = "( You've awoken in an unfamiliar place, clueless of everything.)";
+		eventMaster.dialog[0][1] = "( Confused, you pressed onwards in search for answers. )";
 
 		eventMaster.dialog[1][0] = "( The sight of this rose bud reminds you of something\nyou once held dear. )";
-		eventMaster.dialog[2][0] = "Recovering HP . . .";
+		
+		//HEALING WELL
+		eventMaster.dialog[2][0] = "( You drank water from the well of life. )";
+		eventMaster.dialog[2][0] = "( HP is fully recovered! )";
+
 
 	}
 	

@@ -32,15 +32,13 @@ public class UI {
 	private Color messageColor = Color.white; // Default color
 	public String message = "";
 	int messageCounter = 0;
-	
 	public boolean gameFinished = false;
-	
 	public String currentDialog = "";
 	public int commandNum = 0;
-	
 	int subState = 0;
-	
 	public Entity npc;
+	int  charIndex = 0;
+	String combinedText = "";
 
 	public UI(GamePanel gp) {
 		this.gp = gp;
@@ -486,8 +484,18 @@ public class UI {
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16));
 		
 		if(npc.dialog[npc.dialogSet][npc.dialogIndex] != null) {
-			currentDialog = npc.dialog[npc.dialogSet][npc.dialogIndex];
+			//currentDialog = npc.dialog[npc.dialogSet][npc.dialogIndex];
+			
+			char charachters[] = npc.dialog[npc.dialogSet][npc.dialogIndex].toCharArray();
+			if(charIndex < charachters.length) {
+				String s = String.valueOf(charachters[charIndex]);
+				combinedText = combinedText + s;
+				currentDialog = combinedText;
+				charIndex++;
+			}
 			if(gp.keyH.enterPressed) {
+				charIndex = 0;
+				combinedText = "";
 				if(gp.gameState == gp.dialogState) {
 					npc.dialogIndex++;
 					gp.keyH.enterPressed = false;
