@@ -4,7 +4,9 @@ import entity.NML_Duck;
 import entity.NPC_Kulot;
 import entity.NPC_Leo;
 import mob.MOB_GreenSlime;
-import object.OBJ_Boulder;
+import object.OBJ_Tree;
+import object.OBJ_Void;
+import object.OBJ_Axe;
 //import object.OBJ_Chest;
 //import object.OBJ_Door;
 import object.OBJ_Key;
@@ -26,21 +28,45 @@ public class AssetSetter {
 		gp.obj[mapNum][0].worldX = 39 * gp.tileSize;
 		gp.obj[mapNum][0].worldY = 41 * gp.tileSize;
 		
-		gp.obj[mapNum][1] = new OBJ_Boulder(gp);
+		gp.obj[mapNum][1] = new OBJ_Tree(gp);
 		gp.obj[mapNum][1].worldX = 38 * gp.tileSize;
 		gp.obj[mapNum][1].worldY = 9 * gp.tileSize;
 		
-		gp.obj[mapNum][2] = new OBJ_Pickaxe(gp);
+		gp.obj[mapNum][2] = new OBJ_Axe(gp);
 		gp.obj[mapNum][2].worldX = 19 * gp.tileSize;
 		gp.obj[mapNum][2].worldY = 32 * gp.tileSize;
+		
+		gp.obj[mapNum][3] = new OBJ_Tree(gp);
+		gp.obj[mapNum][3].worldX = 33 * gp.tileSize;
+		gp.obj[mapNum][3].worldY = 10 * gp.tileSize;
+		
+		gp.obj[mapNum][4] = new OBJ_Tree(gp);
+		gp.obj[mapNum][4].worldX = 39 * gp.tileSize;
+		gp.obj[mapNum][4].worldY = 10 * gp.tileSize;
+		
+		gp.obj[mapNum][5] = new OBJ_Tree(gp);
+		gp.obj[mapNum][5].worldX = 38 * gp.tileSize;
+		gp.obj[mapNum][5].worldY = 14 * gp.tileSize;
 		
 //		gp.obj[3] = new OBJ_SpeedPotion(gp);
 //		gp.obj[3].worldX = 20 * gp.tileSize;
 //		gp.obj[3].worldY = 10 * gp.tileSize;
 		
-		gp.obj[mapNum][3] = new OBJ_Sign(gp);
-		gp.obj[mapNum][3].worldX = 23 * gp.tileSize;
-		gp.obj[mapNum][3].worldY = 18 * gp.tileSize;
+		gp.obj[mapNum][6] = new OBJ_Sign(gp);
+		gp.obj[mapNum][6].worldX = 23 * gp.tileSize;
+		gp.obj[mapNum][6].worldY = 18 * gp.tileSize;
+		
+		gp.obj[mapNum][7] = new OBJ_Void(gp);
+		gp.obj[mapNum][7].worldX = 42 * gp.tileSize;
+		gp.obj[mapNum][7].worldY = 25 * gp.tileSize;
+		
+		gp.obj[mapNum][8] = new OBJ_Void(gp);
+		gp.obj[mapNum][8].worldX = 42 * gp.tileSize;
+		gp.obj[mapNum][8].worldY = 26 * gp.tileSize;
+		
+		gp.obj[mapNum][9] = new OBJ_Void(gp);
+		gp.obj[mapNum][9].worldX = 42 * gp.tileSize;
+		gp.obj[mapNum][9].worldY = 27 * gp.tileSize;
 		
 		mapNum++;
 	}

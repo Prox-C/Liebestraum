@@ -64,15 +64,18 @@ public class NPC_Leo extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0][0] = "Kulot: You seem lost, boy.";
-		dialog[0][1] = "Kulot: Strange. You don't remember a thing huh?";
-		dialog[0][2] = "Kulot: Theres a road down these woods called 'Memory Lane'";
-		dialog[0][3] = "Kulot: Take it as it will lead you to an Inn Keeper named Leo.";
-		dialog[0][4] = "Kulot: He knows a lot about 'this' place. I'm sure he can help you.";
+		dialog[0][0] = "Leo: Welcome to my lodge, the best place to stay in all of\nHeartland! How can I help you?";
+		dialog[0][1] = "Leo: I see, so you somehow lost your memories huh?";
+		dialog[0][2] = "Leo: The mind truly is mysterious. You're in luck tho, 'cause\nI have an ancient secret magic garden!";
+		dialog[0][3] = "Leo: I remember how it rid most everything that ails my guests.\nIt even healed a fatally wounded man once!";
+		dialog[0][4] = "Leo: But I haven't been there in a long while now. You may\ncheck it out for yourself.";
+		dialog[0][5] = "[ SYSTEM ] Quest: Visit Leo's garden and investigate the area. ";
 
-		dialog[1][0] = "Kulot: Sometimes, we don't know what we have till it's gone.";
-		dialog[2][0] = "Kulot: Cherish every moment.";
-		dialog[3][0] = "Kulot: Live life to the fullest!";
+		dialog[1][0] = "Leo's lodge is the best place to stay in all of Heartland!";
+		dialog[2][0] = "Even if the mind forgets, the heart always remembers.";
+		dialog[3][0] = "This forest holds many secrets . . .";
+
+		
 	}
 	public void speak() {
 		facePlayer();

@@ -135,7 +135,7 @@ public class EventHandler {
 	
 	public void setDialog() {
 		//SPAWNED
-		eventMaster.dialog[0][0] = "( You've awoken in an unfamiliar place, clueless of everything.)";
+		eventMaster.dialog[0][0] = "( You've awoken in an unfamiliar place, clueless of everything. )";
 		eventMaster.dialog[0][1] = "( Confused, you pressed onwards in search for answers. )";
 
 		eventMaster.dialog[1][0] = "( The sight of this rose bud reminds you of something\nyou once held dear. )";

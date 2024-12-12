@@ -65,9 +65,11 @@ public class NPC_Kulot extends Entity {
 	public void setDialog() {
 		dialog[0][0] = "Kulot: You seem lost, boy.";
 		dialog[0][1] = "Kulot: Strange. You don't remember a thing huh?";
-		dialog[0][2] = "Kulot: Theres a road down these woods called 'Memory Lane'";
-		dialog[0][3] = "Kulot: Take it as it will lead you to an Inn Keeper named Leo.";
+		dialog[0][2] = "Kulot: Theres a road down these woods called 'Memory Lane'.";
+		dialog[0][3] = "Kulot: Take it as it will lead you to an inn keeper named Leo.";
 		dialog[0][4] = "Kulot: He knows a lot about 'this' place. I'm sure he can help you.";
+		dialog[0][5] = "Kulot: Well then, be safe and good luck!";
+		dialog[0][6] = "[ SYSTEM ] Quest: Locate Leo and talk to him.";
 
 		dialog[1][0] = "Kulot: Sometimes, we don't know what we have till it's gone.";
 		dialog[2][0] = "Kulot: Cherish every moment.";

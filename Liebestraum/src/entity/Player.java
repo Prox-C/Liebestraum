@@ -23,6 +23,7 @@ public class Player extends Entity	{
 	public boolean armed = true;
 	public int silver_keys = 0;
 	public int pickaxeDurability = 0;
+	public int axeDurability = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -265,12 +266,12 @@ public class Player extends Entity	{
 				gp.obj[gp.currentMap][i] = null;
 				break;
 				
-			case "Pickaxe":
+			case "Axe":
 				if(silver_keys > 0) {
 					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
 						silver_keys--;
-						pickaxeDurability = 100;
-						gp.ui.displayMessage("Pickaxe obtained", Color.GREEN);
+						axeDurability = 100;
+						gp.ui.displayMessage("Axe obtained", Color.GREEN);
 						gp.playSE(4);
 						try {
 							gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
@@ -285,9 +286,9 @@ public class Player extends Entity	{
 				}
 				break;
 				
-			case "Boulder":
-				if(pickaxeDurability != 0) {
-					pickaxeDurability -= 20;
+			case "Tree":
+				if(axeDurability != 0) {
+					axeDurability -= 20;
 					gp.ui.displayMessage("Obstacle cleared", Color.GREEN);
 					gp.playSE(3);
 					try {
@@ -298,7 +299,7 @@ public class Player extends Entity	{
 					gp.obj[gp.currentMap][i] = null;
 				}
 				else {
-					gp.ui.displayMessage("You need a Pickaxe to remove this boulder.", Color.RED);
+					gp.ui.displayMessage("You need an Axe to remove this tree.", Color.RED);
 				}
 				break;
 				
@@ -323,6 +324,9 @@ public class Player extends Entity	{
 				break;
 			case "Sign":
 				gp.ui.displayMessage("Memory Lane", Color.WHITE);
+				break;
+			case "Void": 
+				gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);
 				break;
 				
 //			case "Gold Key":
