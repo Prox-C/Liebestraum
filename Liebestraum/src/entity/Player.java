@@ -28,7 +28,7 @@ public class Player extends Entity	{
 	public int pickaxeDurability = 0;
 	public int axeDurability = 0;
 	
-	public int stage = 0;
+	public int stage = 0; //0
 	public boolean questDone = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -58,8 +58,11 @@ public class Player extends Entity	{
 	
 	public void setDefaultValues() {
 		//SPAWN POINT
-		worldX = gp.tileSize * 19;
-		worldY = gp.tileSize * 14; 
+//		worldX = gp.tileSize * 19;
+//		worldY = gp.tileSize * 14; 
+		
+		worldX = gp.tileSize * 41;
+		worldY = gp.tileSize * 26; 
  
 		speed = 3;
 		

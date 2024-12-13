@@ -138,7 +138,16 @@ public class EventHandler {
 			//INTO THE OUTSKIRTS
 			else if(hit(1, 31, 9, "down") == true) {
 				changeMap(0, 31, 10);
-				gp.ui.displayMessage("Outskirts", Color.WHITE);
+				gp.ui.displayMessage("The outskirts", Color.WHITE);
+			}
+			else if(hit(2, 8, 26, "left") == true||hit(2, 8, 25, "left") == true||hit(2, 8, 27, "left") == true) {
+				changeMap(0, 40, 26);
+				gp.ui.displayMessage("The Outskirts", Color.WHITE);
+			}
+			//INTO THE RAVALON
+			else if(hit(0, 42, 26, "right") == true||hit(0, 42, 25, "right") == true||hit(0, 42, 27, "right") == true) {
+				changeMap(2, 10, 26);
+				gp.ui.displayMessage("Ravalon District", Color.WHITE);
 			}
 			//HEAL
 			else if(hit(0, 18, 27, "down") == true) {healingWell(gp.dialogState);}

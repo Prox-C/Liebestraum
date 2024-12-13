@@ -61,6 +61,8 @@ public class TileManager {
 		
 		loadMap("/maps/memorylane.txt", 0);
 		loadMap("/maps/cleric_house.txt", 1);
+		loadMap("/maps/ravalon.txt", 2);
+
 	}
 	
 	public void loadMap(String filePath, int map) {
