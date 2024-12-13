@@ -20,10 +20,16 @@ public class Player extends Entity	{
 	public final int screenY;
 	int standCounter = 0;
 	public boolean attackCancelled = false;
-	public boolean armed = true;
+	
+	public boolean armed = false;
+	
+	//EQUIPMENTS
 	public int silver_keys = 0;
 	public int pickaxeDurability = 0;
 	public int axeDurability = 0;
+	
+	public int stage = 0;
+	public boolean questDone = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -54,6 +60,7 @@ public class Player extends Entity	{
 		//SPAWN POINT
 		worldX = gp.tileSize * 19;
 		worldY = gp.tileSize * 14; 
+ 
 		speed = 3;
 		
 		direction = "down";
@@ -325,8 +332,10 @@ public class Player extends Entity	{
 			case "Sign":
 				gp.ui.displayMessage("Memory Lane", Color.WHITE);
 				break;
-			case "Void": 
-				gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);
+			case "Void":
+				if(stage < 1) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
+				else {gp.obj[gp.currentMap][i] = null;}
+					
 				break;
 				
 //			case "Gold Key":

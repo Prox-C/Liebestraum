@@ -66,16 +66,27 @@ public class NPC_Leo extends Entity {
 	public void setDialog() {
 		dialog[0][0] = "Leo: Welcome to my lodge, the best place to stay in all of\nHeartland! How can I help you?";
 		dialog[0][1] = "Leo: I see, so you somehow lost your memories huh?";
-		dialog[0][2] = "Leo: The mind truly is mysterious. You're in luck tho, 'cause\nI have an ancient secret magic garden!";
+		dialog[0][2] = "Leo: The mind truly is mysterious. You're in luck tho, 'cause I have\na super sercret ancient magic garden!";
 		dialog[0][3] = "Leo: I remember how it rid most everything that ails my guests.\nIt even healed a fatally wounded man once!";
 		dialog[0][4] = "Leo: But I haven't been there in a long while now. You may\ncheck it out for yourself.";
 		dialog[0][5] = "[ SYSTEM ] Quest: Visit Leo's garden and investigate the area. ";
 
-		dialog[1][0] = "Leo's lodge is the best place to stay in all of Heartland!";
-		dialog[2][0] = "Even if the mind forgets, the heart always remembers.";
-		dialog[3][0] = "This forest holds many secrets . . .";
-
+		dialog[1][0] = "Leo: Leo's lodge is the best place to stay in all of Heartland!";
+		dialog[2][0] = "Leo: Even if the mind forgets, the heart always remembers.";
+		dialog[3][0] = "Leo: This forest holds many secrets . . .";
 		
+		dialog[4][0] = "Leo: Ligaya you say? Sorry, it doesn't ring a bell.";
+		dialog[4][1] = "Leo: I keep a record of those who visit this lodge. Unfortunately,\nit doesn't seem like we've had a Ligaya in here.";
+		dialog[4][2] = "( You frown as he informs you they have no history with anyone\nnamed Ligaya. )";
+		dialog[4][3] = "Leo: Do not fret, young man. I may not no anyone by that name,\nbut I DO know someone who might!";
+		dialog[4][4] = "Leo: There's an old wise man by the name of Khrono, he who\nknows all.";
+		dialog[4][5] = "Leo: He knows EVERYTHING about Heartland! He might even\nhave the answers you are searching for. ";
+		dialog[4][6] = "Leo: My patrons say that he often wanders around the raging\nrivers of Ravalon.";
+		dialog[4][7] = "Leo: Take these supplies and go on with your journey. I wish\nyou good luck!";
+		dialog[4][8] = "[ SYSTEM ] Quest: Go to the Ravalon district. ";
+
+
+		dialog[5][0] = "Leo: Come back again!";	
 	}
 	public void speak() {
 		facePlayer();
@@ -85,6 +96,11 @@ public class NPC_Leo extends Entity {
 		
 		if(dialog[dialogSet][0] == null) {
 			dialogSet = 1;
+		}
+		if(gp.player.questDone) {
+			dialogSet = 4;
+			gp.player.stage++;
+			gp.player.questDone = false;
 		}
 	}
 	
