@@ -75,18 +75,17 @@ public class NPC_Leo extends Entity {
 		dialog[2][0] = "Leo: Even if the mind forgets, the heart always remembers.";
 		dialog[3][0] = "Leo: This forest holds many secrets . . .";
 		
-		dialog[4][0] = "Leo: Ligaya you say? Sorry, it doesn't ring a bell.";
-		dialog[4][1] = "Leo: I keep a record of those who visit this lodge. Unfortunately,\nit doesn't seem like we've had a Ligaya in here.";
-		dialog[4][2] = "( You frown as he informs you they have no history with anyone\nnamed Ligaya. )";
-		dialog[4][3] = "Leo: Do not fret, young man. I may not no anyone by that name,\nbut I DO know someone who might!";
-		dialog[4][4] = "Leo: There's an old wise man by the name of Khrono, he who\nknows all.";
-		dialog[4][5] = "Leo: He knows EVERYTHING about Heartland! He might even\nhave the answers you are searching for. ";
-		dialog[4][6] = "Leo: My patrons say that he often wanders around the raging\nrivers of Ravalon.";
-		dialog[4][7] = "Leo: Take these supplies and go on with your journey. I wish\nyou good luck!";
-		dialog[4][8] = "[ SYSTEM ] Quest: Go to the Ravalon district. ";
+		dialog[6][0] = "Leo: Ligaya you say? Sorry, it doesn't ring a bell.";
+		dialog[6][1] = "Leo: I keep a record of those who visit this lodge. Unfortunately,\nit doesn't seem like we've had a Ligaya in here.";
+		dialog[6][2] = "( You frown as he informs you they have no history with anyone\nnamed Ligaya. )";
+		dialog[6][3] = "Leo: Do not fret, young man. I may not no anyone by that name,\nbut I DO know someone who might!";
+		dialog[6][4] = "Leo: There's an old wise man by the name of Khrono, he who\nknows all.";
+		dialog[6][5] = "Leo: He knows EVERYTHING about Heartland! He might even\nhave the answers you are searching for. ";
+		dialog[6][6] = "Leo: My patrons say that he often wanders around the raging\nrivers of Ravalon.";
+		dialog[6][7] = "Leo: Take these supplies and go on with your journey. I wish\nyou good luck!";
+		dialog[6][8] = "[ SYSTEM ] Quest: Go to the Ravalon district. ";
 
-
-		dialog[5][0] = "Leo: Come back again!";	
+		dialog[4][0] = "Leo: Come back again!";	
 	}
 	public void speak() {
 		facePlayer();
@@ -98,7 +97,7 @@ public class NPC_Leo extends Entity {
 			dialogSet = 1;
 		}
 		if(gp.player.questDone) {
-			dialogSet = 4;
+			dialogSet = 6;
 			gp.player.stage++;
 			gp.player.questDone = false;
 		}

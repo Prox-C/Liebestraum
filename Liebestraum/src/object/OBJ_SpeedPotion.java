@@ -8,7 +8,7 @@ public class OBJ_SpeedPotion extends Entity{
 	public OBJ_SpeedPotion(GamePanel gp) {
 		super(gp);
 		name = "Speed Potion";
-		down1 = setup("/object/chest", gp.tileSize, gp.tileSize);	
+		down1 = setup("/object/speed_potion", gp.tileSize, gp.tileSize);	
 		boolean touchedBefore = false;
 		collision = true;
 		

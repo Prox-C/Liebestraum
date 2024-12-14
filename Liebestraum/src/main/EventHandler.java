@@ -82,12 +82,29 @@ public class EventHandler {
 		canTouchEvent = false;
 	}
 	
-	public void relapse(int map, int col, int row, int gameState) {
+	public void weaponize(int map, int col, int row, int gameState) {
 		gp.gameState = gameState;
-		eventMaster.startDialog(eventMaster, 1);
-		gp.player.life -= 1;
+		eventMaster.startDialog(eventMaster, 4);
 		eventRect[map][col][row].eventDone = true;
 		canTouchEvent = false;
+	}
+	
+	public void speedBuff(int map, int col, int row, int gameState) {
+		gp.gameState = gameState;
+		eventMaster.startDialog(eventMaster, 5);
+		eventRect[map][col][row].eventDone = true;
+		canTouchEvent = false;
+	}
+	
+	public void relapse(int map, int col, int row, int gameState) {
+		gp.ui.displayMessage("Press enter to investigate.", Color.WHITE);
+		if(gp.keyH.enterPressed) {
+			gp.gameState = gameState;
+			gp.player.attackCancelled = true;
+			eventMaster.startDialog(eventMaster, 1);
+			eventRect[map][col][row].eventDone = true;
+			canTouchEvent = false;
+		}
 	}
 	
 	public void healingWell(int gameState) {
@@ -102,10 +119,38 @@ public class EventHandler {
 	}
 	
 	public void investigate(int map, int col, int row, int gameState) {
-		gp.gameState = gameState;
-		eventMaster.startDialog(eventMaster, 3);
-		eventRect[map][col][row].eventDone = true;
-		canTouchEvent = false;
+		gp.ui.displayMessage("Press [enter] to investigate.", Color.WHITE);
+		if(gp.keyH.enterPressed) {
+			gp.gameState = gameState;
+			gp.player.attackCancelled = true;
+			eventMaster.startDialog(eventMaster, 3);
+			eventRect[map][col][row].eventDone = true;
+			canTouchEvent = false;
+		}
+	}
+	
+	public void sandWorm(int map, int col, int row, int gameState) {
+		gp.ui.displayMessage("Press [enter] to investigate.", Color.WHITE);
+		if(gp.keyH.enterPressed) {
+			gp.gameState = gameState;
+			gp.player.attackCancelled = true;
+			gp.player.life -= 2;
+			eventMaster.startDialog(eventMaster, 6);
+			eventRect[map][col][row].eventDone = true;
+			canTouchEvent = false;
+		}
+	}
+	
+	public void sandKey(int map, int col, int row, int gameState) {
+		gp.ui.displayMessage("Press [enter] to investigate.", Color.WHITE);
+		if(gp.keyH.enterPressed) {
+			gp.gameState = gameState;
+			gp.player.attackCancelled = true;
+			gp.player.silver_keys++;
+			eventMaster.startDialog(eventMaster, 7);
+			eventRect[map][col][row].eventDone = true;
+			canTouchEvent = false;
+		}
 	}
 	
 	public void checkEvent() {
@@ -132,10 +177,15 @@ public class EventHandler {
 				gp.player.questDone = true;
 			}
 			
+			//QUEST 2
+			else if(hit(2, 10, 22, "any") == true) {sandWorm(2, 10, 22, gp.dialogState);}
+			else if(hit(2, 10, 33, "any") == true) {sandKey(2, 10, 33, gp.dialogState);}
+			else if(hit(2, 21, 26, "any") == true) {investigate(2, 21, 26, gp.dialogState);}
+
 			
 			//INTO LEO'S LODGE
 			else if(hit(0, 31, 9, "up") == true) {
-				changeMap(1, 31, 8, "Leo's Losge");
+				changeMap(1, 31, 8, "Leo's Lodge");
 			}
 			//INTO THE OUTSKIRTS
 			else if(hit(1, 31, 9, "down") == true) {
@@ -144,12 +194,18 @@ public class EventHandler {
 			else if(hit(2, 8, 26, "left") == true||hit(2, 8, 25, "left") == true||hit(2, 8, 27, "left") == true) {
 				changeMap(0, 40, 26, "The Outskirts");
 			}
-			//INTO THE RAVALON
+			//INTO RAVALON
 			else if(hit(0, 41, 26, "right") == true||hit(0, 41, 25, "right") == true||hit(0, 41, 27, "right") == true) {
 				changeMap(2, 10, 26, "Ravalon");
 			}
 			//HEAL
 			else if(hit(0, 18, 27, "down") == true) {healingWell(gp.dialogState);}
+			
+			//WEAPONIZE
+			else if(hit(2, 17, 11, "down") == true) {weaponize(2, 17, 11, gp.dialogState);}
+			
+			//SPEED BUFF
+			else if(hit(2, 17, 9, "left") == true) {speedBuff(2, 17, 9, gp.dialogState); gp.player.speed++;}
 		}
 	}
 	
@@ -183,6 +239,21 @@ public class EventHandler {
 		eventMaster.dialog[3][0] = "[ SYSTEM ] Investigating . . .";
 		eventMaster.dialog[3][1] = "[ SYSTEM ] Nothing found.";
 		
+		//WEAPONIZE
+		eventMaster.dialog[4][0] = "( X-Calibur has accepted you as his wielder. Armed with\nit's power, you continued your journey.)";
+		eventMaster.dialog[4][1] = "[ SYSTEM ] You are now armed. Press enter to attack.";
+
+		//SPEED BUFF
+		eventMaster.dialog[5][0] = "( You drank a bottle of swiftness. )";
+		eventMaster.dialog[5][1] = "[ SYSTEM ] Movement speed permanently increased.";
+		
+		//SAND WORMS
+		eventMaster.dialog[6][0] = "[ SYSTEM ] Investigating . . .";
+		eventMaster.dialog[6][1] = "[ SYSTEM ] You have been poisoined by a sand worm. ";
+		
+		//SAND KEY
+		eventMaster.dialog[7][0] = "[ SYSTEM ] Investigating . . .";
+		eventMaster.dialog[7][1] = "[ SYSTEM ] You have found a key in the sand.";
 	}
 	
 	

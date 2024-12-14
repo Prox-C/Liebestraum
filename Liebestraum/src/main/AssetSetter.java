@@ -1,18 +1,20 @@
 package main;
 
 import entity.NML_Duck;
+import entity.NPC_Khrono;
 import entity.NPC_Kulot;
 import entity.NPC_Leo;
 import mob.MOB_GreenSlime;
 import object.OBJ_Tree;
 import object.OBJ_Void;
+import object.OBJ_Void2;
 import object.OBJ_Axe;
-//import object.OBJ_Chest;
-//import object.OBJ_Door;
+import object.OBJ_Boulder;
 import object.OBJ_Key;
 import object.OBJ_Pickaxe;
 import object.OBJ_Sign;
-//import object.OBJ_SpeedPotion;
+import object.OBJ_Sword;
+import object.OBJ_SpeedPotion;
 
 public class AssetSetter {
 	GamePanel gp;
@@ -48,10 +50,6 @@ public class AssetSetter {
 		gp.obj[mapNum][5].worldX = 38 * gp.tileSize;
 		gp.obj[mapNum][5].worldY = 14 * gp.tileSize;
 		
-//		gp.obj[3] = new OBJ_SpeedPotion(gp);
-//		gp.obj[3].worldX = 20 * gp.tileSize;
-//		gp.obj[3].worldY = 10 * gp.tileSize;
-		
 		gp.obj[mapNum][6] = new OBJ_Sign(gp);
 		gp.obj[mapNum][6].worldX = 23 * gp.tileSize;
 		gp.obj[mapNum][6].worldY = 18 * gp.tileSize;
@@ -69,6 +67,32 @@ public class AssetSetter {
 		gp.obj[mapNum][9].worldY = 27 * gp.tileSize;
 		
 		mapNum++;
+		
+		mapNum++;
+		
+		gp.obj[mapNum][0] = new OBJ_Tree(gp);
+		gp.obj[mapNum][0].worldX = 12 * gp.tileSize;
+		gp.obj[mapNum][0].worldY = 11 * gp.tileSize;
+		
+		gp.obj[mapNum][1] = new OBJ_Sword(gp);
+		gp.obj[mapNum][1].worldX = 17 * gp.tileSize;
+		gp.obj[mapNum][1].worldY = 11 * gp.tileSize;
+		
+		gp.obj[mapNum][2] = new OBJ_Pickaxe(gp);
+		gp.obj[mapNum][2].worldX = 21 * gp.tileSize;
+		gp.obj[mapNum][2].worldY = 37 * gp.tileSize;
+		
+		gp.obj[mapNum][3] = new OBJ_SpeedPotion(gp);
+		gp.obj[mapNum][3].worldX = 17 * gp.tileSize;
+		gp.obj[mapNum][3].worldY = 9 * gp.tileSize;
+		
+		gp.obj[mapNum][4] = new OBJ_Boulder(gp);
+		gp.obj[mapNum][4].worldX = 12 * gp.tileSize;
+		gp.obj[mapNum][4].worldY = 17 * gp.tileSize;
+		
+		gp.obj[mapNum][5] = new OBJ_Void2(gp);
+		gp.obj[mapNum][5].worldX = 22 * gp.tileSize;
+		gp.obj[mapNum][5].worldY = 15 * gp.tileSize;
 	}
 	
 	public void setNPC() {
@@ -91,18 +115,52 @@ public class AssetSetter {
 		gp.npc[mapNum][0] = new NPC_Leo(gp);
 		gp.npc[mapNum][0].worldX = gp.tileSize * 35;
 		gp.npc[mapNum][0].worldY = gp.tileSize * 5;
+		
+		mapNum++;
+		
+		gp.npc[mapNum][0] = new NPC_Khrono(gp);
+		gp.npc[mapNum][0].worldX = gp.tileSize * 35;
+		gp.npc[mapNum][0].worldY = gp.tileSize * 35;
 	}
 	
 	public void setMob() {
-		int mapNum = 0;
-
-		gp.mob[mapNum][0] = new MOB_GreenSlime(gp);
-		gp.mob[mapNum][0].worldX = gp.tileSize * 21;
-		gp.mob[mapNum][0].worldY = gp.tileSize * 14;
-//		
-//		gp.mob[1] = new MOB_GreenSlime(gp);
-//		gp.mob[1].worldX = gp.tileSize * 18;
-//		gp.mob[1].worldY = gp.tileSize * 24;
+		int mapNum = 2;
+		int i = 0;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 26;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 17;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 28;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 13;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 37;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 11;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 34;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 14;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 30;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 17;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 40;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 18;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 35;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 20;
+		i++;
 	}
 }
 

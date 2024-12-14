@@ -26,7 +26,7 @@ public class Player extends Entity	{
 	//EQUIPMENTS
 	public int silver_keys = 0;
 	public int pickaxeDurability = 0;
-	public int axeDurability = 0;
+	public int axeDurability = 100;
 	
 	public int stage = 1; //0
 	public boolean questDone = false;
@@ -64,7 +64,7 @@ public class Player extends Entity	{
 		worldX = gp.tileSize * 39;
 		worldY = gp.tileSize * 26; 
  
-		speed = 3;
+		speed = 2;
 		
 		direction = "down";
 		
@@ -278,17 +278,35 @@ public class Player extends Entity	{
 				
 			case "Axe":
 				if(silver_keys > 0) {
-					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
-						silver_keys--;
-						axeDurability = 100;
-						gp.ui.displayMessage("Axe obtained", Color.GREEN);
-						gp.playSE(4);
-						try {
-							gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
-						}catch(IOException e) {
-							e.printStackTrace();
+					if(gp.keyH.enterPressed) {
+						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+							silver_keys--;
+							axeDurability = 100;
+							gp.ui.displayMessage("Axe obtained", Color.GREEN);
+							gp.playSE(4);
+							try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));}
+							catch(IOException e) {e.printStackTrace();}
+							gp.obj[gp.currentMap][i].touchedBefore = true;
 						}
-						gp.obj[gp.currentMap][i].touchedBefore = true;
+					}	
+				}
+				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
+					gp.ui.displayMessage("You need a key to open this chest.", Color.red);
+				}
+				break;
+			case "Pickaxe":
+				if(silver_keys > 0) {
+					gp.ui.displayMessage("Press [enter] to open chest.", Color.WHITE);
+					if(gp.keyH.enterPressed) {
+						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+							silver_keys--;
+							pickaxeDurability = 100;
+							gp.ui.displayMessage("Pickaxe obtained", Color.GREEN);
+							gp.playSE(4);
+							try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));}
+							catch(IOException e) {e.printStackTrace();}
+							gp.obj[gp.currentMap][i].touchedBefore = true;
+						}
 					}
 				}
 				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
@@ -298,47 +316,54 @@ public class Player extends Entity	{
 				
 			case "Tree":
 				if(axeDurability != 0) {
-					axeDurability -= 20;
-					gp.ui.displayMessage("Obstacle cleared", Color.GREEN);
-					gp.playSE(3);
-					try {
-						gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
-					}catch(IOException e) {
-						e.printStackTrace();
+					gp.ui.displayMessage("Press [enter] to remove bush.", Color.WHITE);
+					if(gp.keyH.enterPressed) {
+						axeDurability -= 20;
+						gp.playSE(3);
+						try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));}
+						catch(IOException e) {e.printStackTrace();} 
+						gp.obj[gp.currentMap][i] = null;
 					}
-					gp.obj[gp.currentMap][i] = null;
 				}
-				else {
-					gp.ui.displayMessage("You need an Axe to remove this tree.", Color.RED);
+				else {gp.ui.displayMessage("You need an Axe to remove this tree.", Color.RED);}
+				break;
+			case "Boulder":
+				if(pickaxeDurability != 0) {
+					gp.ui.displayMessage("Press [enter] to remove boulder.", Color.WHITE);
+					if(gp.keyH.enterPressed) {
+						pickaxeDurability -= 20;
+						gp.playSE(3);
+						try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));}
+						catch(IOException e) {e.printStackTrace();}
+						gp.obj[gp.currentMap][i] = null;
+					}
 				}
+				else {gp.ui.displayMessage("You need a Pickaxe to remove this boulder.", Color.RED);}
 				break;
 				
-			case "Speed Potion":
-				if(silver_keys > 0) {
-					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
-						gp.ui.displayMessage("+2 Movement Speed", Color.GREEN);
-						silver_keys--;
-						speed += 2;
-						gp.playSE(1);
-						try {
-							gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));
-						}catch(IOException e) {
-							e.printStackTrace();
-						}
-						gp.obj[gp.currentMap][i].touchedBefore = true;
-					}
-				}
-				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
-					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
-				}
-				break;
 			case "Sign":
 				gp.ui.displayMessage("Memory Lane", Color.WHITE);
 				break;
 			case "Void":
 				if(stage < 1) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
 				else {gp.obj[gp.currentMap][i] = null;}
-					
+				break;
+				
+			case "Void2":
+				if(stage < 2) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
+				else {gp.obj[gp.currentMap][i] = null;}
+				break;
+				
+			case "Sword":
+				gp.playSE(4);
+				armed = true;
+				stage++;
+				gp.obj[gp.currentMap][i] = null;
+				break;
+				
+			case "Speed Potion":
+				gp.playSE(4);
+				gp.obj[gp.currentMap][i] = null;
 				break;
 				
 //			case "Gold Key":
