@@ -4,6 +4,7 @@ import entity.NML_Duck;
 import entity.NPC_Khrono;
 import entity.NPC_Kulot;
 import entity.NPC_Leo;
+import entity.NPC_Yuji;
 import mob.MOB_GreenSlime;
 import object.OBJ_Tree;
 import object.OBJ_Void;
@@ -121,6 +122,10 @@ public class AssetSetter {
 		gp.npc[mapNum][0] = new NPC_Khrono(gp);
 		gp.npc[mapNum][0].worldX = gp.tileSize * 35;
 		gp.npc[mapNum][0].worldY = gp.tileSize * 35;
+		
+		gp.npc[mapNum][1] = new NPC_Yuji(gp);
+		gp.npc[mapNum][1].worldX = gp.tileSize * 14;
+		gp.npc[mapNum][1].worldY = gp.tileSize * 26;
 	}
 	
 	public void setMob() {
