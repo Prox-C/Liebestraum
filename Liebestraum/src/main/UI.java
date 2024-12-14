@@ -39,6 +39,7 @@ public class UI {
 	public Entity npc;
 	int  charIndex = 0;
 	String combinedText = "";
+	int counter;
 
 	public UI(GamePanel gp) {
 		this.gp = gp;
@@ -101,6 +102,9 @@ public class UI {
 		}
 		if(gp.gameState == gp.optionState) {
 			drawOptionScreen();
+		}
+		if(gp.gameState == gp.transitionState) {
+			drawTransition();
 		}
 		
 		messageCounter++;
@@ -553,5 +557,21 @@ public class UI {
 		int length =  (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 		int x = gp.screenWidth/2 - length/2;
 		return x;
+	}
+	
+	public void drawTransition() {
+		counter++;
+		g2.setColor(new Color(0, 0, 0, counter*5));
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		if(counter == 50) {
+			counter = 0;
+			gp.gameState = gp.playState;
+			gp.currentMap = gp.eHandler.tempMap;
+			gp.player.worldX = gp.tileSize * gp.eHandler.tempCol;
+			gp.player.worldY = gp.tileSize * gp.eHandler.tempRow;
+			gp.eHandler.previousEventX = gp.player.worldX;
+			gp.eHandler.previousEventY = gp.player.worldY;
+			gp.ui.displayMessage(gp.eHandler.nextMapName, Color.WHITE);
+		}
 	}
 }

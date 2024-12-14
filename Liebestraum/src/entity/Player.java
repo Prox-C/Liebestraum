@@ -28,7 +28,7 @@ public class Player extends Entity	{
 	public int pickaxeDurability = 0;
 	public int axeDurability = 0;
 	
-	public int stage = 0; //0
+	public int stage = 1; //0
 	public boolean questDone = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -61,7 +61,7 @@ public class Player extends Entity	{
 //		worldX = gp.tileSize * 19;
 //		worldY = gp.tileSize * 14; 
 		
-		worldX = gp.tileSize * 41;
+		worldX = gp.tileSize * 39;
 		worldY = gp.tileSize * 26; 
  
 		speed = 3;

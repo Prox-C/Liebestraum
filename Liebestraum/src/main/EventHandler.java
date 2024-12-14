@@ -12,6 +12,9 @@ public class EventHandler {
 	int previousEventX, previousEventY;
 	boolean canTouchEvent = true;
 	
+	int tempMap, tempCol, tempRow;
+	String nextMapName = "";
+	
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
 		
@@ -132,22 +135,18 @@ public class EventHandler {
 			
 			//INTO LEO'S LODGE
 			else if(hit(0, 31, 9, "up") == true) {
-				changeMap(1, 31, 8);
-				gp.ui.displayMessage("Leo's Lodge", Color.WHITE);
+				changeMap(1, 31, 8, "Leo's Losge");
 			}
 			//INTO THE OUTSKIRTS
 			else if(hit(1, 31, 9, "down") == true) {
-				changeMap(0, 31, 10);
-				gp.ui.displayMessage("The outskirts", Color.WHITE);
+				changeMap(0, 31, 10, "The Outskirts");
 			}
 			else if(hit(2, 8, 26, "left") == true||hit(2, 8, 25, "left") == true||hit(2, 8, 27, "left") == true) {
-				changeMap(0, 40, 26);
-				gp.ui.displayMessage("The Outskirts", Color.WHITE);
+				changeMap(0, 40, 26, "The Outskirts");
 			}
 			//INTO THE RAVALON
-			else if(hit(0, 42, 26, "right") == true||hit(0, 42, 25, "right") == true||hit(0, 42, 27, "right") == true) {
-				changeMap(2, 10, 26);
-				gp.ui.displayMessage("Ravalon District", Color.WHITE);
+			else if(hit(0, 41, 26, "right") == true||hit(0, 41, 25, "right") == true||hit(0, 41, 27, "right") == true) {
+				changeMap(2, 10, 26, "Ravalon");
 			}
 			//HEAL
 			else if(hit(0, 18, 27, "down") == true) {healingWell(gp.dialogState);}
@@ -155,12 +154,11 @@ public class EventHandler {
 	}
 	
 	
-	public void changeMap(int map, int col, int row) {
-		gp.currentMap = map;
-		gp.player.worldX = gp.tileSize * col;
-		gp.player.worldY = gp.tileSize * row;
-		previousEventX = gp.player.worldX;
-		previousEventY = gp.player.worldY;
+	public void changeMap(int map, int col, int row, String mapName) {		gp.gameState = gp.transitionState;
+		tempMap = map;
+		tempCol = col;
+		tempRow = row;
+		nextMapName = mapName;
 		canTouchEvent = false;
 	}
 	
