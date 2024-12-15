@@ -63,13 +63,13 @@ public class NPC_Yuji extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0][0] = "Yuji: Stop right there! This area's off limits.";
+		dialog[0][0] = "Yuji: Stop right there! I;m a patrol captain and this area\nhas been marked unsafe.";
 		dialog[0][1] = "Yuji: There has been a recent surge of biohazard slimes in\nRavalon.";
 		dialog[0][2] = "Yuji: Those puny slimes may not be a threat to me, but they\ncan do serious harm to you especially when you're unarmed.";
-		dialog[0][3] = "Yuji: This place was once a training grounds. I'm sure that\nthere are still weapons laying around. Go equip yourself.";
-		dialog[0][4] = "Yuji: There are even that the X-Calibur, the all-powerful\nlegendary sword is hidden in these woods.";
-		dialog[0][5] = "Yuji: Anyways, I must return to my patrol. At ease, soldier!";
-		dialog[0][6] = "[ SYSTEM ] Quest: Find a weapon.";
+		dialog[0][3] = "Yuji: Old weaponry are scattered in this place. Rummage\nthrough those pot holes and get yourself some equipment.";
+		dialog[0][4] = "Yuji: There are even rumors that the X-Calibur, the all-powerful\nlegendary sword is hidden in these very grounds.";
+		dialog[0][5] = "Yuji: Anyways, I must return to my post. At ease, soldier!";
+		dialog[0][6] = "[ SYSTEM ] Quest: Look for equipment.";
 
 
 		dialog[1][0] = "Yuji: Many have lost their way in this place.";

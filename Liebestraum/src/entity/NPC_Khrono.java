@@ -63,17 +63,16 @@ public class NPC_Khrono extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0][0] = "Kulot: You seem lost, boy.";
-		dialog[0][1] = "Kulot: Strange. You don't remember a thing huh?";
-		dialog[0][2] = "Kulot: My apologies, but I don't know how to deal with you.";
-		dialog[0][3] = "Kulot: In any case, this is no place for a lost man to wander\naround.";
-		dialog[0][4] = "Kulot: There's a road down this woods that leads to a lodge.\nYou'll find shelter there.";
-		dialog[0][5] = "Kulot: It's run by a man named Leo. I think he's better suited\nin helping lost travelers like you.";
-		dialog[0][6] = "[ SYSTEM ] Quest: Follow Memory Lane and locate Leo's lodge.";
+		dialog[0][0] = "Khrono: I am Khrono, he who knows all!";
+		dialog[0][1] = "Khrono: Many have travelled far to see me in search of answers.";
+		dialog[0][2] = "Khrono: Now, what is it that you seek, boy?";
+		dialog[0][0] = "( You explain your situation to Khrono. )";
+		dialog[0][0] = "Khrono: I see . . . It seems that you don't even know what you are searching for.";
+		dialog[0][0] = "Khrono: You are in Heartland, a place where everything is driven by desires.";
+		dialog[0][0] = "Khrono: In order to find what you're looking for, you must venture into the trial chambers.";
+		dialog[0][0] = "Khrono: ";
 
-		dialog[1][0] = "Kulot: Sometimes, we don't know what we have till it's gone.";
-		dialog[2][0] = "Kulot: Cherish every moment.";
-		dialog[3][0] = "Kulot: Live life to the fullest!";
+
 	}
 	public void speak() {
 		facePlayer();

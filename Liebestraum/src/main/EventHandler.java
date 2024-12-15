@@ -82,20 +82,6 @@ public class EventHandler {
 		canTouchEvent = false;
 	}
 	
-	public void weaponize(int map, int col, int row, int gameState) {
-		gp.gameState = gameState;
-		eventMaster.startDialog(eventMaster, 4);
-		eventRect[map][col][row].eventDone = true;
-		canTouchEvent = false;
-	}
-	
-	public void speedBuff(int map, int col, int row, int gameState) {
-		gp.gameState = gameState;
-		eventMaster.startDialog(eventMaster, 5);
-		eventRect[map][col][row].eventDone = true;
-		canTouchEvent = false;
-	}
-	
 	public void relapse(int map, int col, int row, int gameState) {
 		gp.ui.displayMessage("Press enter to investigate.", Color.WHITE);
 		if(gp.keyH.enterPressed) {
@@ -129,6 +115,20 @@ public class EventHandler {
 		}
 	}
 	
+	public void weaponize(int map, int col, int row, int gameState) {
+		gp.gameState = gameState;
+		eventMaster.startDialog(eventMaster, 4);
+		eventRect[map][col][row].eventDone = true;
+		canTouchEvent = false;
+	}
+	
+	public void speedBuff(int map, int col, int row, int gameState) {
+		gp.gameState = gameState;
+		eventMaster.startDialog(eventMaster, 5);
+		eventRect[map][col][row].eventDone = true;
+		canTouchEvent = false;
+	}
+	
 	public void sandWorm(int map, int col, int row, int gameState) {
 		gp.ui.displayMessage("Press [enter] to investigate.", Color.WHITE);
 		if(gp.keyH.enterPressed) {
@@ -151,6 +151,33 @@ public class EventHandler {
 			eventRect[map][col][row].eventDone = true;
 			canTouchEvent = false;
 		}
+	}
+	
+	public void sandLife(int map, int col, int row, int gameState) {
+		gp.ui.displayMessage("Press [enter] to investigate.", Color.WHITE);
+		if(gp.keyH.enterPressed) {
+			gp.gameState = gameState;
+			gp.player.attackCancelled = true;
+			gp.player.maxHealth += 2;
+			gp.player.life += 2;
+			eventMaster.startDialog(eventMaster, 8);
+			eventRect[map][col][row].eventDone = true;
+			canTouchEvent = false;
+		}
+	}
+	
+	public void prepare4combat(int map, int col, int row, int gameState) {
+		gp.gameState = gameState;
+		eventMaster.startDialog(eventMaster, 9);
+		eventRect[map][col][row].eventDone = true;
+		canTouchEvent = false;
+	}
+	
+	public void ravalonCleared(int gameState) {
+		gp.gameState = gameState;
+		eventMaster.startDialog(eventMaster, 10);
+		canTouchEvent = false;
+		gp.player.slimeQuest = false;
 	}
 	
 	public void checkEvent() {
@@ -181,6 +208,12 @@ public class EventHandler {
 			else if(hit(2, 10, 22, "any") == true) {sandWorm(2, 10, 22, gp.dialogState);}
 			else if(hit(2, 10, 33, "any") == true) {sandKey(2, 10, 33, gp.dialogState);}
 			else if(hit(2, 21, 26, "any") == true) {investigate(2, 21, 26, gp.dialogState);}
+			else if(hit(2, 14, 40, "any") == true) {sandLife(2, 14, 40, gp.dialogState);}
+			
+			//QUEST 3
+			else if(hit(2, 24, 15, "right") == true) {prepare4combat(2, 24, 15, gp.dialogState);}
+			else if(gp.player.stage == 3 && gp.player.slimeQuest == true) {ravalonCleared(gp.dialogState);}
+
 
 			
 			//INTO LEO'S LODGE
@@ -240,7 +273,7 @@ public class EventHandler {
 		eventMaster.dialog[3][1] = "[ SYSTEM ] Nothing found.";
 		
 		//WEAPONIZE
-		eventMaster.dialog[4][0] = "( X-Calibur has accepted you as his wielder. Armed with\nit's power, you continued your journey.)";
+		eventMaster.dialog[4][0] = "( X-Calibur has accepted you as it's wielder. Armed with\nit's power, you continued your journey. )";
 		eventMaster.dialog[4][1] = "[ SYSTEM ] You are now armed. Press enter to attack.";
 
 		//SPEED BUFF
@@ -253,7 +286,23 @@ public class EventHandler {
 		
 		//SAND KEY
 		eventMaster.dialog[7][0] = "[ SYSTEM ] Investigating . . .";
-		eventMaster.dialog[7][1] = "[ SYSTEM ] You have found a key in the sand.";
+		eventMaster.dialog[7][1] = "[ SYSTEM ] You have found a key.";
+		
+		//SAND LIFE
+		eventMaster.dialog[8][0] = "[ SYSTEM ] Investigating . . .";
+		eventMaster.dialog[8][1] = "( You have found an essence of life. )";
+		eventMaster.dialog[8][2] = "[ SYSTEM ] Max HP permanently increased.";
+		
+		//KILL THE SLIMES
+		eventMaster.dialog[9][0] = "( !!! )";
+		eventMaster.dialog[9][1] = "( You have encountered hostile monsters. )";
+		eventMaster.dialog[9][2] = "[ SYSTEM ] Quest: Defeat 7 Biohazard Slimes.";
+		
+		//SLIMES CLEARED
+		eventMaster.dialog[10][0] = "( You defeated the Biohazard Slimes. )";
+		eventMaster.dialog[10][1] = "[ SYSTEM ] Quest: Find and talk to Khrono.";
+
+
 	}
 	
 	

@@ -57,6 +57,7 @@ public class Entity {
 	public int maxHealth;
 	public int health;
 	public int type; // 0 = PLAYER, 1 = NPC, 2 = MOB
+	public int mobID;//0 = Green Slime
 	
 	
 	public Entity(GamePanel gp) {

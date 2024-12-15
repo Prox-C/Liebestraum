@@ -8,13 +8,15 @@ import main.GamePanel;
 
 public class MOB_GreenSlime extends Entity{
 	GamePanel gp;
+	
 	public MOB_GreenSlime(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		name = "Green Slime";
 		speed = 1;
 		type = 2;
-		maxHealth = 5;
+		mobID = 0;
+		maxHealth = 3;
 		life = maxHealth;
 		solidArea.x = 9;
 		solidArea.y = 8;

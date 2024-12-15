@@ -21,14 +21,18 @@ public class Player extends Entity	{
 	int standCounter = 0;
 	public boolean attackCancelled = false;
 	
-	public boolean armed = false;
+	public boolean armed = true;
 	
 	//EQUIPMENTS
 	public int silver_keys = 0;
 	public int pickaxeDurability = 0;
 	public int axeDurability = 100;
 	
-	public int stage = 1; //0
+	//MISIONS
+	int greenSlimesKilled = 6;
+	public boolean slimeQuest = false;
+	
+	public int stage = 2; //0
 	public boolean questDone = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -61,10 +65,10 @@ public class Player extends Entity	{
 //		worldX = gp.tileSize * 19;
 //		worldY = gp.tileSize * 14; 
 		
-		worldX = gp.tileSize * 39;
-		worldY = gp.tileSize * 26; 
+		worldX = gp.tileSize * 20;
+		worldY = gp.tileSize * 15; 
  
-		speed = 2;
+		speed = 5;
 		
 		direction = "down";
 		
@@ -318,6 +322,7 @@ public class Player extends Entity	{
 				if(axeDurability != 0) {
 					gp.ui.displayMessage("Press [enter] to remove bush.", Color.WHITE);
 					if(gp.keyH.enterPressed) {
+						attackCancelled = true;
 						axeDurability -= 20;
 						gp.playSE(3);
 						try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));}
@@ -331,6 +336,7 @@ public class Player extends Entity	{
 				if(pickaxeDurability != 0) {
 					gp.ui.displayMessage("Press [enter] to remove boulder.", Color.WHITE);
 					if(gp.keyH.enterPressed) {
+						attackCancelled = true;
 						pickaxeDurability -= 20;
 						gp.playSE(3);
 						try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));}
@@ -348,9 +354,12 @@ public class Player extends Entity	{
 				if(stage < 1) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
 				else {gp.obj[gp.currentMap][i] = null;}
 				break;
-				
 			case "Void2":
 				if(stage < 2) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
+				else {gp.obj[gp.currentMap][i] = null;}
+				break;
+			case "Void3":
+				if(stage < 3) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
 				else {gp.obj[gp.currentMap][i] = null;}
 				break;
 				
@@ -379,12 +388,21 @@ public class Player extends Entity	{
 	}
 	
 	public void interactNPC(int i) {
-		if(gp.keyH.enterPressed == true) {
-			if(i != 999) {
+		if(i != 999) {
+			gp.ui.displayMessage("Press [enter] to talk.", Color.WHITE);
+			if(gp.keyH.enterPressed) {
 				attackCancelled = true;
 				gp.npc[gp.currentMap][i].speak();
 			}
 		}
+		
+//		if(gp.keyH.enterPressed == true) {
+//			if(i != 999) {
+//				
+//				attackCancelled = true;
+//				gp.npc[gp.currentMap][i].speak();
+//			}
+//		}
 	}
 	
 	public void mobContact(int i) {
@@ -408,6 +426,15 @@ public class Player extends Entity	{
 				if(gp.mob[gp.currentMap][i].life < 0) {
 					gp.mob[gp.currentMap][i].speed = 0;
 					gp.mob[gp.currentMap][i].dying = true;
+					if(gp.mob[gp.currentMap][i].mobID == 0 && greenSlimesKilled < 7) {
+						greenSlimesKilled++;
+						gp.ui.displayMessage("Biohazard Slime defeated. ("+greenSlimesKilled+"/7)", Color.white);
+						if(greenSlimesKilled == 7) {
+							gp.ui.displayMessage("Quest done!", Color.green);
+							stage++;
+							slimeQuest = true;
+						}
+					}
 				}
 			}
 		}

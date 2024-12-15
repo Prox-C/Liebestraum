@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.util.Random;
 import main.GamePanel;
 
@@ -90,7 +91,6 @@ public class NPC_Leo extends Entity {
 	public void speak() {
 		facePlayer();
 		startDialog(this, dialogSet);
-		
 		dialogSet++;
 		
 		if(dialog[dialogSet][0] == null) {
