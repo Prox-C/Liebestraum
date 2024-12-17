@@ -160,6 +160,12 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setObject();
 		aSetter.setNPC();
 		aSetter.setMob();
+		currentMap = 0;
+		player.silver_keys = 0;
+		player.pickaxeDurability = 0;
+		player.axeDurability = 0;
+		player.armed = false;
+		player.stage = 0;
 //		playMusic(6);
 	}
 	

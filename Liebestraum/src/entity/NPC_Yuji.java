@@ -63,7 +63,7 @@ public class NPC_Yuji extends Entity {
 	}
 	
 	public void setDialog() {
-		dialog[0][0] = "Yuji: Stop right there! I;m a patrol captain and this area\nhas been marked unsafe.";
+		dialog[0][0] = "Yuji: Stop right there! I'm a patrol captain and this area\nhas been marked unsafe.";
 		dialog[0][1] = "Yuji: There has been a recent surge of biohazard slimes in\nRavalon.";
 		dialog[0][2] = "Yuji: Those puny slimes may not be a threat to me, but they\ncan do serious harm to you especially when you're unarmed.";
 		dialog[0][3] = "Yuji: Old weaponry are scattered in this place. Rummage\nthrough those pot holes and get yourself some equipment.";

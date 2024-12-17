@@ -66,11 +66,17 @@ public class NPC_Khrono extends Entity {
 		dialog[0][0] = "Khrono: I am Khrono, he who knows all!";
 		dialog[0][1] = "Khrono: Many have travelled far to see me in search of answers.";
 		dialog[0][2] = "Khrono: Now, what is it that you seek, boy?";
-		dialog[0][0] = "( You explain your situation to Khrono. )";
-		dialog[0][0] = "Khrono: I see . . . It seems that you don't even know what you are searching for.";
-		dialog[0][0] = "Khrono: You are in Heartland, a place where everything is driven by desires.";
-		dialog[0][0] = "Khrono: In order to find what you're looking for, you must venture into the trial chambers.";
-		dialog[0][0] = "Khrono: ";
+		dialog[0][3] = "( You explain your situation to Khrono. )";
+		dialog[0][4] = "Khrono: I see . . . It seems that you don't even know what you are searching for.";
+		dialog[0][5] = "Khrono: You are in Heartland, a place where everything is driven by desires.";
+		dialog[0][6] = "Khrono: In order to find what you're looking for, you must venture into the trial chambers.";
+		dialog[0][7] = "Khrono: Take the road south. But beware, for the trial chambers extracts a heavy price.";
+		dialog[0][8] = "[ SYSTEM ] Quest: Go to the trial chambers.";
+		
+		dialog[1][0] = "Khrono: When will you ever realize . . .";
+		dialog[2][0] = "Khrono: Everything is not as it seems . . .";
+		dialog[3][0] = "Khrono: Wake up . . .";
+
 
 
 	}

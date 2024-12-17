@@ -96,7 +96,7 @@ public class AssetSetter {
 		gp.obj[mapNum][5].name = "Void2";
 		
 		gp.obj[mapNum][5] = new OBJ_Void(gp);
-		gp.obj[mapNum][5].worldX = 35 * gp.tileSize;
+		gp.obj[mapNum][5].worldX = 34 * gp.tileSize;
 		gp.obj[mapNum][5].worldY = 24 * gp.tileSize;
 		gp.obj[mapNum][5].name = "Void3";
 	}

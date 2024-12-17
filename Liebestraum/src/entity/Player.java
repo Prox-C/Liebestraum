@@ -79,8 +79,15 @@ public class Player extends Entity	{
 	}
 	
 	public void setDefaultPositions() {
-		worldX = gp.tileSize * 19;
-		worldY = gp.tileSize * 14; 
+		if(stage == 2) {
+			worldX = gp.tileSize * 24;
+			worldY = gp.tileSize * 15;
+			gp.currentMap = 2;
+		}
+		else {
+			worldX = gp.tileSize * 19;
+			worldY = gp.tileSize * 14; 
+		}
 		
 		direction = "down";
 	}
