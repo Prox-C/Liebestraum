@@ -125,6 +125,22 @@ public class AssetSetter {
 		gp.obj[mapNum][3].worldX = 34 * gp.tileSize;
 		gp.obj[mapNum][3].worldY = 30 * gp.tileSize;
 		gp.obj[mapNum][3].name = "Shovel";
+		
+		gp.obj[mapNum][4] = new OBJ_Void(gp);
+		gp.obj[mapNum][4].worldX = 10 * gp.tileSize;
+		gp.obj[mapNum][4].worldY = 11 * gp.tileSize;
+		gp.obj[mapNum][4].name = "Void4";
+		
+		gp.obj[mapNum][5] = new OBJ_Key(gp);
+		gp.obj[mapNum][5].worldX = 8 * gp.tileSize;
+		gp.obj[mapNum][5].worldY = 10 * gp.tileSize;
+		
+		//MAP 4
+		mapNum++;
+		gp.obj[mapNum][0] = new OBJ_Chest(gp);
+		gp.obj[mapNum][0].worldX = 13 * gp.tileSize;
+		gp.obj[mapNum][0].worldY = 4 * gp.tileSize;
+		gp.obj[mapNum][0].name = "Life";
 	}
 	
 	public void setNPC() {
@@ -157,6 +173,11 @@ public class AssetSetter {
 		gp.npc[mapNum][1] = new NPC_Yuji(gp);
 		gp.npc[mapNum][1].worldX = gp.tileSize * 14;
 		gp.npc[mapNum][1].worldY = gp.tileSize * 26;
+		
+//		mapNum++;
+//		gp.npc[mapNum][0] = new NPC_Khrono(gp);
+//		gp.npc[mapNum][0].worldX = gp.tileSize * 39;
+//		gp.npc[mapNum][0].worldY = gp.tileSize * 34;
 	}
 	
 	public void setMob() {

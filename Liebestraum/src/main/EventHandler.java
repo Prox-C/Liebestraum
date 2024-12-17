@@ -181,6 +181,34 @@ public class EventHandler {
 		gp.player.slimeQuest = false;
 	}
 	
+	public void fish(int map, int col, int row) {
+		if(gp.player.fishrodDurability > 0) {
+			gp.ui.displayMessage("Press [enter] to fish.", Color.WHITE);
+			if(gp.keyH.enterPressed) {
+	 			gp.player.attackCancelled = true;
+				gp.player.golden_keys++;
+				gp.ui.displayMessage("Trial key acquired. ("+ gp.player.golden_keys + "/3)", Color.GREEN);
+				gp.playSE(4);
+				eventRect[map][col][row].eventDone = true;
+				canTouchEvent = false;
+			}
+		}
+	}
+	
+	public void treasure(int map, int col, int row) {
+		if(gp.player.shovelDurability > 0) {
+			gp.ui.displayMessage("Press [enter] to dig.", Color.WHITE);
+			if(gp.keyH.enterPressed) {
+	 			gp.player.attackCancelled = true;
+				gp.player.golden_keys++;
+				gp.ui.displayMessage("Trial key acquired. ("+ gp.player.golden_keys + "/3)", Color.GREEN);
+				gp.playSE(4);
+				eventRect[map][col][row].eventDone = true;
+				canTouchEvent = false;
+			}
+		}
+	}
+	
 	public void checkEvent() {
 		
 		//CHECK IF PLAYER IS AWAY FROM EVENT
@@ -214,17 +242,16 @@ public class EventHandler {
 			//QUEST 3
 			else if(hit(2, 24, 15, "right") == true) {prepare4combat(2, 24, 15, gp.dialogState);}
 			else if(gp.player.stage == 3 && gp.player.slimeQuest == true) {ravalonCleared(gp.dialogState);}
+			else if(hit(3, 26, 9, "left") == true) {fish(3, 26, 9);}
+			else if(hit(3, 14, 39, "any") == true) {treasure(3, 14, 39);}
+
 
 
 			
 			//INTO LEO'S LODGE
-			else if(hit(0, 31, 9, "up") == true) {
-				changeMap(1, 31, 8, "Leo's Lodge");
-			}
+			else if(hit(0, 31, 9, "up") == true) {changeMap(1, 31, 8, "Leo's Lodge");}
 			//INTO THE OUTSKIRTS
-			else if(hit(1, 31, 9, "down") == true) {
-				changeMap(0, 31, 10, "The Outskirts");
-			}
+			else if(hit(1, 31, 9, "down") == true) {changeMap(0, 31, 10, "The Outskirts");}
 			else if(hit(2, 8, 26, "left") == true||hit(2, 8, 25, "left") == true||hit(2, 8, 27, "left") == true) {
 				changeMap(0, 40, 26, "The Outskirts");
 			}
@@ -239,6 +266,19 @@ public class EventHandler {
 			else if(hit(2, 34, 43, "down") == true||hit(2, 33, 43, "down") == true||hit(2, 35, 43, "down") == true) {
 				changeMap(3, 34, 7, "Crescent Beach");
 			}
+			else if(hit(4, 10, 11, "down") == true) {changeMap(3, 10, 12, "Crescent Beach");}
+			
+			//INTO TRIAL CHAMBER
+			else if(hit(3, 10, 11, "up") == true) {changeMap(4, 10, 9, "Trial Chamber");}
+			else if(hit(5, 7, 4, "any") == true) {changeMap(4, 7, 4, "Trial Chamber - Level 1");}
+			//Level 1
+			else if(hit(4, 7, 4, "any") == true) {changeMap(5, 7, 4, "Trial Chamber - Level 1");}
+			else if(hit(5, 7, 4, "any") == true) {changeMap(5, 7, 4, "Trial Chamber");}
+			else if(hit(6, 7, 10, "any") == true) {changeMap(5, 7, 10, "Trial Chamber - Level 1");}
+			//Level 2
+			else if(hit(5, 7, 10, "any") == true) {changeMap(6, 7, 10, "Trial Chamber - Level 2");}
+
+
 			
 			//HEAL
 			else if(hit(2, 39, 29, "up") == true) {healingWell(gp.dialogState);}
@@ -310,8 +350,6 @@ public class EventHandler {
 		//SLIMES CLEARED
 		eventMaster.dialog[10][0] = "( You defeated the Biohazard Slimes. )";
 		eventMaster.dialog[10][1] = "[ SYSTEM ] Quest: Find and talk to Khrono.";
-
-
 	}
 	
 	

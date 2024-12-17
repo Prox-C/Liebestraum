@@ -25,7 +25,7 @@ public class Player extends Entity	{
 	
 	//EQUIPMENTS
 	public int silver_keys = 3;
-	public int golden_keys = 0;
+	public int golden_keys = 3;
 	public int pickaxeDurability = 100;
 	public int axeDurability = 100;
 	public int fishrodDurability = 0;
@@ -35,7 +35,7 @@ public class Player extends Entity	{
 	int greenSlimesKilled = 6;
 	public boolean slimeQuest = false;
 	
-	public int stage = 2; //0
+	public int stage = 3; //0
 	public boolean questDone = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -61,6 +61,7 @@ public class Player extends Entity	{
 		setDefaultValues();
 		getPlayerImage();
 		getPlayerAttackImage();
+		
 	}
 	
 	public void setDefaultValues() {
@@ -386,6 +387,29 @@ public class Player extends Entity	{
 				}
 				break;
 				
+			case "Life":
+				if(silver_keys > 0) {
+					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+						gp.ui.displayMessage("Press [enter] to open chest.", Color.WHITE);
+					}
+					if(gp.keyH.enterPressed) {
+						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+							silver_keys--;
+							maxHealth += 2;
+							life += 2;
+							gp.ui.displayMessage("Essence of Life obtained.", Color.GREEN);
+							gp.playSE(4);
+							try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));}
+							catch(IOException e) {e.printStackTrace();}
+							gp.obj[gp.currentMap][i].touchedBefore = true;
+						}
+					}
+				}
+				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
+					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
+				}
+				break;
+				
 			case "Tree":
 				if(axeDurability != 0) {
 					gp.ui.displayMessage("Press [enter] to remove bush.", Color.WHITE);
@@ -419,15 +443,19 @@ public class Player extends Entity	{
 				gp.ui.displayMessage("Memory Lane", Color.WHITE);
 				break;
 			case "Void":
-				if(stage < 1) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
+				if(stage < 1) {gp.ui.displayMessage("You need to retrieve your memories to proceed.", Color.red);}
 				else {gp.obj[gp.currentMap][i] = null;}
 				break;
 			case "Void2":
-				if(stage < 2) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
+				if(stage < 2) {gp.ui.displayMessage("Complete the quest to proceed.", Color.red);}
 				else {gp.obj[gp.currentMap][i] = null;}
 				break;
 			case "Void3":
-				if(stage < 3) {gp.ui.displayMessage("Complete the quest to proceed.", Color.YELLOW);}
+				if(stage < 3) {gp.ui.displayMessage("You need to defeat 7 Slimes to proceed.", Color.red);}
+				else {gp.obj[gp.currentMap][i] = null;}
+				break;
+			case "Void4":
+				if(golden_keys < 3) {gp.ui.displayMessage("You need 3 Trial Keys to proceed.", Color.red);}
 				else {gp.obj[gp.currentMap][i] = null;}
 				break;
 				
