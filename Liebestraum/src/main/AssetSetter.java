@@ -8,10 +8,10 @@ import entity.NPC_Yuji;
 import mob.MOB_GreenSlime;
 import object.OBJ_Tree;
 import object.OBJ_Void;
-import object.OBJ_Axe;
 import object.OBJ_Boulder;
+import object.OBJ_Chest;
+import object.OBJ_GoldKey;
 import object.OBJ_Key;
-import object.OBJ_Pickaxe;
 import object.OBJ_Sign;
 import object.OBJ_Sword;
 import object.OBJ_SpeedPotion;
@@ -34,9 +34,10 @@ public class AssetSetter {
 		gp.obj[mapNum][1].worldX = 38 * gp.tileSize;
 		gp.obj[mapNum][1].worldY = 9 * gp.tileSize;
 		
-		gp.obj[mapNum][2] = new OBJ_Axe(gp);
+		gp.obj[mapNum][2] = new OBJ_Chest(gp);
 		gp.obj[mapNum][2].worldX = 19 * gp.tileSize;
 		gp.obj[mapNum][2].worldY = 32 * gp.tileSize;
+		gp.obj[mapNum][2].name = "Axe";
 		
 		gp.obj[mapNum][3] = new OBJ_Tree(gp);
 		gp.obj[mapNum][3].worldX = 33 * gp.tileSize;
@@ -69,7 +70,7 @@ public class AssetSetter {
 		mapNum++;
 		
 		mapNum++;
-		
+		//MAP 2
 		gp.obj[mapNum][0] = new OBJ_Tree(gp);
 		gp.obj[mapNum][0].worldX = 12 * gp.tileSize;
 		gp.obj[mapNum][0].worldY = 11 * gp.tileSize;
@@ -78,9 +79,10 @@ public class AssetSetter {
 		gp.obj[mapNum][1].worldX = 17 * gp.tileSize;
 		gp.obj[mapNum][1].worldY = 11 * gp.tileSize;
 		
-		gp.obj[mapNum][2] = new OBJ_Pickaxe(gp);
+		gp.obj[mapNum][2] = new OBJ_Chest(gp);
 		gp.obj[mapNum][2].worldX = 21 * gp.tileSize;
 		gp.obj[mapNum][2].worldY = 37 * gp.tileSize;
+		gp.obj[mapNum][2].name = "Pickaxe";
 		
 		gp.obj[mapNum][3] = new OBJ_SpeedPotion(gp);
 		gp.obj[mapNum][3].worldX = 17 * gp.tileSize;
@@ -99,6 +101,30 @@ public class AssetSetter {
 		gp.obj[mapNum][5].worldX = 34 * gp.tileSize;
 		gp.obj[mapNum][5].worldY = 24 * gp.tileSize;
 		gp.obj[mapNum][5].name = "Void3";
+		
+		gp.obj[mapNum][6] = new OBJ_Key(gp);
+		gp.obj[mapNum][6].worldX = 37 * gp.tileSize;
+		gp.obj[mapNum][6].worldY = 40 * gp.tileSize;
+		
+		mapNum++;
+		//MAP 3
+		gp.obj[mapNum][0] = new OBJ_Key(gp);
+		gp.obj[mapNum][0].worldX = 38 * gp.tileSize;
+		gp.obj[mapNum][0].worldY = 9 * gp.tileSize;
+		
+		gp.obj[mapNum][1] = new OBJ_Chest(gp);
+		gp.obj[mapNum][1].worldX = 14 * gp.tileSize;
+		gp.obj[mapNum][1].worldY = 23 * gp.tileSize;
+		gp.obj[mapNum][1].name = "Fishrod";
+		
+		gp.obj[mapNum][2] = new OBJ_GoldKey(gp);
+		gp.obj[mapNum][2].worldX = 32 * gp.tileSize;
+		gp.obj[mapNum][2].worldY = 27 * gp.tileSize;
+
+		gp.obj[mapNum][3] = new OBJ_Chest(gp);
+		gp.obj[mapNum][3].worldX = 34 * gp.tileSize;
+		gp.obj[mapNum][3].worldY = 30 * gp.tileSize;
+		gp.obj[mapNum][3].name = "Shovel";
 	}
 	
 	public void setNPC() {

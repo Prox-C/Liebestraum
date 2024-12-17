@@ -24,9 +24,12 @@ public class Player extends Entity	{
 	public boolean armed = true;
 	
 	//EQUIPMENTS
-	public int silver_keys = 0;
-	public int pickaxeDurability = 0;
+	public int silver_keys = 3;
+	public int golden_keys = 0;
+	public int pickaxeDurability = 100;
 	public int axeDurability = 100;
+	public int fishrodDurability = 0;
+	public int shovelDurability = 0;
 	
 	//MISIONS
 	int greenSlimesKilled = 6;
@@ -65,8 +68,8 @@ public class Player extends Entity	{
 //		worldX = gp.tileSize * 19;
 //		worldY = gp.tileSize * 14; 
 		
-		worldX = gp.tileSize * 20;
-		worldY = gp.tileSize * 15; 
+		worldX = gp.tileSize * 34;
+		worldY = gp.tileSize * 13; 
  
 		speed = 5;
 		
@@ -286,9 +289,24 @@ public class Player extends Entity	{
 				}
 				gp.obj[gp.currentMap][i] = null;
 				break;
+			case "Gold Key":
+				golden_keys++;
+				
+				gp.ui.displayMessage("Trial key acquired. ("+ golden_keys + "/3)", Color.GREEN);
+				gp.playSE(4);
+				try {
+					gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				gp.obj[gp.currentMap][i] = null;
+				break;
 				
 			case "Axe":
 				if(silver_keys > 0) {
+					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+						gp.ui.displayMessage("Press [enter] to open chest.", Color.WHITE);
+					}
 					if(gp.keyH.enterPressed) {
 						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
 							silver_keys--;
@@ -307,12 +325,55 @@ public class Player extends Entity	{
 				break;
 			case "Pickaxe":
 				if(silver_keys > 0) {
-					gp.ui.displayMessage("Press [enter] to open chest.", Color.WHITE);
-					if(gp.keyH.enterPressed) {
+					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+						gp.ui.displayMessage("Press [enter] to open chest.", Color.WHITE);
+					}					if(gp.keyH.enterPressed) {
 						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
 							silver_keys--;
 							pickaxeDurability = 100;
 							gp.ui.displayMessage("Pickaxe obtained", Color.GREEN);
+							gp.playSE(4);
+							try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));}
+							catch(IOException e) {e.printStackTrace();}
+							gp.obj[gp.currentMap][i].touchedBefore = true;
+						}
+					}
+				}
+				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
+					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
+				}
+				break;
+			case "Fishrod":
+				if(silver_keys > 0) {
+					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+						gp.ui.displayMessage("Press [enter] to open chest.", Color.WHITE);
+					}
+					if(gp.keyH.enterPressed) {
+						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+							silver_keys--;
+							fishrodDurability = 100;
+							gp.ui.displayMessage("Fishing Rod obtained", Color.GREEN);
+							gp.playSE(4);
+							try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));}
+							catch(IOException e) {e.printStackTrace();}
+							gp.obj[gp.currentMap][i].touchedBefore = true;
+						}
+					}
+				}
+				if(silver_keys <= 0 && gp.obj[gp.currentMap][i].touchedBefore == false) {
+					gp.ui.displayMessage("You need a key to open this chest.", Color.RED);
+				}
+				break;
+			case "Shovel":
+				if(silver_keys > 0) {
+					if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+						gp.ui.displayMessage("Press [enter] to open chest.", Color.WHITE);
+					}
+					if(gp.keyH.enterPressed) {
+						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
+							silver_keys--;
+							shovelDurability = 100;
+							gp.ui.displayMessage("Shovel obtained.", Color.GREEN);
 							gp.playSE(4);
 							try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));}
 							catch(IOException e) {e.printStackTrace();}

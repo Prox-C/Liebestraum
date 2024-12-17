@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public int maxWorldCol;
 	public int maxWorldRow;
 	public final int maxMap = 10;
-	public int currentMap = 2; // default map
+	public int currentMap = 3; // default map
 
 	//FPS
 	int FPS = 60;

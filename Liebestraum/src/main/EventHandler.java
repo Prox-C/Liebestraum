@@ -83,7 +83,7 @@ public class EventHandler {
 	}
 	
 	public void relapse(int map, int col, int row, int gameState) {
-		gp.ui.displayMessage("Press enter to investigate.", Color.WHITE);
+		gp.ui.displayMessage("Press [enter] to investigate.", Color.WHITE);
 		if(gp.keyH.enterPressed) {
 			gp.gameState = gameState;
 			gp.player.attackCancelled = true;
@@ -94,6 +94,7 @@ public class EventHandler {
 	}
 	
 	public void healingWell(int gameState) {
+		gp.ui.displayMessage("Press [enter] to drink.", Color.WHITE);
 		if(gp.keyH.enterPressed == true) {
 			gp.playSE(10);
 			gp.gameState = gameState;
@@ -231,8 +232,16 @@ public class EventHandler {
 			else if(hit(0, 41, 26, "right") == true||hit(0, 41, 25, "right") == true||hit(0, 41, 27, "right") == true) {
 				changeMap(2, 10, 26, "Ravalon");
 			}
+			else if(hit(3, 33, 6, "up") == true||(hit(3, 34, 6, "up")) == true||(hit(3, 35, 6, "up")) == true) {
+				changeMap(2, 34, 41, "Ravalon");
+			}
+			//INTO BEACH
+			else if(hit(2, 34, 43, "down") == true||hit(2, 33, 43, "down") == true||hit(2, 35, 43, "down") == true) {
+				changeMap(3, 34, 7, "Crescent Beach");
+			}
+			
 			//HEAL
-			else if(hit(0, 18, 27, "down") == true) {healingWell(gp.dialogState);}
+			else if(hit(2, 39, 29, "up") == true) {healingWell(gp.dialogState);}
 			
 			//WEAPONIZE
 			else if(hit(2, 17, 11, "down") == true) {weaponize(2, 17, 11, gp.dialogState);}

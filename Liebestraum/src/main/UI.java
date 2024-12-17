@@ -367,7 +367,7 @@ public class UI {
 	    	}
 	    	
 	    	//CONTROLS
-	    	text = "Controls";
+	    	text = "How to Play";
 	    	textY += gp.tileSize;
 	    	g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22));
 	    	g2.drawString(text, textX, textY);
