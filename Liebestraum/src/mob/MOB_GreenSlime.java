@@ -8,6 +8,7 @@ public class MOB_GreenSlime extends Entity {
     GamePanel gp;
     private boolean isChasingPlayer = false;
     private int chaseCounter = 0;
+    private final int CHASE_RADIUS = 100; // Distance in pixels to start chasing the player
 
     public MOB_GreenSlime(GamePanel gp) {
         super(gp);
@@ -18,6 +19,7 @@ public class MOB_GreenSlime extends Entity {
         mobID = 0;
         maxHealth = 5;
         life = maxHealth;
+        damage = 2;
         solidArea.x = 9;
         solidArea.y = 8;
         solidArea.width = 28;
@@ -41,6 +43,19 @@ public class MOB_GreenSlime extends Entity {
 
     public void setAction() {
         actionLockCounter++;
+
+        // Check if the player is within the chase radius
+        int mobX = this.worldX + solidArea.x + solidArea.width / 2;
+        int mobY = this.worldY + solidArea.y + solidArea.height / 2;
+        int playerX = gp.player.worldX + gp.player.solidArea.x + gp.player.solidArea.width / 2;
+        int playerY = gp.player.worldY + gp.player.solidArea.y + gp.player.solidArea.height / 2;
+
+        int distanceToPlayer = (int) Math.sqrt(Math.pow(playerX - mobX, 2) + Math.pow(playerY - mobY, 2));
+
+        if (distanceToPlayer <= CHASE_RADIUS) {
+            isChasingPlayer = true;
+            chaseCounter = 300; // Reset chase timer
+        }
 
         // Handle chasing logic
         if (isChasingPlayer) {

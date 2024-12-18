@@ -272,16 +272,18 @@ public class EventHandler {
 			else if(hit(3, 10, 11, "up") == true) {changeMap(4, 10, 9, "Trial Chamber");}
 			else if(hit(5, 7, 4, "any") == true) {changeMap(4, 7, 4, "Trial Chamber - Level 1");}
 			//Level 1
-			else if(hit(4, 7, 4, "any") == true) {changeMap(5, 7, 4, "Trial Chamber - Level 1");}
-			else if(hit(5, 7, 4, "any") == true) {changeMap(5, 7, 4, "Trial Chamber");}
+			else if(hit(4, 7, 4, "any") == true) {changeMap(5, 7, 4, "Trial Chamber - Level 1"); gp.player.greenSlimesKilled = 0;}
 			else if(hit(6, 7, 10, "any") == true) {changeMap(5, 7, 10, "Trial Chamber - Level 1");}
 			//Level 2
-			else if(hit(5, 7, 10, "any") == true) {changeMap(6, 7, 10, "Trial Chamber - Level 2");}
+			else if(hit(5, 7, 10, "any") == true) {
+				if(gp.player.greenSlimesKilled > 3) {changeMap(6, 7, 4, "Trial Chamber - Level 2");}
+				else {gp.ui.displayMessage("Clear this stage to proceed.", Color.RED);}			}
 
 
 			
 			//HEAL
 			else if(hit(2, 39, 29, "up") == true) {healingWell(gp.dialogState);}
+			else if(hit(3, 8, 13, "left") == true) {healingWell(gp.dialogState);}
 			
 			//WEAPONIZE
 			else if(hit(2, 17, 11, "down") == true) {weaponize(2, 17, 11, gp.dialogState);}

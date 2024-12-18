@@ -4,21 +4,22 @@ import java.util.Random;
 import entity.Entity;
 import main.GamePanel;
 
-public class MOB_BlueSlime extends Entity {
+public class MOB_PurpleSlime extends Entity {
     GamePanel gp;
     private boolean isChasingPlayer = false;
     private int chaseCounter = 0;
+    private final int CHASE_RADIUS = 100; // Distance in pixels to start chasing the player
 
-    public MOB_BlueSlime(GamePanel gp) {
+    public MOB_PurpleSlime(GamePanel gp) {
         super(gp);
         this.gp = gp;
-        name = "Green Slime";
-        speed = 2;
+        name = "Purple Slime";
+        speed = 1;
         type = 2;
-        mobID = 1;
-        maxHealth = 3;
+        mobID = 2;
+        maxHealth = 6;
         life = maxHealth;
-        damage = 1;
+        damage = 3;
         solidArea.x = 9;
         solidArea.y = 8;
         solidArea.width = 28;
@@ -30,18 +31,31 @@ public class MOB_BlueSlime extends Entity {
     }
 
     public void getImage() {
-        up1 = setup("/mob/blue_slime-3", gp.tileSize, gp.tileSize);
-        up2 = setup("/mob/blue_slime-2", gp.tileSize, gp.tileSize);
-        down1 = setup("/mob/blue_slime-3", gp.tileSize, gp.tileSize);
-        down2 = setup("/mob/blue_slime-2", gp.tileSize, gp.tileSize);
-        right1 = setup("/mob/blue_slime-1", gp.tileSize, gp.tileSize);
-        right2 = setup("/mob/blue_slime-2", gp.tileSize, gp.tileSize);
-        left1 = setup("/mob/blue_slime-1", gp.tileSize, gp.tileSize);
-        left2 = setup("/mob/blue_slime-2", gp.tileSize, gp.tileSize);
+        up1 = setup("/mob/violet-3", gp.tileSize, gp.tileSize);
+        up2 = setup("/mob/violet-2", gp.tileSize, gp.tileSize);
+        down1 = setup("/mob/violet-3", gp.tileSize, gp.tileSize);
+        down2 = setup("/mob/violet-2", gp.tileSize, gp.tileSize);
+        right1 = setup("/mob/violet-1", gp.tileSize, gp.tileSize);
+        right2 = setup("/mob/violet-2", gp.tileSize, gp.tileSize);
+        left1 = setup("/mob/violet-1", gp.tileSize, gp.tileSize);
+        left2 = setup("/mob/violet-2", gp.tileSize, gp.tileSize);
     }
 
     public void setAction() {
         actionLockCounter++;
+
+        // Check if the player is within the chase radius
+        int mobX = this.worldX + solidArea.x + solidArea.width / 2;
+        int mobY = this.worldY + solidArea.y + solidArea.height / 2;
+        int playerX = gp.player.worldX + gp.player.solidArea.x + gp.player.solidArea.width / 2;
+        int playerY = gp.player.worldY + gp.player.solidArea.y + gp.player.solidArea.height / 2;
+
+        int distanceToPlayer = (int) Math.sqrt(Math.pow(playerX - mobX, 2) + Math.pow(playerY - mobY, 2));
+
+        if (distanceToPlayer <= CHASE_RADIUS) {
+            isChasingPlayer = true;
+            chaseCounter = 300; // Reset chase timer
+        }
 
         // Handle chasing logic
         if (isChasingPlayer) {

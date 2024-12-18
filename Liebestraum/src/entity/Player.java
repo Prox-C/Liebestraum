@@ -32,7 +32,8 @@ public class Player extends Entity	{
 	public int shovelDurability = 0;
 	
 	//MISIONS
-	int blueSlimesKilled = 6;
+	public int blueSlimesKilled = 6;
+	public int greenSlimesKilled = 0;
 	public boolean slimeQuest = false;
 	
 	public int stage = 3; //0
@@ -79,6 +80,7 @@ public class Player extends Entity	{
 		//PLAYER STATUS
 		maxHealth = 6;
 		life = maxHealth;
+		damage = 1;
 		
 	}
 	
@@ -311,7 +313,7 @@ public class Player extends Entity	{
 					if(gp.keyH.enterPressed) {
 						if(gp.obj[gp.currentMap][i].touchedBefore == false) {
 							silver_keys--;
-							axeDurability = 100;
+							axeDurability = 1000;
 							gp.ui.displayMessage("Axe obtained", Color.GREEN);
 							gp.playSE(4);
 							try {gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/chest_open.png"));}
@@ -470,6 +472,32 @@ public class Player extends Entity	{
 				gp.playSE(4);
 				gp.obj[gp.currentMap][i] = null;
 				break;
+			case "Heal Potion":
+				if(life != maxHealth) {
+					life += 2;
+					
+					gp.ui.displayMessage("Health recovered.", Color.yellow);
+					gp.playSE(4);
+					try {
+						gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					gp.obj[gp.currentMap][i] = null;
+				}
+				break;
+			case "Strength Buff":
+				damage++;
+				
+				gp.ui.displayMessage("Damage increased.", Color.yellow);
+				gp.playSE(4);
+				try {
+					gp.obj[gp.currentMap][i].down1 = ImageIO.read(getClass().getResourceAsStream("/object/blank.png"));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				gp.obj[gp.currentMap][i] = null;
+				break;
 				
 //			case "Gold Key":
 //				gp.ui.displayMessage("Gold Key Acquired");
@@ -480,7 +508,7 @@ public class Player extends Entity	{
 //				gp.obj[i] = null;
 //				break;
 			}
-		}
+		}	
 	}
 	
 	public void interactNPC(int i) {
@@ -505,7 +533,7 @@ public class Player extends Entity	{
 		if(i != 999) {
 			if(immune == false && gp.mob[gp.currentMap][i].dying == false) {
 				gp.playSE(9);
-				life -= 1;
+				life -= gp.mob[gp.currentMap][i].damage;
 				immune = true;
 			}
 		}
@@ -516,7 +544,7 @@ public class Player extends Entity	{
 			if(gp.mob[gp.currentMap][i].immune == false) {
 				if(gp.mob[gp.currentMap][i].collisionOn == false) {knockback(gp.mob[gp.currentMap][i]);}
 				gp.playSE(8);
-				gp.mob[gp.currentMap][i].life -= 1;
+				gp.mob[gp.currentMap][i].life -= damage;
 				gp.mob[gp.currentMap][i].immune = true;
 				gp.mob[gp.currentMap][i].flea();
 				
@@ -531,6 +559,9 @@ public class Player extends Entity	{
 							stage++;
 							slimeQuest = true;
 						}
+					}
+					if(gp.mob[gp.currentMap][i].mobID == 0) {
+						greenSlimesKilled++;
 					}
 				}
 			}

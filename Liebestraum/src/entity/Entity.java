@@ -59,6 +59,7 @@ public class Entity {
 	public int health;
 	public int type; // 0 = PLAYER, 1 = NPC, 2 = MOB
 	public int mobID;//0 = Green Slime
+	public int damage = 0;
 	
 	
 	public Entity(GamePanel gp) {
@@ -202,13 +203,13 @@ public class Entity {
 		collisionOn = false;
 		gp.collChecker.checkTile(this);
 		gp.collChecker.checkObject(this, false);
-		gp.collChecker.checkEntity(this, gp.mob); 
+		//gp.collChecker.checkEntity(this, gp.mob); 
 		gp.collChecker.checkEntity(this, gp.npc); 
 		boolean playerContact = gp.collChecker.checkPlayer(this);
 		
 		if(this.type == 2 && playerContact == true) {
 			if(gp.player.immune == false) {
-				gp.player.life -= 1;
+				gp.player.life -= damage;
 				gp.player.immune = true;
 				gp.playSE(9);
 			}

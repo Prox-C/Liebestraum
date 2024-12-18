@@ -8,15 +8,18 @@ import entity.NPC_Leo;
 import entity.NPC_Yuji;
 import mob.MOB_BlueSlime;
 import mob.MOB_GreenSlime;
+import mob.MOB_PurpleSlime;
 import object.OBJ_Tree;
 import object.OBJ_Void;
 import object.OBJ_Boulder;
 import object.OBJ_Chest;
 import object.OBJ_GoldKey;
+import object.OBJ_HealPotion;
 import object.OBJ_Key;
 import object.OBJ_Sign;
 import object.OBJ_Sword;
 import object.OBJ_SpeedPotion;
+import object.OBJ_StrBuff;
 
 public class AssetSetter {
 	GamePanel gp;
@@ -137,12 +140,38 @@ public class AssetSetter {
 		gp.obj[mapNum][5].worldX = 8 * gp.tileSize;
 		gp.obj[mapNum][5].worldY = 10 * gp.tileSize;
 		
-		//MAP 4
+		gp.obj[mapNum][6] = new OBJ_HealPotion(gp);
+		gp.obj[mapNum][6].worldX = 25 * gp.tileSize;
+		gp.obj[mapNum][6].worldY = 16 * gp.tileSize;
+		
+		gp.obj[mapNum][7] = new OBJ_StrBuff(gp);
+		gp.obj[mapNum][7].worldX = 10 * gp.tileSize;
+		gp.obj[mapNum][7].worldY = 8 * gp.tileSize;
+		
+		gp.obj[mapNum][8] = new OBJ_Tree(gp);
+		gp.obj[mapNum][8].worldX = 12 * gp.tileSize;
+		gp.obj[mapNum][8].worldY = 8 * gp.tileSize;
+		
+		//TRIAL CHAMBER Ground Floor
 		mapNum++;
 		gp.obj[mapNum][0] = new OBJ_Chest(gp);
 		gp.obj[mapNum][0].worldX = 13 * gp.tileSize;
 		gp.obj[mapNum][0].worldY = 4 * gp.tileSize;
 		gp.obj[mapNum][0].name = "Life";
+		
+		//TRIAL CHAMBER 1st Floor
+		mapNum++;
+		gp.obj[mapNum][0] = new OBJ_HealPotion(gp);
+		gp.obj[mapNum][0].worldX = 10 * gp.tileSize;
+		gp.obj[mapNum][0].worldY = 7 * gp.tileSize;
+		
+		//TRIAL CHAMBER 2nd Floor
+		mapNum++;
+		gp.obj[mapNum][0] = new OBJ_HealPotion(gp);
+		gp.obj[mapNum][0].worldX = 10 * gp.tileSize;
+		gp.obj[mapNum][0].worldY = 7 * gp.tileSize;
+				
+		
 	}
 	
 	public void setNPC() {
@@ -257,6 +286,55 @@ public class AssetSetter {
 		gp.mob[mapNum][i].worldX = gp.tileSize * 29;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 21;
 		i++;
+		
+		mapNum++;
+		
+		//LEVEL 1
+		mapNum++;
+		i = 0;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 7;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 7;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 13;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 7;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 10;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 10;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 10;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 4;
+		i++;
+		
+		//LEVEL 2
+		mapNum++;
+		i = 0;
+		
+		gp.mob[mapNum][i] = new MOB_PurpleSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 7;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 7;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_PurpleSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 13;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 7;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_PurpleSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 10;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 10;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_PurpleSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 10;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 4;
 	}
 }
 
