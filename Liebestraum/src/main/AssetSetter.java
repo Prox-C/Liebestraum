@@ -1,10 +1,12 @@
 package main;
 
 import entity.NML_Duck;
+import entity.NPC_Fabron;
 import entity.NPC_Khrono;
 import entity.NPC_Kulot;
 import entity.NPC_Leo;
 import entity.NPC_Yuji;
+import mob.MOB_BlueSlime;
 import mob.MOB_GreenSlime;
 import object.OBJ_Tree;
 import object.OBJ_Void;
@@ -174,49 +176,86 @@ public class AssetSetter {
 		gp.npc[mapNum][1].worldX = gp.tileSize * 14;
 		gp.npc[mapNum][1].worldY = gp.tileSize * 26;
 		
-//		mapNum++;
-//		gp.npc[mapNum][0] = new NPC_Khrono(gp);
-//		gp.npc[mapNum][0].worldX = gp.tileSize * 39;
-//		gp.npc[mapNum][0].worldY = gp.tileSize * 34;
+		mapNum++;
+		mapNum++;
+		//TRIAL CHAMBER
+		gp.npc[mapNum][0] = new NPC_Fabron(gp);
+		gp.npc[mapNum][0].worldX = gp.tileSize * 10;
+		gp.npc[mapNum][0].worldY = gp.tileSize * 7;
 	}
 	
 	public void setMob() {
 		int mapNum = 2;
 		int i = 0;
 		
-		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		//RAVALON
+		gp.mob[mapNum][i] = new MOB_BlueSlime(gp);
 		gp.mob[mapNum][i].worldX = gp.tileSize * 26;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 17;
 		i++;
 		
-		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i] = new MOB_BlueSlime(gp);
 		gp.mob[mapNum][i].worldX = gp.tileSize * 28;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 13;
 		i++;
 		
-		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i] = new MOB_BlueSlime(gp);
 		gp.mob[mapNum][i].worldX = gp.tileSize * 37;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 11;
 		i++;
 		
-		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i] = new MOB_BlueSlime(gp);
 		gp.mob[mapNum][i].worldX = gp.tileSize * 34;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 14;
 		i++;
 		
-		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i] = new MOB_BlueSlime(gp);
 		gp.mob[mapNum][i].worldX = gp.tileSize * 30;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 17;
 		i++;
 		
-		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i] = new MOB_BlueSlime(gp);
 		gp.mob[mapNum][i].worldX = gp.tileSize * 40;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 18;
 		i++;
 		
-		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i] = new MOB_BlueSlime(gp);
 		gp.mob[mapNum][i].worldX = gp.tileSize * 35;
 		gp.mob[mapNum][i].worldY = gp.tileSize * 20;
+		i++;
+		
+		mapNum++;
+		//BEACH
+		i = 0;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 39;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 19;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 36;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 21;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 38;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 25;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 25;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 28;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 31;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 30;
+		i++;
+		
+		gp.mob[mapNum][i] = new MOB_GreenSlime(gp);
+		gp.mob[mapNum][i].worldX = gp.tileSize * 29;
+		gp.mob[mapNum][i].worldY = gp.tileSize * 21;
 		i++;
 	}
 }

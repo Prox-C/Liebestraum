@@ -33,6 +33,7 @@ public class Entity {
 	
 	public boolean collisionOn = false; 
 	public int actionLockCounter = 0;
+	public int knockbackCounter = 0;
 	
 	public String dialog[][] = new String[20][20]; 
 	public int dialogSet = 0;
@@ -191,6 +192,12 @@ public class Entity {
 	}
 	public void update() {
 		setAction();
+		
+		knockbackCounter++;
+		if(knockbackCounter > 60) {
+			speed = 1;
+			knockbackCounter = 0;
+		}
 		
 		collisionOn = false;
 		gp.collChecker.checkTile(this);

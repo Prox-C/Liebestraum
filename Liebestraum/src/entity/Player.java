@@ -32,7 +32,7 @@ public class Player extends Entity	{
 	public int shovelDurability = 0;
 	
 	//MISIONS
-	int greenSlimesKilled = 6;
+	int blueSlimesKilled = 6;
 	public boolean slimeQuest = false;
 	
 	public int stage = 3; //0
@@ -514,6 +514,7 @@ public class Player extends Entity	{
 	public void attackMob(int i) {
 		if(i != 999) {
 			if(gp.mob[gp.currentMap][i].immune == false) {
+				if(gp.mob[gp.currentMap][i].collisionOn == false) {knockback(gp.mob[gp.currentMap][i]);}
 				gp.playSE(8);
 				gp.mob[gp.currentMap][i].life -= 1;
 				gp.mob[gp.currentMap][i].immune = true;
@@ -522,10 +523,10 @@ public class Player extends Entity	{
 				if(gp.mob[gp.currentMap][i].life < 0) {
 					gp.mob[gp.currentMap][i].speed = 0;
 					gp.mob[gp.currentMap][i].dying = true;
-					if(gp.mob[gp.currentMap][i].mobID == 0 && greenSlimesKilled < 7) {
-						greenSlimesKilled++;
-						gp.ui.displayMessage("Biohazard Slime defeated. ("+greenSlimesKilled+"/7)", Color.white);
-						if(greenSlimesKilled == 7) {
+					if(gp.mob[gp.currentMap][i].mobID == 1 && blueSlimesKilled < 7) {
+						blueSlimesKilled++;
+						gp.ui.displayMessage("Blue Slime defeated. ("+blueSlimesKilled+"/7)", Color.white);
+						if(blueSlimesKilled == 7) {
 							gp.ui.displayMessage("Quest done!", Color.green);
 							stage++;
 							slimeQuest = true;
@@ -534,7 +535,37 @@ public class Player extends Entity	{
 				}
 			}
 		}
+	}
+	
+	public void knockback(Entity entity) {
+		int originalX = entity.worldX;
+		int originalY = entity.worldY;
+		    
+		switch(direction) {
+		case "up":
+			entity.worldY -= 20;
+			break;
+		case "down":
+			entity.worldY += 20;
+			break;
+		case "right":
+			entity.worldX += 20;
+			break;
+		case "left":
+			entity.worldX -= 20;
+			break;
+		}
 		
+		 // Check for tile collision at the new position
+	    gp.collChecker.checkTile(entity);
+	    
+	    // If there's a collision, revert to the original position
+	    if (entity.collisionOn) {
+	        entity.worldX = originalX;
+	        entity.worldY = originalY;
+	    }
+
+		entity.speed = 0;	
 	}
 	
 	public void draw(Graphics2D g2) {
