@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public int maxWorldCol;
 	public int maxWorldRow;
 	public final int maxMap = 10;
-	public int currentMap = 3; // default map
+	public int currentMap = 0; // default map
 
 	//FPS
 	int FPS = 60;
@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public UI ui = new UI(this);
 	public EventHandler eHandler = new EventHandler(this);
 	Thread gameThread;
+	public int musicPlaying = 0;
 
 	//ENTITY
 	public Player player = new Player(this, keyH);
@@ -79,7 +80,8 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setObject();
 		aSetter.setNPC();
 		aSetter.setMob();
-		playMusic(6);
+		playMusic(12);
+		musicPlaying = 12;
 	}
 	
 	public void startGameThread() {
@@ -150,23 +152,36 @@ public class GamePanel extends JPanel implements Runnable {
 	public void retry() {
 		player.setDefaultPositions();
 		player.restoreHealth();
+		player.blueSlimesKilled = 0;
 		aSetter.setNPC();
 		aSetter.setMob();
-//		playMusic(6);
 	}
 	
 	public void restart() {
+		currentMap = 0;
 		player.setDefaultValues();
 		aSetter.setObject();
 		aSetter.setNPC();
 		aSetter.setMob();
-		currentMap = 0;
+		eHandler.resetEvents();
+		
+		//PLAYER INVENTORY
+		player.armed = false;
 		player.silver_keys = 0;
+		player.golden_keys = 0;
 		player.pickaxeDurability = 0;
 		player.axeDurability = 0;
-		player.armed = false;
+		player.fishrodDurability = 0;
+		player.shovelDurability = 0;
+		
+		//MISIONS
+		player.blueSlimesKilled = 0;
+		player.greenSlimesKilled = 0;
+		player.purpleSlimesKilled = 0;
+		player.slimeQuest = false;
+		
 		player.stage = 0;
-//		playMusic(6);
+		player.questDone = false;
 	}
 	
 	public void paintComponent(Graphics g) {

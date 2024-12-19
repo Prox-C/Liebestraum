@@ -1,6 +1,5 @@
 package entity;
 
-import java.awt.Color;
 import java.util.Random;
 import main.GamePanel;
 

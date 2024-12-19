@@ -5,6 +5,7 @@ import entity.NPC_Fabron;
 import entity.NPC_Khrono;
 import entity.NPC_Kulot;
 import entity.NPC_Leo;
+import entity.NPC_Ligaya;
 import entity.NPC_Yuji;
 import mob.MOB_BlueSlime;
 import mob.MOB_GreenSlime;
@@ -102,14 +103,14 @@ public class AssetSetter {
 		gp.obj[mapNum][5].worldY = 15 * gp.tileSize;
 		gp.obj[mapNum][5].name = "Void2";
 		
-		gp.obj[mapNum][5] = new OBJ_Void(gp);
-		gp.obj[mapNum][5].worldX = 34 * gp.tileSize;
-		gp.obj[mapNum][5].worldY = 24 * gp.tileSize;
-		gp.obj[mapNum][5].name = "Void3";
+		gp.obj[mapNum][6] = new OBJ_Void(gp);
+		gp.obj[mapNum][6].worldX = 34 * gp.tileSize;
+		gp.obj[mapNum][6].worldY = 24 * gp.tileSize;
+		gp.obj[mapNum][6].name = "Void3";
 		
-		gp.obj[mapNum][6] = new OBJ_Key(gp);
-		gp.obj[mapNum][6].worldX = 37 * gp.tileSize;
-		gp.obj[mapNum][6].worldY = 40 * gp.tileSize;
+		gp.obj[mapNum][7] = new OBJ_Key(gp);
+		gp.obj[mapNum][7].worldX = 37 * gp.tileSize;
+		gp.obj[mapNum][7].worldY = 40 * gp.tileSize;
 		
 		mapNum++;
 		//MAP 3
@@ -211,6 +212,12 @@ public class AssetSetter {
 		gp.npc[mapNum][0] = new NPC_Fabron(gp);
 		gp.npc[mapNum][0].worldX = gp.tileSize * 10;
 		gp.npc[mapNum][0].worldY = gp.tileSize * 7;
+		
+		mapNum = 7;
+		gp.npc[mapNum][0] = new NPC_Ligaya(gp);
+		gp.npc[mapNum][0].worldX = gp.tileSize * 10;
+		gp.npc[mapNum][0].worldY = gp.tileSize * 7;
+		
 	}
 	
 	public void setMob() {

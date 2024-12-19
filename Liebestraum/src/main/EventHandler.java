@@ -254,30 +254,65 @@ public class EventHandler {
 			else if(hit(1, 31, 9, "down") == true) {changeMap(0, 31, 10, "The Outskirts");}
 			else if(hit(2, 8, 26, "left") == true||hit(2, 8, 25, "left") == true||hit(2, 8, 27, "left") == true) {
 				changeMap(0, 40, 26, "The Outskirts");
+				gp.stopMusic(gp.musicPlaying);
+				gp.playMusic(13);
+				gp.musicPlaying = 13;
 			}
 			//INTO RAVALON
 			else if(hit(0, 41, 26, "right") == true||hit(0, 41, 25, "right") == true||hit(0, 41, 27, "right") == true) {
 				changeMap(2, 10, 26, "Ravalon");
+				gp.stopMusic(gp.musicPlaying);
+				gp.playMusic(14);
+				gp.musicPlaying = 14;
 			}
 			else if(hit(3, 33, 6, "up") == true||(hit(3, 34, 6, "up")) == true||(hit(3, 35, 6, "up")) == true) {
 				changeMap(2, 34, 41, "Ravalon");
+				gp.stopMusic(gp.musicPlaying);
+				gp.playMusic(14);
+				gp.musicPlaying = 14;
+
 			}
 			//INTO BEACH
 			else if(hit(2, 34, 43, "down") == true||hit(2, 33, 43, "down") == true||hit(2, 35, 43, "down") == true) {
 				changeMap(3, 34, 7, "Crescent Beach");
+				gp.stopMusic(gp.musicPlaying);
+				gp.playMusic(6);
+				gp.musicPlaying = 6;
 			}
 			else if(hit(4, 10, 11, "down") == true) {changeMap(3, 10, 12, "Crescent Beach");}
 			
 			//INTO TRIAL CHAMBER
-			else if(hit(3, 10, 11, "up") == true) {changeMap(4, 10, 9, "Trial Chamber");}
-			else if(hit(5, 7, 4, "any") == true) {changeMap(4, 7, 4, "Trial Chamber - Level 1");}
+			else if(hit(3, 10, 11, "up") == true) {
+				changeMap(4, 10, 9, "Trial Chamber");
+			}
+			
+			else if(hit(5, 7, 4, "any") == true) {
+				changeMap(4, 7, 4, "Trial Chamber");
+				gp.stopMusic(gp.musicPlaying);
+				gp.playMusic(6);
+				gp.musicPlaying = 6;
+			}
 			//Level 1
-			else if(hit(4, 7, 4, "any") == true) {changeMap(5, 7, 4, "Trial Chamber - Level 1"); gp.player.greenSlimesKilled = 0;}
+			else if(hit(4, 7, 4, "any") == true) {
+				changeMap(5, 7, 4, "Trial Chamber - Level 1"); gp.player.greenSlimesKilled = 0;
+				gp.stopMusic(gp.musicPlaying);
+				gp.playMusic(15);
+				gp.musicPlaying = 15;
+				}
 			else if(hit(6, 7, 10, "any") == true) {changeMap(5, 7, 10, "Trial Chamber - Level 1");}
 			//Level 2
 			else if(hit(5, 7, 10, "any") == true) {
-				if(gp.player.greenSlimesKilled > 3) {changeMap(6, 7, 4, "Trial Chamber - Level 2");}
-				else {gp.ui.displayMessage("Clear this stage to proceed.", Color.RED);}			}
+				if(gp.player.greenSlimesKilled > 3) {changeMap(6, 7, 10, "Trial Chamber - Level 2");}
+				else {gp.ui.displayMessage("Clear this stage to proceed.", Color.RED);}			
+			}
+			else if(hit(6, 7, 4, "any") == true) {
+				if(gp.player.purpleSlimesKilled > 3) {changeMap(7, 7, 4, "Trial Chamber - Level 3");}
+				else {gp.ui.displayMessage("Clear this stage to proceed.", Color.RED);}			
+			}
+			else if(hit(7, 7, 4, "any") == true) {changeMap(6, 7, 10, "Trial Chamber - Level 2");}
+
+			
+			
 
 
 			
@@ -301,6 +336,19 @@ public class EventHandler {
 		nextMapName = mapName;
 		canTouchEvent = false;
 	}
+	
+	public void resetEvents() {
+	    for (int map = 0; map < eventRect.length; map++) {
+	        for (int col = 0; col < eventRect[map].length; col++) {
+	            for (int row = 0; row < eventRect[map][col].length; row++) {
+	                if (eventRect[map][col][row] != null) {
+	                    eventRect[map][col][row].eventDone = false;
+	                }
+	            }
+	        }
+	    }
+	}
+
 	
 	public void setDialog() {
 		//SPAWNED
@@ -347,7 +395,7 @@ public class EventHandler {
 		//KILL THE SLIMES
 		eventMaster.dialog[9][0] = "( !!! )";
 		eventMaster.dialog[9][1] = "( You have encountered hostile monsters. )";
-		eventMaster.dialog[9][2] = "[ SYSTEM ] Quest: Defeat 7 Biohazard Slimes.";
+		eventMaster.dialog[9][2] = "[ SYSTEM ] Quest: Defeat 7 Blue Slimes.";
 		
 		//SLIMES CLEARED
 		eventMaster.dialog[10][0] = "( You defeated the Biohazard Slimes. )";

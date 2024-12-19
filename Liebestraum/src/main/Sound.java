@@ -28,6 +28,11 @@ public class Sound {
 		soundURL[9] = getClass().getResource("/sfx/player_hurt.wav");
 		soundURL[10] = getClass().getResource("/sfx/heal.wav");
 		soundURL[11] = getClass().getResource("/sfx/game_over.wav");
+		
+		soundURL[12] = getClass().getResource("/sfx/liebestraum.wav");
+		soundURL[13] = getClass().getResource("/sfx/flower-waltz.wav");
+		soundURL[14] = getClass().getResource("/sfx/blackkeys.wav");
+		soundURL[15] = getClass().getResource("/sfx/torrent.wav");
 
 	}
 	

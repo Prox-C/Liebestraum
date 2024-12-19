@@ -21,22 +21,23 @@ public class Player extends Entity	{
 	int standCounter = 0;
 	public boolean attackCancelled = false;
 	
-	public boolean armed = true;
 	
 	//EQUIPMENTS
-	public int silver_keys = 3;
-	public int golden_keys = 3;
-	public int pickaxeDurability = 100;
-	public int axeDurability = 100;
+	public boolean armed = false;
+	public int silver_keys = 0;
+	public int golden_keys = 0;
+	public int pickaxeDurability = 0;
+	public int axeDurability = 0;
 	public int fishrodDurability = 0;
 	public int shovelDurability = 0;
 	
 	//MISIONS
-	public int blueSlimesKilled = 6;
+	public int blueSlimesKilled = 0;
 	public int greenSlimesKilled = 0;
+	public int purpleSlimesKilled = 0;
 	public boolean slimeQuest = false;
 	
-	public int stage = 3; //0
+	public int stage = 0;
 	public boolean questDone = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -67,13 +68,10 @@ public class Player extends Entity	{
 	
 	public void setDefaultValues() {
 		//SPAWN POINT
-//		worldX = gp.tileSize * 19;
-//		worldY = gp.tileSize * 14; 
-		
-		worldX = gp.tileSize * 34;
-		worldY = gp.tileSize * 13; 
+		worldX = gp.tileSize * 19;
+		worldY = gp.tileSize * 14;
  
-		speed = 5;
+		speed = 2;
 		
 		direction = "down";
 		
@@ -89,6 +87,19 @@ public class Player extends Entity	{
 			worldX = gp.tileSize * 24;
 			worldY = gp.tileSize * 15;
 			gp.currentMap = 2;
+			
+		}
+		else if(stage == 3) {
+			worldX = gp.tileSize * 34;
+			worldY = gp.tileSize * 13;
+			gp.currentMap = 3;
+		}
+		else if(stage == 4) {
+			worldX = gp.tileSize * 10;
+			worldY = gp.tileSize * 8;
+			gp.currentMap = 4;
+			greenSlimesKilled = 0;
+			purpleSlimesKilled = 0;
 		}
 		else {
 			worldX = gp.tileSize * 19;
@@ -445,11 +456,11 @@ public class Player extends Entity	{
 				gp.ui.displayMessage("Memory Lane", Color.WHITE);
 				break;
 			case "Void":
-				if(stage < 1) {gp.ui.displayMessage("You need to retrieve your memories to proceed.", Color.red);}
+				if(stage < 1) {gp.ui.displayMessage("Complete the quest to proceed.", Color.red);}
 				else {gp.obj[gp.currentMap][i] = null;}
 				break;
 			case "Void2":
-				if(stage < 2) {gp.ui.displayMessage("Complete the quest to proceed.", Color.red);}
+				if(stage < 2) {gp.ui.displayMessage("Find equipment to proceed.", Color.red);}
 				else {gp.obj[gp.currentMap][i] = null;}
 				break;
 			case "Void3":
@@ -458,7 +469,7 @@ public class Player extends Entity	{
 				break;
 			case "Void4":
 				if(golden_keys < 3) {gp.ui.displayMessage("You need 3 Trial Keys to proceed.", Color.red);}
-				else {gp.obj[gp.currentMap][i] = null;}
+				else {gp.obj[gp.currentMap][i] = null; stage = 4;}
 				break;
 				
 			case "Sword":
@@ -562,6 +573,9 @@ public class Player extends Entity	{
 					}
 					if(gp.mob[gp.currentMap][i].mobID == 0) {
 						greenSlimesKilled++;
+					}
+					if(gp.mob[gp.currentMap][i].mobID == 2) {
+						purpleSlimesKilled++;
 					}
 				}
 			}

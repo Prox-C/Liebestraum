@@ -39,9 +39,10 @@ public class KeyHandler implements KeyListener {
 			if(code == KeyEvent.VK_ENTER) {
 				if(gp.ui.commandNum == 0) { // NEW GAME
 					gp.gameState = gp.playState;
-					gp.stopMusic(6);
-					gp.playMusic(0);
-					//gp.restart();
+					gp.stopMusic(gp.musicPlaying);
+					gp.playMusic(13);
+					gp.musicPlaying = 13;
+					gp.restart();
 				}
 				if(gp.ui.commandNum == 1) { // QUIT
 					System.exit(0);
@@ -170,12 +171,25 @@ public class KeyHandler implements KeyListener {
 			if(gp.ui.commandNum == 0) { //RETRY
 				gp.gameState = gp.playState;
 				gp.retry();
-				gp.playMusic(0);
+				gp.stopMusic(gp.musicPlaying);
+				if(gp.player.stage == 2) {
+					gp.playMusic(14);
+					gp.musicPlaying = 14;
+				}
+				if(gp.player.stage == 3) {
+					gp.playMusic(6);
+					gp.musicPlaying = 6;
+				}
+				if(gp.player.stage == 4) {
+					gp.playMusic(6);
+					gp.musicPlaying = 6;
+				}
 			}
 			else if(gp.ui.commandNum == 1) {//EXIT
 				gp.gameState = gp.titleState;
 				gp.restart();
-				gp.playMusic(6);
+				gp.playMusic(12);
+				gp.musicPlaying = 12;
 			}
 		}
 		

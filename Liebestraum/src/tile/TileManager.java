@@ -66,6 +66,7 @@ public class TileManager {
 		loadMap("/maps/trail_chamber.txt", 4);
 		loadMap("/maps/level1.txt", 5);
 		loadMap("/maps/level2.txt", 6);
+		loadMap("/maps/level3.txt", 7);
 	}
 	
 	public void loadMap(String filePath, int map) {
